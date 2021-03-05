@@ -28,7 +28,7 @@ cursor.execute("""
 
 cursor.execute(""" 
     CREATE TABLE IF NOT EXISTS strategy (
-        id INTERGER PRIMARY KEY,
+        id INTEGER PRIMARY KEY,
         name NOT NULL
     )
 """)

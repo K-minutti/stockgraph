@@ -18,7 +18,6 @@ rows = cursor.fetchall()
 
 symbols = []
 stock_dict = {}
-
 for row in rows:
     symbol = row['symbol']
     symbols.append(symbol)
@@ -27,7 +26,6 @@ for row in rows:
 api = tradeapi.REST(API_KEY, SECRET_KEY, base_url=BASE_URL)
 #limit per aplaca
 chunk_size = 200
-
 for i in range(0, len(symbols), chunk_size):
     symbol_chunk = symbols[i:i+chunk_size]
     barsets = api.get_barset(symbol_chunk, 'day')
@@ -36,8 +34,8 @@ for i in range(0, len(symbols), chunk_size):
         for bar in barsets[symbol]:
             stock_id = stock_dict[symbol]
             cursor.execute(""" 
-                INSERT INTO stock_price (stock_id, date, open, high, low close, volume)
-                VALUES (?,?,?,?,?,?)
+                INSERT INTO historical_prices (stock_id, date, open, high, low, close, volume)
+                VALUES (?,?,?,?,?,?,?)
             """, (stock_id, bar.t.date(), bar.o, bar.h, bar.l, bar.c, bar.v))
 
 connection.commit()

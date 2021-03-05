@@ -3,5 +3,6 @@
 *.vscode
 *.db
 */__pychache__/*
+__pychache__
 app.db
 config.py

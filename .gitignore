@@ -2,7 +2,8 @@
 *.DS_Store
 *.vscode
 *.db
-*/__pychache__/*
-__pychache__
+*/__pycache__/*
+*__pycache__*
+*.pyc
 app.db
 config.py

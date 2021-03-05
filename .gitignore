@@ -4,3 +4,4 @@
 *.db
 */__pychache__/*
 app.db
+config.py

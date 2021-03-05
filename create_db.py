@@ -1,5 +1,5 @@
 import sqlite3
-connection = sqlite.connect('app.db')
+connection = sqlite3.connect('app.db')
 cursor = connection.cursor()
 
 #create execute statements for creating stock table
@@ -23,7 +23,6 @@ cursor.execute("""
         close NOT NULL,
         volume NOT NULL,
         FOREIGN KEY (stock_id) REFERENCES stock (id)
-
     )
 """)
 

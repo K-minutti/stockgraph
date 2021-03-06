@@ -63,20 +63,23 @@ for symbol in symbols:
         if symbol not in existing_order_symbols:
             limit_price = after_opening_range_breakout.iloc[0]['close']
             print(f"placing order for {symbol} at {limit_price}, closed above {opening_range_high} at {after_opening_range_bars.iloc[0]}")
-            api.submit_order(
-                symbol=symbol,
-                side='buy',
-                type='limit',
-                qty='100',
-                time_in_force='day',
-                order_class='bracket',
-                limit_price=limit_price,
-                take_profit=dict(
-                    limit_price=limit_price+opening_range,
-                ),
-                stop_loss=dict(
-                    stop_price=limit_price-opening_range,
+            try:
+                api.submit_order(
+                    symbol=symbol,
+                    side='buy',
+                    type='limit',
+                    qty='100',
+                    time_in_force='day',
+                    order_class='bracket',
+                    limit_price=limit_price,
+                    take_profit=dict(
+                        limit_price=limit_price+opening_range,
+                    ),
+                    stop_loss=dict(
+                        stop_price=limit_price-opening_range,
+                    )
                 )
-            )
+            except Exception as e:
+                print(f"could not submit order {e}")
         else:
             print(f"Already an order for {symbol}, skipping")

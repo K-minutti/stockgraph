@@ -1,24 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+{% extends "layout.html" %} {% block content%}
 
-    <title>Stockgraph</title>
-  </head>
   <body>
-    <div class="ui container">
       <h1>STOCKS</h1>
       <form method="get">
         <select name="filter">
           <option value="">All Stocks</option>
           <option {% if request.query_params.filter == "new_closing_highs" %} selected="selected"{%endif%} value="new_closing_highs">New Closing Highs</option>
           <option {% if request.query_params.filter == "new_closing_lows" %} selected="selected"{%endif%} value="new_closing_lows">New Closing Lows</option>
+          <option {% if request.query_params.filter == "rsi_overbought" %} selected="selected"{%endif%} value="rsi_overbought">RSI Overbought</option>
+          <option {% if request.query_params.filter == "rsi_oversold" %} selected="selected"{%endif%} value="rsi_oversold">RSI Oversold</option>
+          <option {% if request.query_params.filter == "under_sma_50" %} selected="selected"{%endif%} value="under_sma_50">Under SMA 50D</option>
+          <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over SMA 50D</option>
         </select>
         <input type="submit" />
       </form>
@@ -48,6 +40,4 @@
           {% endfor%}
         </tbody>
       </table>
-    </div>
-  </body>
-</html>
+{%endblock%}

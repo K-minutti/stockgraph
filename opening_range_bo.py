@@ -2,6 +2,7 @@ import sqlite3
 import config
 import smtplib, ssl
 from datetime import date
+from timezone import is_dst
 import alpaca_trade_api as tradeapi
 
 API_KEY = config.API_KEY
@@ -30,11 +31,18 @@ symbols = [stock['symbol'] for stock in stocks]
 api = tradeapi.REST(API_KEY, SECRET_KEY, base_url=BASE_URL)
 
 current_date = date.today().isoformat()
-start_minute_bar = f"{current_date} 9:30:00-4:00"
-end_minute_bar = f"{current_date} 9:45:00-4:00"
+
+if is_dst():
+    start_minute_bar = f"{current_date} 9:30:00-5:00"
+    end_minute_bar = f"{current_date} 9:45:00-5:00"
+else:
+    start_minute_bar = f"{current_date} 9:30:00-4:00"
+    end_minute_bar = f"{current_date} 9:45:00-4:00"
 
 orders = api.list_orders(status='all', limit=500, after=f"{current_date}T13:30:00Z")
-existing_order_symbols = [order.symbol for order in orders]
+existing_order_symbols = [order.symbol for order in orders if order.status != 'canceled']
+
+#messages - []
 
 for symbol in symbols:
     minute_bars = api.polygon.historic_agg_v2(symbol, 1, 'minute', _from=current_date, to=current_date).df

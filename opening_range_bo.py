@@ -3,6 +3,7 @@ import config
 import smtplib, ssl
 from datetime import date
 from timezone import is_dst
+from utils import calculate_quantity
 import alpaca_trade_api as tradeapi
 
 API_KEY = config.API_KEY
@@ -48,7 +49,7 @@ for symbol in symbols:
     minute_bars = api.polygon.historic_agg_v2(symbol, 1, 'minute', _from=current_date, to=current_date).df
 
     opening_range_mask = (minute_bars.index >= start_minute_bar) & (minute_bars.index < end_minute_bar)
-    opening_range_bars = minute_bars.iloc[opening_range_mask]
+    opening_range_bars = minute_bars.loc[opening_range_mask]
 
     opening_range_low = opening_range_bars['low'].min()
     opening_range_high = opening_range_bars['high'].max()
@@ -68,7 +69,7 @@ for symbol in symbols:
                     symbol=symbol,
                     side='buy',
                     type='limit',
-                    qty='100',
+                    qty=calculate_quantity(limit_price),
                     time_in_force='day',
                     order_class='bracket',
                     limit_price=limit_price,

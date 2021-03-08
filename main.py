@@ -140,6 +140,11 @@ def orders(request: Request):
     orders = api.list_orders(status="all")
     return templates.TemplateResponse("orders.html", {"request" :request, "orders": orders})
 
+
+@app.get("/study")
+def study(request: Request):
+    return templates.TemplateResponse("study.html", {"request":request})
+
 @app.get("/strategy/{strategy_id}")
 def strategy(request: Request, strategy_id):
     connection = sqlite3.connect("app.db")

@@ -1,0 +1,14 @@
+#body-main-container {
+  background-color: white;
+}
+
+#nav-searchbar {
+  margin-right: 1.5rem;
+}
+
+#logo {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #5f5cff;
+  font-weight: bold;
+  text-shadow: 0.5px 0.5px lightSlateGrey;
+}

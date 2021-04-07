@@ -2,7 +2,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../static/style.css" />
+
     <link
       rel="shortcut icon"
       href="../static/favicon.ico"
@@ -10,31 +10,26 @@
     />
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      crossorigin="anonymous"
     />
-
-    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-
+    <link rel="stylesheet" href="../static/style.css" />
     <title>Stockgraph</title>
   </head>
-  <body id="body-main-container">
-    <div class="ui segment">
-      <div class="ui secondary menu">
-        <h2 id="logo" class="item">Stockgraph</h2>
-        <a href="/" class="item">Stocks</a>
-        <a href="/strategies" class="item">Strategies</a>
-        <a href="/orders" class="item">Order History</a>
-        <a href="/study" class="item">Study</a>
-
-        <div class="right menu">
-          <div id="nav-searchbar" class="ui transparent icon input">
-            <input type="text" placeholder="Search..." />
-            <i class="search icon"></i>
-          </div>
-          <a class="ui item"> Logout </a>
-        </div>
+  <nav class="navbar">
+    <h2 id="logo" class="item">Stockgraph</h2>
+    <div class="navbar-items-container">
+      <a href="/" class="item">Stocks</a>
+      <a href="/strategies" class="navbar-item">Strategies</a>
+      <a href="/orders" class="navbar-item">Order History</a>
+      <a href="/study" class="navbar-item">Study</a>
+      <div class="navbar-items-right">
+        <a class="navbar-item"> Logout </a>
       </div>
     </div>
+  </nav>
+  <body id="body-main-container">
     <div id="main-ui-container" class="ui container">
       {% block content%} {% endblock%}
     </div>

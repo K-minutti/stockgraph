@@ -1,20 +1,26 @@
 {% extends "layout.html" %} {% block content%}
+<div class="grid-container">
+  <div class="item-1">
+    <h1>Strategies</h1>
+  </div>
+  <div class="item-2">
+    <table class="ui selectable inverted table">
+      <thead>
+        <tr>
+          <th>Strategy Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for strategy in strategies%}
+        <tr>
+          <td>
+            <a href="/strategy/{{strategy.id}}"> {{ strategy.name }} </a>
+          </td>
+        </tr>
+        {% endfor%}
+      </tbody>
+    </table>
+  </div>
+</div>
 
-<h1>Strategies</h1>
-<table class="ui selectable inverted table">
-  <thead>
-    <tr>
-      <th>Strategy Name</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for strategy in strategies%}
-    <tr>
-      <td>
-        <a href="/strategy/{{strategy.id}}"> {{ strategy.name }} </a>
-      </td>
-    </tr>
-    {% endfor%}
-  </tbody>
-</table>
 {%endblock%}

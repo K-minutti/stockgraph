@@ -1,7 +1,6 @@
 {% extends "layout.html" %} {% block content%}
-
-   <h1>STOCKS</h1>
-      <form method="get">
+<div id="home" class="grid-container">
+  <!-- <form method="get">
         <select name="filter">
           <option value="">All Stocks</option>
           <option {% if request.query_params.filter == "new_closing_highs" %} selected="selected"{%endif%} value="new_closing_highs">New Closing Highs</option>
@@ -12,8 +11,34 @@
           <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over SMA 50D</option>
         </select>
         <input type="submit" />
-      </form>
-      <table class="ui selectable inverted table">
+      </form> -->
+  <div class="home-item-1 blue-s">
+    <div class="grid-item-container">
+      <div class="item-header">
+        <p>Gainers/Decliners</p>
+      </div>
+      <div class="item-main-content">
+        <p>SPY/NQ</p>
+        <p>SPY/NQ</p>
+        <p>SPY/NQ</p>
+        <p>SPY/NQ</p>
+      </div>
+    </div>
+  </div>
+  <div class="home-item-2 blue-s">
+    <h4>SPY/NQ</h4>
+  </div>
+  <div class="home-item-3 blue-s">
+    <h4>Market Internals</h4>
+  </div>
+  <div class="home-item-4 blue-s">
+    <h4>Market News</h4>
+  </div>
+  <div class="home-item-5 blue-s">
+    <h4>Trending Searches</h4>
+  </div>
+
+  <!-- <table class="ui selectable inverted table">
         <thead>
           <tr>
             <th>Symbol</th>
@@ -38,5 +63,6 @@
           </tr>
           {% endfor%}
         </tbody>
-      </table>
+      </table> -->
+</div>
 {%endblock%}

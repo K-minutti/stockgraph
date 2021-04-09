@@ -1,89 +1,121 @@
 {% extends "layout.html" %} {% block content%}
 <div id="single-stock" class="grid-container">
-  <div class="single-stock-item-1 blue-s">
-    <div class="grid-item-container">
-      <!-- <div class="item-header row">
-        <p>Gainers/Decliners</p>
-      </div> -->
-      <!-- <div class="item-main-content">
-        <p>SPY/NQ</p>
-        <p>SPY/NQ</p>
-        <p>SPY/NQ</p>
-        <p>SPY/NQ</p>
-      </div> -->
-      SIDEBAR
+    <div class="single-stock-item-1 stock-row">
+      <!-- Sidebar START-->
+      <div id="single-stock-sidebar" class="grid-item-container blue-s">
+        <div id="single-stock-sidebar-open">
+          <div class="item-header row">
+            <div class="sidebar-top-row row">
+              <i class="far fa-file-alt"></i>
+              <i class="fas fa-award"></i>
+              <i class="fas fa-crosshairs"></i>
+              <i class="fas fa-spinner"></i>
+            </div>
+            <div class="close-button-container row">
+              <i
+                id="close-arrow"
+                class="fas fa-angle-left"
+                onclick="closeSidebar()"
+              ></i>
+            </div>
+          </div>
+          <div class="item-main-content">
+            <p>{{stock.symbol}}</p>
+            <p>{{stock.name}}</p>
+            <p>SPY/NQ</p>
+            <p>SPY/NQ</p>
+            <form method="post" action="/apply_strategy">
+              <select name="strategy_id">
+                {% for strategy in strategies%}
+                <option value="{{strategy.id}}">{{strategy.name}}</option>
+                {% endfor%}
+              </select>
+              <input type="hidden" name="stock_id" value="{{stock.id}}" />
+              <input type="submit" value="Apply Strategy" />
+            </form>
+          </div>
+        </div>
+        <!-- Sidebar Closed Default-->
+        <div id="single-stock-sidebar-closed">
+              <i class="far fa-file-alt" onclick="openSidebar()"></i>
+              <i class="fas fa-award"></i>
+              <i class="fas fa-crosshairs"></i>
+              <i class="fas fa-spinner"></i>
+       
+        </div>
+              <!-- Sidebar END-->
+    </div>
+
+
+
+      <div class="single-stock-item-chart">
+        <!-- TradingView Widget BEGIN -->
+        <div class="tradingview-widget-container">
+          <div id="tradingview_7e923"></div>
+          <script
+            type="text/javascript"
+            src="https://s3.tradingview.com/tv.js"
+          ></script>
+          <script type="text/javascript">
+            new TradingView.widget({
+              width: "100%",
+              height: 450,
+              symbol:
+                "{% if stock.exchange == 'ARCA' %}AMEX{%else%}{{stock.exchange}}{%endif%}:{{stock.symbol}}",
+              interval: "D",
+              timezone: "America/New_York",
+              theme: "light",
+              style: "1",
+              locale: "en",
+              toolbar_bg: "#f1f3f6",
+              enable_publishing: false,
+              hide_legend: true,
+              withdateranges: true,
+              allow_symbol_change: true,
+              container_id: "tradingview_7e923",
+            });
+          </script>
+        </div>
+        <!-- TradingView Widget END -->
+      </div>
+    </div>
+    <!-- </bottom two divs> -->
+    <div class="single-stock-item-2 blue-s">
+      <div class="grid-item-container">
+        <div class="item-header row">
+          <p>Gainers/Decliners</p>
+        </div>
+        <div class="item-main-content">
+          <p>SPY/NQ</p>
+          <p>SPY/NQ</p>
+          <p>SPY/NQ</p>
+          <p>SPY/NQ</p>
+        </div>
+      </div>
+    </div>
+    <div class="single-stock-item-3 blue-s">
+      <div class="grid-item-container">
+        <div class="item-header row">
+          <p>Gainers/Decliners</p>
+        </div>
+        <div class="item-main-content">
+          <p>SPY/NQ</p>
+          <p>SPY/NQ</p>
+          <p>SPY/NQ</p>
+          <p>SPY/NQ</p>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="single-stock-item-2 blue-s">
-    <div class="item-main-content">
-      <!-- TradingView Widget BEGIN -->
-      <div class="tradingview-widget-container">
-        <div id="tradingview_7e923"></div>
-        <script
-          type="text/javascript"
-          src="https://s3.tradingview.com/tv.js"
-        ></script>
-        <script type="text/javascript">
-          new TradingView.widget({
-            width: "100%",
-            height: 610,
-            symbol:
-              "{% if stock.exchange == 'ARCA' %}AMEX{%else%}{{stock.exchange}}{%endif%}:{{stock.symbol}}",
-            interval: "D",
-            timezone: "America/New_York",
-            theme: "light",
-            style: "1",
-            locale: "en",
-            toolbar_bg: "#f1f3f6",
-            enable_publishing: false,
-            hide_legend: true,
-            withdateranges: true,
-            allow_symbol_change: true,
-            container_id: "tradingview_7e923",
-          });
-        </script>
-      </div>
-      <!-- TradingView Widget END -->
-    </div>
-  </div>
-  <div class="single-stock-item-3 blue-s">
-    <div class="grid-item-container">
-      <div class="item-header row">
-        <p>Gainers/Decliners</p>
-      </div>
-      <div class="item-main-content">
-        <p>SPY/NQ</p>
-        <p>SPY/NQ</p>
-        <p>SPY/NQ</p>
-        <p>SPY/NQ</p>
-      </div>
-    </div>
-  </div>
-  <div class="single-stock-item-4 blue-s">
-    <div class="grid-item-container">
-      <div class="item-header row">
-        <p>Gainers/Decliners</p>
-      </div>
-      <div class="item-main-content">
-        <p>SPY/NQ</p>
-        <p>SPY/NQ</p>
-        <p>SPY/NQ</p>
-        <p>SPY/NQ</p>
-      </div>
-    </div>
-  </div>
+  <script>
+    function openSidebar() {
+      document.getElementById("single-stock-sidebar").style.width = "40%";
+    }
+
+    /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
+    function closeSidebar() {
+      document.getElementById("single-stock-sidebar").style.width = "4%";
+    }
+  </script>
+  <!-- {% for price in prices%} {{price.high}} {%endfor %} {%endblock%} -->
 </div>
-<h1><a href="/">Back To</a>STOCKS</h1>
-{{stock.symbol}} {{stock.name}}
-
-<form method="post" action="/apply_strategy">
-  <select name="strategy_id">
-    {% for strategy in strategies%}
-    <option value="{{strategy.id}}">{{strategy.name}}</option>
-    {% endfor%}
-  </select>
-  <input type="hidden" name="stock_id" value="{{stock.id}}" />
-  <input type="submit" value="Apply Strategy" />
-</form>
-
-{% for price in prices%} {{price.high}} {%endfor %} {%endblock%}

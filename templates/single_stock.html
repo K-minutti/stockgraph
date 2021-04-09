@@ -1,36 +1,80 @@
 {% extends "layout.html" %} {% block content%}
-
+<div id="single-stock" class="grid-container">
+  <div class="single-stock-item-1 blue-s">
+    <div class="grid-item-container">
+      <!-- <div class="item-header row">
+        <p>Gainers/Decliners</p>
+      </div> -->
+      <!-- <div class="item-main-content">
+        <p>SPY/NQ</p>
+        <p>SPY/NQ</p>
+        <p>SPY/NQ</p>
+        <p>SPY/NQ</p>
+      </div> -->
+      SIDEBAR
+    </div>
+  </div>
+  <div class="single-stock-item-2 blue-s">
+    <div class="item-main-content">
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div id="tradingview_7e923"></div>
+        <script
+          type="text/javascript"
+          src="https://s3.tradingview.com/tv.js"
+        ></script>
+        <script type="text/javascript">
+          new TradingView.widget({
+            width: "100%",
+            height: 610,
+            symbol:
+              "{% if stock.exchange == 'ARCA' %}AMEX{%else%}{{stock.exchange}}{%endif%}:{{stock.symbol}}",
+            interval: "D",
+            timezone: "America/New_York",
+            theme: "light",
+            style: "1",
+            locale: "en",
+            toolbar_bg: "#f1f3f6",
+            enable_publishing: false,
+            hide_legend: true,
+            withdateranges: true,
+            allow_symbol_change: true,
+            container_id: "tradingview_7e923",
+          });
+        </script>
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+  </div>
+  <div class="single-stock-item-3 blue-s">
+    <div class="grid-item-container">
+      <div class="item-header row">
+        <p>Gainers/Decliners</p>
+      </div>
+      <div class="item-main-content">
+        <p>SPY/NQ</p>
+        <p>SPY/NQ</p>
+        <p>SPY/NQ</p>
+        <p>SPY/NQ</p>
+      </div>
+    </div>
+  </div>
+  <div class="single-stock-item-4 blue-s">
+    <div class="grid-item-container">
+      <div class="item-header row">
+        <p>Gainers/Decliners</p>
+      </div>
+      <div class="item-main-content">
+        <p>SPY/NQ</p>
+        <p>SPY/NQ</p>
+        <p>SPY/NQ</p>
+        <p>SPY/NQ</p>
+      </div>
+    </div>
+  </div>
+</div>
 <h1><a href="/">Back To</a>STOCKS</h1>
 {{stock.symbol}} {{stock.name}}
-
-<!-- TradingView Widget BEGIN -->
-<div class="tradingview-widget-container">
-  <div id="tradingview_7e923"></div>
-  <script
-    type="text/javascript"
-    src="https://s3.tradingview.com/tv.js"
-  ></script>
-  <script type="text/javascript">
-    new TradingView.widget({
-      width: "100%",
-      height: 610,
-      symbol:
-        "{% if stock.exchange == 'ARCA' %}AMEX{%else%}{{stock.exchange}}{%endif%}:{{stock.symbol}}",
-      interval: "D",
-      timezone: "America/New_York",
-      theme: "light",
-      style: "1",
-      locale: "en",
-      toolbar_bg: "#f1f3f6",
-      enable_publishing: false,
-      hide_legend: true,
-      withdateranges: true,
-      allow_symbol_change: true,
-      container_id: "tradingview_7e923",
-    });
-  </script>
-</div>
-<!-- TradingView Widget END -->
 
 <form method="post" action="/apply_strategy">
   <select name="strategy_id">

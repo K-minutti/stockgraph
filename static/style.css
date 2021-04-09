@@ -5,7 +5,8 @@ body {
   width: 100vw;
   height: 100vh;
   overflow-x: hidden;
-  background-color: #35396c;
+  /* background-color: #35396c; */
+  background-color: #2d305a;
   font-family: "Roboto", sans-serif;
 }
 
@@ -37,7 +38,7 @@ nav {
 #logo {
   color: white;
   font-weight: lighter;
-  width: 10%;
+  width: 8%;
   letter-spacing: 0.1em;
   text-shadow: 0.5px 0.5px 1px rgba(240, 248, 255, 0.5);
 }
@@ -54,22 +55,52 @@ nav {
 }
 
 .navbar-items-container {
-  width: 90%;
+  width: 92%;
   height: 40px;
 }
 .navbar-items-left {
-  width: 50%;
+  width: 60%;
   justify-content: space-evenly;
+  padding: 0px 12px;
 }
 
 .navbar-items-right {
-  width: 50%;
-  justify-content: flex-end;
-  padding-right: 36px;
+  width: 40%;
+  justify-content: flex-start;
+  padding-right: 32px;
 }
 
-i {
+.searchbar-container {
+  width: 80%;
+  min-width: 120px;
+  border-radius: 8px;
+  padding: 8px 6px;
+  margin-right: 22px;
+  border: thin solid rgba(255, 255, 255, 0.5);
+}
+
+.searchbar-container:hover {
+  border: none;
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 6px 10px 0px rgb(4, 12, 33, 0.7);
+}
+
+input[type="text"] {
+  height: 80%;
+  width: 90%;
+  font-size: 15px;
+  padding: 4px;
+  margin-left: 8px;
+  color: #cecece;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.searchbar-container > i {
   color: white;
+  text-shadow: 0.5px 0.5px 1px rgba(240, 248, 255, 0.4);
 }
 
 .icon-large {
@@ -97,14 +128,14 @@ i {
 
 /* 
 <------------- BODY CONTAINER  -------------------------------->
+  border: solid 2px blue;
 */
 
 .board-container {
   align-items: center;
   text-align: center;
   height: 90vh;
-  padding: 8px;
-  border: solid 2px blue;
+  padding: 6px;
 }
 
 .grid-container {
@@ -120,7 +151,7 @@ i {
   display: flex;
   flex-direction: column;
   color: white;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .item-header {
@@ -137,7 +168,6 @@ i {
 /* <------ HOME ITEMS  ------->  */
 
 #home {
-  border: solid 2px salmon;
   height: 100%;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: 1fr 1fr;

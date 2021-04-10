@@ -1,15 +1,18 @@
 {% extends "layout.html" %} {% block content%}
 <div id="single-stock" class="grid-container">
-    <div class="single-stock-item-1 stock-row">
+    <div class="single-stock-item-1">
       <!-- Sidebar START-->
       <div id="single-stock-sidebar" class="grid-item-container blue-s">
-        <div id="single-stock-sidebar-open">
+        <div id="single-stock-sidebar-open" class="grid-item-container">
+
+
+
           <div class="item-header row">
             <div class="sidebar-top-row row">
-              <i class="far fa-file-alt financials"></i>
-              <i class="fas fa-award ratings"></i>
-              <i class="fas fa-crosshairs strategy"></i>
-              <i class="fas fa-spinner related"></i>
+              <i class="far fa-file-alt financials" onclick="displaySidebarItem('financials')" ></i>
+              <i class="fas fa-award ratings" onclick="displaySidebarItem('ratings')"></i>
+              <i class="fas fa-crosshairs strategy" onclick="displaySidebarItem('strategy')"></i>
+              <i class="fas fa-spinner related" onclick="displaySidebarItem('related')"></i>
             </div>
             <div class="close-button-container row">
               <i
@@ -19,21 +22,40 @@
               ></i>
             </div>
           </div>
+
           <div class="item-main-content">
-            <p>{{stock.symbol}}</p>
-            <p>{{stock.name}}</p>
-            <p>SPY/NQ</p>
-            <p>SPY/NQ</p>
-            <form method="post" action="/apply_strategy">
-              <select name="strategy_id">
-                {% for strategy in strategies%}
-                <option value="{{strategy.id}}">{{strategy.name}}</option>
-                {% endfor%}
-              </select>
-              <input type="hidden" name="stock_id" value="{{stock.id}}" />
-              <input type="submit" value="Apply Strategy" />
-            </form>
+            <div id="sidebar-financials" class="financials">
+              <p>{{stock.symbol}}</p>
+              <p>{{stock.name}}</p>
+              <p>FINANCIALSSSSS</p>
+              <p>SPY/NQ</p>
+            </div>
+            <div id="sidebar-ratings" class="ratings">
+              <p>{{stock.symbol}}</p>
+              <p>{{stock.name}}</p>
+              <p>RATINGS</p>
+              <p>BRUV</p>
+            </div>
+            <div id="sidebar-strategy">
+              <form method="post" action="/apply_strategy" style="margin: 0; padding:0;">
+                <select name="strategy_id">
+                  {% for strategy in strategies%}
+                  <option value="{{strategy.id}}">{{strategy.name}}</option>
+                  {% endfor%}
+                </select>
+                <input type="hidden" name="stock_id" value="{{stock.id}}" />
+                <input type="submit" value="Apply Strategy" />
+              </form>
+            </div>
+            <div id="sidebar-related">
+              <p>{{stock.symbol}}</p>
+              <p>{{stock.name}}</p>
+              <p>RELATED</p>
+              <p>RELATED</p>
+            </div>
+
           </div>
+
         </div>
         <!-- Sidebar Closed Default-->
         <div id="single-stock-sidebar-closed">
@@ -108,17 +130,39 @@
     </div>
   </div>
   <script>
+    let lastClassname;
     function openSidebar(classname){
       document.getElementById("single-stock-sidebar").style.width = "40%";
-      document.getElementById("single-stock-sidebar-open").style.display = "block";
+      document.getElementById("single-stock-sidebar-open").style.display = "flex";
       document.getElementById("single-stock-sidebar-closed").style.display = "none";
-      let currentSidebarItem = document.getElementsByClassName(classname);
-      currentSidebarItem[0].className += " active"; 
+      let currentSidebarItems = document.getElementsByClassName(classname);
+      currentSidebarItems[0].className += " active"; 
+      document.getElementById(`sidebar-${classname}`).style.display = "block"
+      lastClassname = classname
     }
 
-    /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
     function closeSidebar() {
+      document.getElementById("single-stock-sidebar-open").style.display = "none";
       document.getElementById("single-stock-sidebar").style.width = "4%";
+      document.getElementById("single-stock-sidebar-closed").style.display = "flex";
+      const lastChoosenItem = document.getElementsByClassName("active");
+      const len = lastChoosenItem[0].className.length
+      const end = len - 7 //length of " active"
+      lastChoosenItem[0].className =  lastChoosenItem[0].className.slice(0,end)
+      document.getElementById(`sidebar-${lastClassname}`).style.display = "none"
+    }
+
+    function displaySidebarItem(classname) {
+      const lastChoosenItem = document.getElementsByClassName("active");
+      const len = lastChoosenItem[0].className.length
+      const end = len - 7 //length of " active"
+      lastChoosenItem[0].className =  lastChoosenItem[0].className.slice(0,end)
+      let currentSidebarItems = document.getElementsByClassName(classname);
+      currentSidebarItems[0].className += " active"; 
+      document.getElementById(`sidebar-${lastClassname}`).style.display = "none"
+      document.getElementById(`sidebar-${classname}`).style.display = "block"
+      lastClassname = classname
+
     }
   </script>
   <!-- {% for price in prices%} {{price.high}} {%endfor %} {%endblock%} -->

@@ -222,6 +222,11 @@ input[type="text"] {
   text-shadow: 0.5px 0.5px 1px rgba(240, 248, 255, 0.6);
 }
 
+#single-stock-sidebar-closed > i:active {
+  color: #1aa9ff;
+  text-shadow: 0.5px 0.5px 1px rgba(240, 248, 255, 0.6);
+}
+
 #single-stock-sidebar {
   width: 4.5%;
   margin-right: 6px;
@@ -265,6 +270,7 @@ input[type="text"] {
 
 .single-stock-item-chart {
   width: 100%;
+  padding: 2px;
 }
 
 .single-stock-item-2 {

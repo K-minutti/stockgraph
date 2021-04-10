@@ -6,10 +6,10 @@
         <div id="single-stock-sidebar-open">
           <div class="item-header row">
             <div class="sidebar-top-row row">
-              <i class="far fa-file-alt"></i>
-              <i class="fas fa-award"></i>
-              <i class="fas fa-crosshairs"></i>
-              <i class="fas fa-spinner"></i>
+              <i class="far fa-file-alt financials"></i>
+              <i class="fas fa-award ratings"></i>
+              <i class="fas fa-crosshairs strategy"></i>
+              <i class="fas fa-spinner related"></i>
             </div>
             <div class="close-button-container row">
               <i
@@ -37,10 +37,10 @@
         </div>
         <!-- Sidebar Closed Default-->
         <div id="single-stock-sidebar-closed">
-              <i class="far fa-file-alt" onclick="openSidebar()"></i>
-              <i class="fas fa-award"></i>
-              <i class="fas fa-crosshairs"></i>
-              <i class="fas fa-spinner"></i>
+              <i class="far fa-file-alt financials" onclick="openSidebar('financials')"></i>
+              <i class="fas fa-award ratings" onclick="openSidebar('ratings')"></i>
+              <i class="fas fa-crosshairs strategy" onclick="openSidebar('strategy')"></i>
+              <i class="fas fa-spinner related" onclick="openSidebar('related')"></i>
        
         </div>
               <!-- Sidebar END-->
@@ -59,7 +59,7 @@
           <script type="text/javascript">
             new TradingView.widget({
               width: "100%",
-              height: 450,
+              height: 440,
               symbol:
                 "{% if stock.exchange == 'ARCA' %}AMEX{%else%}{{stock.exchange}}{%endif%}:{{stock.symbol}}",
               interval: "D",
@@ -108,8 +108,12 @@
     </div>
   </div>
   <script>
-    function openSidebar() {
+    function openSidebar(classname){
       document.getElementById("single-stock-sidebar").style.width = "40%";
+      document.getElementById("single-stock-sidebar-open").style.display = "block";
+      document.getElementById("single-stock-sidebar-closed").style.display = "none";
+      let currentSidebarItem = document.getElementsByClassName(classname);
+      currentSidebarItem[0].className += " active"; 
     }
 
     /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */

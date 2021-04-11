@@ -197,6 +197,7 @@ input[type="text"] {
 
 .news-con {
   border: solid 2px blueviolet;
+  overflow: scroll;
 }
 
 .home-item-4 {

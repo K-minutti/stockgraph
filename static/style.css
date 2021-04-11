@@ -186,6 +186,19 @@ input[type="text"] {
 .home-item-3 {
   grid-area: three;
 }
+
+.enable-scroll {
+  overflow: hidden;
+}
+
+.news {
+  border: solid 2px red;
+}
+
+.news-con {
+  border: solid 2px blueviolet;
+}
+
 .home-item-4 {
   grid-area: four;
 }

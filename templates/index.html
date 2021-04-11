@@ -47,12 +47,33 @@
     </div>
   </div>
   <div class="home-item-4 blue-s">
-    <div class="grid-item-container">
+    <div class="grid-item-container news-con">
       <div class="item-header row">
         <p>Market News</p>
       </div>
-      <div class="item-main-content">
-        <div>CHART</div>
+      <div class="item-main-content news" style="max-height: 30vh">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Headline</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for stock in stocks%}
+            <tr>
+              <td>{{stock.symbol}}</td>
+              <td><a href="/stock/{{stock.symbol}}">{{stock.name}}</a></td>
+              <!-- {% if indicator_values[stock.symbol] %}
+              <td>{{ indicator_values[stock.symbol].close }}</td>
+              <td>{{ indicator_values[stock.symbol].sma_20 }}</td>
+              <td>{{ indicator_values[stock.symbol].sma_50 }}</td>
+              <td>{{ indicator_values[stock.symbol].rsi_14 }}</td>
+              {% endif%} -->
+            </tr>
+            {% endfor%}
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

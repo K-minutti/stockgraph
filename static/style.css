@@ -31,7 +31,7 @@ a:visited {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c4c4c4;
+  background: #a5a5b0;
   border-radius: 8px;
 }
 
@@ -181,6 +181,7 @@ input[type="text"] {
 
 table {
   border-collapse: collapse;
+  width: 100%;
 }
 
 th,
@@ -200,6 +201,10 @@ td {
 
 tbody tr {
   border-bottom: 0.3px solid rgba(152, 152, 152, 0.35);
+}
+tbody tr:hover {
+  border-bottom: 0.3px solid rgba(152, 152, 152, 0.35);
+  background-color: #2d305a;
 }
 
 .table-container {

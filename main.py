@@ -3,8 +3,12 @@ import alpaca_trade_api as tradeapi
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+import pandas as pd
 from datetime import date
 import sqlite3, config
+from pytrends.request import TrendReq
+pytrends = TrendReq(hl='en-US', tz=300)
+
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
@@ -84,7 +88,18 @@ def index(request: Request):
     for row in indicator_rows:
         indicator_values[row['symbol']] = row
 
-    return templates.TemplateResponse("index.html", {"request": request, "stocks": rows,  "indicator_values": indicator_values})
+    #Google trends 
+    g_trends_df = pytrends.trending_searches(pn='united_states')
+    google_trends_arr = g_trends_df.to_dict('records')
+    google_trends = []
+    count = 0
+    for obj in google_trends_arr:
+        count += 1
+        google_trends.append({"count": count, "item": f"{obj[0]}"})
+        
+    #News API
+
+    return templates.TemplateResponse("index.html", {"request": request, "stocks": rows,  "indicator_values": indicator_values, "g_trends":google_trends})
 
 
 @app.get("/stock/{symbol}")

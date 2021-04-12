@@ -22,6 +22,19 @@ a:visited {
   box-shadow: 0px 4px 10px 0px rgba(4, 12, 33, 0.5);
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #fff;
+  border-bottom-right-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c4c4c4;
+  border-radius: 8px;
+}
+
 /* 
 <------------- NAV BAR  -------------------------------->
 */
@@ -164,6 +177,36 @@ input[type="text"] {
   border-radius: 0px 0px 10px 10px;
 }
 
+/* <------ TABLES  ------->  */
+
+table {
+  border-collapse: collapse;
+}
+
+th,
+td {
+  color: #cecece;
+  padding: 5px;
+  font-weight: normal;
+}
+
+th {
+  font-size: 15px;
+}
+
+td {
+  font-size: 14px;
+}
+
+tbody tr {
+  border-bottom: 0.3px solid rgba(152, 152, 152, 0.35);
+}
+
+.table-container {
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
 /* <------ HOME ITEMS  ------->  */
 
 #home {
@@ -187,17 +230,30 @@ input[type="text"] {
   grid-area: three;
 }
 
-.enable-scroll {
-  overflow: hidden;
+.table-headers {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+  z-index: 100;
 }
 
-.news {
-  border: solid 2px red;
+.table-headers-row {
+  border-bottom: 0.25px solid rgba(152, 152, 152, 0.32);
 }
 
-.news-con {
-  border: solid 2px blueviolet;
-  overflow: scroll;
+th {
+  background: #1a2049;
+  box-shadow: 0px 4px 10px rgba(4, 12, 33, 0.5);
+  position: sticky;
+  top: 0;
+}
+
+.tbody-headline {
+  border-left: 0.3px solid rgba(152, 152, 152, 0.35);
+}
+
+.home-table {
+  max-height: 45vh;
 }
 
 .home-item-4 {

@@ -26,6 +26,7 @@
       </div>
     </div>
   </div>
+
   <div class="home-item-2 blue-s">
     <div class="grid-item-container">
       <div class="item-header row">
@@ -47,23 +48,63 @@
     </div>
   </div>
   <div class="home-item-4 blue-s">
-    <div class="grid-item-container news-con" style="max-height: 50vh">
+    <div class="grid-item-container home-table">
       <div class="item-header row">
         <p>Market News</p>
       </div>
-      <div class="item-main-content news">
+
+      <div class="item-main-content table-container">
         <table>
           <thead>
-            <tr>
-              <th>Date</th>
-              <th>Headline</th>
-            </tr>
+            <div class="table-headers-row">
+              <tr>
+                <th>Date</th>
+                <th>Headline</th>
+              </tr>
+            </div>
           </thead>
           <tbody>
             {% for stock in stocks%}
             <tr>
               <td>{{stock.symbol}}</td>
-              <td><a href="/stock/{{stock.symbol}}">{{stock.name}}</a></td>
+              <td class="tbody-headline">
+                <a href="/stock/{{stock.symbol}}">{{stock.name}}</a>
+              </td>
+              <!-- {% if indicator_values[stock.symbol] %}
+                <td>{{ indicator_values[stock.symbol].close }}</td>
+                <td>{{ indicator_values[stock.symbol].sma_20 }}</td>
+                <td>{{ indicator_values[stock.symbol].sma_50 }}</td>
+                <td>{{ indicator_values[stock.symbol].rsi_14 }}</td>
+                {% endif%} -->
+            </tr>
+            {% endfor%}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="home-item-5 blue-s">
+    <div class="grid-item-container home-table">
+      <div class="item-header row">
+        <p>Trending Searches</p>
+      </div>
+      <div class="item-main-content table-container">
+        <table>
+          <thead>
+            <div class="table-headers-row">
+              <tr>
+                <th>Date</th>
+                <th>Headline</th>
+              </tr>
+            </div>
+          </thead>
+          <tbody>
+            {% for stock in stocks%}
+            <tr>
+              <td>{{stock.symbol}}</td>
+              <td class="tbody-headline">
+                <a href="/stock/{{stock.symbol}}">{{stock.name}}</a>
+              </td>
               <!-- {% if indicator_values[stock.symbol] %}
               <td>{{ indicator_values[stock.symbol].close }}</td>
               <td>{{ indicator_values[stock.symbol].sma_20 }}</td>
@@ -77,42 +118,5 @@
       </div>
     </div>
   </div>
-  <div class="home-item-5 blue-s">
-    <div class="grid-item-container">
-      <div class="item-header row">
-        <p>Trending Searches</p>
-      </div>
-      <div class="item-main-content">
-        <div>CHART</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- <table class="ui selectable inverted table">
-        <thead>
-          <tr>
-            <th>Symbol</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>SMA 20</th>
-            <th>SMA 50</th>
-            <th>RSI 14</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for stock in stocks%}  
-          <tr>
-            <td>{{stock.symbol}}</td>
-            <td><a href="/stock/{{stock.symbol}}">{{stock.name}}</a></td>
-            {% if indicator_values[stock.symbol] %}
-            <td>{{ indicator_values[stock.symbol].close }}</td>
-            <td>{{ indicator_values[stock.symbol].sma_20 }}</td>
-            <td>{{ indicator_values[stock.symbol].sma_50 }}</td>
-            <td>{{ indicator_values[stock.symbol].rsi_14 }}</td>
-            {% endif%}
-          </tr>
-          {% endfor%}
-        </tbody>
-      </table> -->
 </div>
 {%endblock%}

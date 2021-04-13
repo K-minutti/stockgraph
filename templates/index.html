@@ -1,17 +1,5 @@
 {% extends "layout.html" %} {% block content%}
 <div id="home" class="grid-container">
-  <!-- <form method="get">
-        <select name="filter">
-          <option value="">All Stocks</option>
-          <option {% if request.query_params.filter == "new_closing_highs" %} selected="selected"{%endif%} value="new_closing_highs">New Closing Highs</option>
-          <option {% if request.query_params.filter == "new_closing_lows" %} selected="selected"{%endif%} value="new_closing_lows">New Closing Lows</option>
-          <option {% if request.query_params.filter == "rsi_overbought" %} selected="selected"{%endif%} value="rsi_overbought">RSI Overbought</option>
-          <option {% if request.query_params.filter == "rsi_oversold" %} selected="selected"{%endif%} value="rsi_oversold">RSI Oversold</option>
-          <option {% if request.query_params.filter == "under_sma_50" %} selected="selected"{%endif%} value="under_sma_50">Under SMA 50D</option>
-          <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over SMA 50D</option>
-        </select>
-        <input type="submit" />
-      </form> -->
   <div class="home-item-1 blue-s">
     <div class="grid-item-container">
       <div class="item-header row">
@@ -33,7 +21,7 @@
         <p>SPY/NQ</p>
       </div>
       <div class="item-main-content">
-        <div>CHART</div>
+        <div id="main-home-chart"></div>
       </div>
     </div>
   </div>
@@ -106,5 +94,47 @@
       </div>
     </div>
   </div>
+  <script>
+    const element = document.getElementById("main-home-chart");
+    const chart = LightweightCharts.createChart(element, {
+      width: 300,
+      height: 400,
+      rightPriceScale: {
+        scaleMargins: {
+          top: 0.1,
+          bottom: 0.1,
+        },
+        mode: LightweightCharts.PriceScaleMode.Percentage,
+        borderColor: "rgba(197, 203, 206, 0.4)",
+      },
+    });
+    const lineSeries = chart.addLineSeries();
+    lineSeries.setData([
+      { time: "2019-04-11", value: 80.01 },
+      { time: "2019-04-12", value: 96.63 },
+      { time: "2019-04-13", value: 76.64 },
+      { time: "2019-04-14", value: 81.89 },
+      { time: "2019-04-15", value: 74.43 },
+      { time: "2019-04-16", value: 80.01 },
+      { time: "2019-04-17", value: 96.63 },
+      { time: "2019-04-18", value: 76.64 },
+      { time: "2019-04-19", value: 81.89 },
+      { time: "2019-04-20", value: 74.43 },
+    ]);
+
+    const lineSeries2 = chart.addLineSeries();
+    lineSeries2.setData([
+      { time: "2019-04-11", value: 89.01 },
+      { time: "2019-04-12", value: 111.63 },
+      { time: "2019-04-13", value: 99.64 },
+      { time: "2019-04-14", value: 96.89 },
+      { time: "2019-04-15", value: 89.43 },
+      { time: "2019-04-16", value: 95.01 },
+      { time: "2019-04-17", value: 101.63 },
+      { time: "2019-04-18", value: 78.64 },
+      { time: "2019-04-19", value: 90.89 },
+      { time: "2019-04-20", value: 79.43 },
+    ]);
+  </script>
 </div>
 {%endblock%}

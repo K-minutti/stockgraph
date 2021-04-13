@@ -246,6 +246,14 @@ tbody tr:hover {
   grid-area: two;
 }
 
+#main-home-chart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
 .home-item-3 {
   grid-area: three;
 }

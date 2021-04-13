@@ -19,6 +19,85 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/")
 def index(request: Request):
+    # connection = sqlite3.connect("app.db")
+    # connection.row_factory = sqlite3.Row
+    # cursor = connection.cursor()
+
+    #Google trends 
+    g_trends_df = pytrends.trending_searches(pn='united_states')
+    google_trends_arr = g_trends_df.to_dict('records')
+    google_trends = []
+    count = 0
+    for obj in google_trends_arr:
+        count += 1
+        google_trends.append({"count": count, "item": f"{obj[0]}"})
+        
+    #News API / Google News wrapper library
+    business = gn.topic_headlines('business')
+    technology = gn.topic_headlines('technology')
+    bus = business['entries']
+    tech = technology['entries']
+    bus_and_tech = bus + tech
+    all_news = []
+    for item in bus_and_tech:
+        time_stamp = time.mktime(item['published_parsed'])
+        date_as_dt = datetime.datetime.fromtimestamp(time_stamp) - datetime.timedelta(hours=4)
+        date_str = date_as_dt.strftime('%m-%d')
+        time_str = date_as_dt.strftime('%H:%M:%S')
+        item['time_stamp'] = time_stamp
+        item['date'] = date_str
+        item['time'] = time_str
+        all_news.append(item)
+    def sort_by_key(obj):
+        return obj['time_stamp']
+    all_news.sort(key=sort_by_key, reverse=True)
+    # #props - title, link, published, published_parsed
+    return templates.TemplateResponse("index.html", {"request": request,  "news": all_news, "g_trends":google_trends})
+
+
+@app.get("/stock/{symbol}")
+def single_stock(request: Request, symbol):
+    connection = sqlite3.connect("app.db")
+    connection.row_factory = sqlite3.Row
+    cursor = connection.cursor()
+
+    cursor.execute(""" 
+        SELECT * FROM strategy
+    """)
+    strategies = cursor.fetchall()
+
+    cursor.execute(""" 
+        SELECT id, symbol, name FROM stock WHERE symbol = ?
+    """, (symbol,))
+    row = cursor.fetchone()
+
+    cursor.execute(""" 
+        SELECT * FROM historical_prices WHERE stock_id = ? ORDER BY date DESC
+    """, (row['id'],))
+    prices = cursor.fetchall()
+
+    #gnews custom search for Ticker-Stock, Company Name
+    #fullview-ratings-outer finviz table
+    # search for the best matching articles that mention MSFT and 
+    # do not mention AAPL (over the past 6 month
+# search = gn.search('MSFT -APPL', when = '6m')
+    return templates.TemplateResponse("single_stock.html", {"request": request, "stock": row, "prices": prices, "strategies": strategies})
+
+@app.post("/apply_strategy")
+def apply_strategy(strategy_id: int = Form(...), stock_id: int = Form(...)):
+    connection = sqlite3.connect('app.db')
+    cursor = connection.cursor()
+
+    cursor.execute(""" 
+        INSERT INTO stock_strategy (stock_id, strategy_id) VALUES (?,?)
+    """, (stock_id, strategy_id))
+
+    connection.commit()
+    return RedirectResponse(url=f"/strategy/{strategy_id}", status_code=303)
+
+
+@app.get("/strategies")
+def strategies(request: Request):
     stock_filter = request.query_params.get('filter', False)
     connection = sqlite3.connect("app.db")
     connection.row_factory = sqlite3.Row
@@ -91,100 +170,12 @@ def index(request: Request):
     for row in indicator_rows:
         indicator_values[row['symbol']] = row
 
-    #Google trends 
-    g_trends_df = pytrends.trending_searches(pn='united_states')
-    google_trends_arr = g_trends_df.to_dict('records')
-    google_trends = []
-    count = 0
-    for obj in google_trends_arr:
-        count += 1
-        google_trends.append({"count": count, "item": f"{obj[0]}"})
-        
-    #News API / Google News wrapper library
-    business = gn.topic_headlines('business')
-    technology = gn.topic_headlines('technology')
-    bus = business['entries']
-    tech = technology['entries']
-    bus_and_tech = bus + tech
-    all_news = []
-    for item in bus_and_tech:
-        time_stamp = time.mktime(item['published_parsed'])
-        date_as_dt = datetime.datetime.fromtimestamp(time_stamp) - datetime.timedelta(hours=4)
-        date_str = date_as_dt.strftime('%m-%d')
-        time_str = date_as_dt.strftime('%H:%M:%S')
-        item['time_stamp'] = time_stamp
-        item['date'] = date_str
-        item['time'] = time_str
-        all_news.append(item)
-    def sort_by_key(obj):
-        return obj['time_stamp']
-    all_news.sort(key=sort_by_key, reverse=True)
-    # get the time.struct and convert the date to M D YY and we''' get the time as well as hour:min:second Headline
-    #take the top 60 articles then the top 60 in tech 
-    #add them to one list and then sort them and ship them off
-    # #props - title, link, published, published_parsed
-    #             {% if indicator_values[stock.symbol] %}
-    #             <td>{{ indicator_values[stock.symbol].close }}</td>
-    #             <td>{{ indicator_values[stock.symbol].sma_20 }}</td>
-    #             <td>{{ indicator_values[stock.symbol].sma_50 }}</td>
-    #             <td>{{ indicator_values[stock.symbol].rsi_14 }}</td>
-    #             {% endif%} 
-    return templates.TemplateResponse("index.html", {"request": request, "stocks": rows,  "indicator_values":indicator_values, "news": all_news, "g_trends":google_trends})
-
-
-@app.get("/stock/{symbol}")
-def single_stock(request: Request, symbol):
-    connection = sqlite3.connect("app.db")
-    connection.row_factory = sqlite3.Row
-    cursor = connection.cursor()
-
-    cursor.execute(""" 
-        SELECT * FROM strategy
-    """)
-    strategies = cursor.fetchall()
-
-    cursor.execute(""" 
-        SELECT id, symbol, name FROM stock WHERE symbol = ?
-    """, (symbol,))
-    row = cursor.fetchone()
-
-    cursor.execute(""" 
-        SELECT * FROM historical_prices WHERE stock_id = ? ORDER BY date DESC
-    """, (row['id'],))
-    prices = cursor.fetchall()
-
-    #gnews custom search for Ticker-Stock, Company Name
-    #fullview-ratings-outer finviz table
-    # search for the best matching articles that mention MSFT and 
-    # do not mention AAPL (over the past 6 month
-# search = gn.search('MSFT -APPL', when = '6m')
-#     return templates.TemplateResponse("single_stock.html", {"request": request, "stock": row, "prices": prices, "strategies": strategies})
-
-@app.post("/apply_strategy")
-def apply_strategy(strategy_id: int = Form(...), stock_id: int = Form(...)):
-    connection = sqlite3.connect('app.db')
-    cursor = connection.cursor()
-
-    cursor.execute(""" 
-        INSERT INTO stock_strategy (stock_id, strategy_id) VALUES (?,?)
-    """, (stock_id, strategy_id))
-
-    connection.commit()
-    return RedirectResponse(url=f"/strategy/{strategy_id}", status_code=303)
-
-
-@app.get("/strategies")
-def strategies(request: Request):
-    connection = sqlite3.connect("app.db")
-    connection.row_factory = sqlite3.Row
-    cursor = connection.cursor()
-
     cursor.execute(""" 
         select * from strategy
     """)
 
     strategies = cursor.fetchall()
-    return templates.TemplateResponse("strategies.html", {"request" : request, "strategies": strategies})
+    return templates.TemplateResponse("strategies.html", {"request" : request, "stocks": rows,  "indicator_values":indicator_values,"strategies": strategies})
 
 @app.get("/orders")
 def orders(request: Request):

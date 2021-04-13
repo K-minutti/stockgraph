@@ -181,22 +181,37 @@ input[type="text"] {
 
 table {
   border-collapse: collapse;
+  table-layout: auto;
   width: 100%;
 }
 
 th,
 td {
-  color: #cecece;
+  color: #c4c4c4;
   padding: 5px;
   font-weight: normal;
 }
 
 th {
-  font-size: 15px;
+  font-size: 14px;
 }
 
 td {
-  font-size: 14px;
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+td > a:hover {
+  color: #4c54d2;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.tbody-left-border {
+  border-left: 0.3px solid rgba(152, 152, 152, 0.35);
 }
 
 tbody tr {
@@ -221,7 +236,7 @@ tbody tr:hover {
   gap: 6px 6px;
   grid-template-areas:
     "one one two two two two"
-    "three three four four five five";
+    "three three four four four five";
 }
 .home-item-1 {
   grid-area: one;
@@ -251,10 +266,6 @@ th {
   box-shadow: 0px 4px 10px rgba(4, 12, 33, 0.5);
   position: sticky;
   top: 0;
-}
-
-.tbody-headline {
-  border-left: 0.3px solid rgba(152, 152, 152, 0.35);
 }
 
 .home-table {

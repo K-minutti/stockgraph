@@ -59,23 +59,19 @@
             <div class="table-headers-row">
               <tr>
                 <th>Date</th>
+                <th>Time</th>
                 <th>Headline</th>
               </tr>
             </div>
           </thead>
           <tbody>
-            {% for stock in stocks%}
+            {% for item in news%}
             <tr>
-              <td>{{stock.symbol}}</td>
-              <td class="tbody-headline">
-                <a href="/stock/{{stock.symbol}}">{{stock.name}}</a>
+              <td class="nowrap">{{item.date}}</td>
+              <td class="tbody-left-border">{{item.time}}</td>
+              <td class="tbody-left-border">
+                <a href="{{item.link}}" target="_blank">{{item.title}}</a>
               </td>
-              <!-- {% if indicator_values[stock.symbol] %}
-                <td>{{ indicator_values[stock.symbol].close }}</td>
-                <td>{{ indicator_values[stock.symbol].sma_20 }}</td>
-                <td>{{ indicator_values[stock.symbol].sma_50 }}</td>
-                <td>{{ indicator_values[stock.symbol].rsi_14 }}</td>
-                {% endif%} -->
             </tr>
             {% endfor%}
           </tbody>
@@ -102,7 +98,7 @@
             {% for trend in g_trends%}
             <tr>
               <td>{{trend.count}}</td>
-              <td class="tbody-headline">{{trend.item}}</td>
+              <td class="tbody-left-border nowrap">{{trend.item}}</td>
             </tr>
             {% endfor%}
           </tbody>

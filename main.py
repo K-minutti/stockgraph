@@ -4,8 +4,11 @@ from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 import pandas as pd
-from datetime import date
+import datetime
+import time
 import sqlite3, config
+from pygooglenews import GoogleNews
+gn = GoogleNews()
 from pytrends.request import TrendReq
 pytrends = TrendReq(hl='en-US', tz=300)
 
@@ -97,9 +100,36 @@ def index(request: Request):
         count += 1
         google_trends.append({"count": count, "item": f"{obj[0]}"})
         
-    #News API
-
-    return templates.TemplateResponse("index.html", {"request": request, "stocks": rows,  "indicator_values": indicator_values, "g_trends":google_trends})
+    #News API / Google News wrapper library
+    business = gn.topic_headlines('business')
+    technology = gn.topic_headlines('technology')
+    bus = business['entries']
+    tech = technology['entries']
+    bus_and_tech = bus + tech
+    all_news = []
+    for item in bus_and_tech:
+        time_stamp = time.mktime(item['published_parsed'])
+        date_as_dt = datetime.datetime.fromtimestamp(time_stamp) - datetime.timedelta(hours=4)
+        date_str = date_as_dt.strftime('%m-%d')
+        time_str = date_as_dt.strftime('%H:%M:%S')
+        item['time_stamp'] = time_stamp
+        item['date'] = date_str
+        item['time'] = time_str
+        all_news.append(item)
+    def sort_by_key(obj):
+        return obj['time_stamp']
+    all_news.sort(key=sort_by_key, reverse=True)
+    # get the time.struct and convert the date to M D YY and we''' get the time as well as hour:min:second Headline
+    #take the top 60 articles then the top 60 in tech 
+    #add them to one list and then sort them and ship them off
+    # #props - title, link, published, published_parsed
+    #             {% if indicator_values[stock.symbol] %}
+    #             <td>{{ indicator_values[stock.symbol].close }}</td>
+    #             <td>{{ indicator_values[stock.symbol].sma_20 }}</td>
+    #             <td>{{ indicator_values[stock.symbol].sma_50 }}</td>
+    #             <td>{{ indicator_values[stock.symbol].rsi_14 }}</td>
+    #             {% endif%} 
+    return templates.TemplateResponse("index.html", {"request": request, "stocks": rows,  "indicator_values":indicator_values, "news": all_news, "g_trends":google_trends})
 
 
 @app.get("/stock/{symbol}")
@@ -123,7 +153,12 @@ def single_stock(request: Request, symbol):
     """, (row['id'],))
     prices = cursor.fetchall()
 
-    return templates.TemplateResponse("single_stock.html", {"request": request, "stock": row, "prices": prices, "strategies": strategies})
+    #gnews custom search for Ticker-Stock, Company Name
+    #fullview-ratings-outer finviz table
+    # search for the best matching articles that mention MSFT and 
+    # do not mention AAPL (over the past 6 month
+# search = gn.search('MSFT -APPL', when = '6m')
+#     return templates.TemplateResponse("single_stock.html", {"request": request, "stock": row, "prices": prices, "strategies": strategies})
 
 @app.post("/apply_strategy")
 def apply_strategy(strategy_id: int = Form(...), stock_id: int = Form(...)):

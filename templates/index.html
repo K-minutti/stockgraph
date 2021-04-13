@@ -17,8 +17,12 @@
 
   <div class="home-item-2 blue-s">
     <div class="grid-item-container">
-      <div class="item-header row">
-        <p>SPY/NQ</p>
+      <div class="item-header row index-header">
+        <div class="row"><i class="fas fa-circle orange dot"></i>SPY</div>
+        <div class="row"><i class="fas fa-circle blue dot"></i>QQQ</div>
+        <div class="row"><i class="fas fa-circle violet dot"></i>DJI</div>
+        <div class="row"><i class="fas fa-circle green dot"></i>IWM</div>
+        <div class="row"><i class="fas fa-circle ice dot"></i>VIXY</div>
       </div>
       <div class="item-main-content">
         <div id="main-home-chart"></div>
@@ -95,46 +99,93 @@
     </div>
   </div>
   <script>
-    const element = document.getElementById("main-home-chart");
-    const chart = LightweightCharts.createChart(element, {
-      width: 300,
-      height: 400,
-      rightPriceScale: {
-        scaleMargins: {
-          top: 0.1,
-          bottom: 0.1,
-        },
-        mode: LightweightCharts.PriceScaleMode.Percentage,
-        borderColor: "rgba(197, 203, 206, 0.4)",
-      },
-    });
-    const lineSeries = chart.addLineSeries();
-    lineSeries.setData([
-      { time: "2019-04-11", value: 80.01 },
-      { time: "2019-04-12", value: 96.63 },
-      { time: "2019-04-13", value: 76.64 },
-      { time: "2019-04-14", value: 81.89 },
-      { time: "2019-04-15", value: 74.43 },
-      { time: "2019-04-16", value: 80.01 },
-      { time: "2019-04-17", value: 96.63 },
-      { time: "2019-04-18", value: 76.64 },
-      { time: "2019-04-19", value: 81.89 },
-      { time: "2019-04-20", value: 74.43 },
-    ]);
+    function getSize() {
+      let element = document.getElementById("main-home-chart");
+      const style = window.getComputedStyle(element);
+      let h = style.height.length - 2;
+      let height = parseInt(style.height.slice(0, h));
+      let w = style.height.length - 2;
+      let width = parseInt(style.width.slice(0, w));
+      return { height: height, width: width };
+    }
 
-    const lineSeries2 = chart.addLineSeries();
-    lineSeries2.setData([
-      { time: "2019-04-11", value: 89.01 },
-      { time: "2019-04-12", value: 111.63 },
-      { time: "2019-04-13", value: 99.64 },
-      { time: "2019-04-14", value: 96.89 },
-      { time: "2019-04-15", value: 89.43 },
-      { time: "2019-04-16", value: 95.01 },
-      { time: "2019-04-17", value: 101.63 },
-      { time: "2019-04-18", value: 78.64 },
-      { time: "2019-04-19", value: 90.89 },
-      { time: "2019-04-20", value: 79.43 },
-    ]);
+    function makeChart() {
+      size = getSize();
+      const element = document.getElementById("main-home-chart");
+      const chart = LightweightCharts.createChart(element, {
+        width: size.width,
+        height: size.height,
+        rightPriceScale: {
+          scaleMargins: {
+            top: 0.1,
+            bottom: 0.1,
+          },
+          mode: LightweightCharts.PriceScaleMode.Percentage,
+          borderColor: "rgba(197, 203, 206, 0.4)",
+        },
+        layout: {
+          backgroundColor: "#00000000",
+          textColor: "#fff",
+        },
+
+        crosshair: {
+          vertLine: {
+            width: 4,
+            color: "rgba(224, 227, 235, 0.1)",
+            style: 0,
+          },
+          horzLine: {
+            visible: false,
+            labelVisible: false,
+          },
+        },
+        grid: {
+          vertLines: {
+            visible: false,
+          },
+          horzLines: {
+            color: "rgba(42, 46, 57, 0.5)",
+          },
+        },
+      });
+      const lineSeries = chart.addLineSeries();
+      const areaSeries = chart.addAreaSeries({
+        topColor: "rgba(67, 83, 254, 0.15)",
+        bottomColor: "rgba(67, 83, 254, 0.01)",
+        lineColor: "rgba(67, 83, 254, 1)",
+        lineWidth: 3,
+      });
+      areaSeries.setData([
+        { time: "2019-04-11", value: 80.01 },
+        { time: "2019-04-12", value: 96.63 },
+        { time: "2019-04-13", value: 76.64 },
+        { time: "2019-04-14", value: 81.89 },
+        { time: "2019-04-15", value: 74.43 },
+        { time: "2019-04-16", value: 80.01 },
+        { time: "2019-04-17", value: 96.63 },
+        { time: "2019-04-18", value: 76.64 },
+        { time: "2019-04-19", value: 81.89 },
+        { time: "2019-04-20", value: 74.43 },
+      ]);
+
+      const lineSeries2 = chart.addLineSeries();
+      lineSeries2.setData([
+        { time: "2019-04-11", value: 89.01 },
+        { time: "2019-04-12", value: 111.63 },
+        { time: "2019-04-13", value: 99.64 },
+        { time: "2019-04-14", value: 96.89 },
+        { time: "2019-04-15", value: 89.43 },
+        { time: "2019-04-16", value: 95.01 },
+        { time: "2019-04-17", value: 101.63 },
+        { time: "2019-04-18", value: 78.64 },
+        { time: "2019-04-19", value: 90.89 },
+        { time: "2019-04-20", value: 79.43 },
+      ]);
+
+      chart.timeScale().fitContent();
+      return chart;
+    }
+    chart = makeChart();
   </script>
 </div>
 {%endblock%}

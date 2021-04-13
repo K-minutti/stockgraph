@@ -169,6 +169,7 @@ input[type="text"] {
 .item-header {
   height: 10%;
   border-bottom: 0.35px solid rgba(152, 152, 152, 0.32);
+  padding: 2px 8px;
 }
 
 .item-main-content {
@@ -250,8 +251,36 @@ tbody tr:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  padding: 0;
   width: 100%;
   height: 100%;
+}
+
+.index-header {
+  justify-content: space-evenly;
+}
+
+.dot {
+  font-size: 8px !important;
+  padding-right: 5px;
+}
+
+.orange {
+  color: #eb6404;
+}
+.blue {
+  color: #1aa9ff;
+}
+.violet {
+  color: #b163ff;
+}
+.green {
+  color: #33e190;
+}
+
+.ice {
+  color: #8ca0d6;
 }
 
 .home-item-3 {

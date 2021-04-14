@@ -5,12 +5,8 @@
       <div class="item-header row">
         <p>Gainers/Decliners</p>
       </div>
-      <div class="item-main-content">
-        <div>CHART</div>
-        <div>S&P 500</div>
-        <div>NASDAQ</div>
-        <div>RUSSELL 2000</div>
-        <div>DOW</div>
+      <div class="item-main-content market-internals-container">
+        <canvas id="myChart" height="200px"></canvas>
       </div>
     </div>
   </div>
@@ -35,7 +31,28 @@
         <p>Market Internals</p>
       </div>
       <div class="item-main-content">
-        <div>CHART</div>
+        <table>
+          <thead>
+            <div class="table-headers-row">
+              <tr>
+                <th>Symbol</th>
+                <th>Change %</th>
+                <th>Symbol</th>
+                <th>Change %</th>
+              </tr>
+            </div>
+          </thead>
+          <tbody>
+            {% for stock in top_stocks%}
+            <tr>
+              <td>{{stock[0].symbol}}</td>
+              <td class="color-up">{{stock[0].change}}</td>
+              <td class="tbody-left-border">{{stock[1].symbol}}</td>
+              <td class="color-down">{{stock[1].change}}</td>
+            </tr>
+            {% endfor%}
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -148,14 +165,71 @@
           },
         },
       });
-      const lineSeries = chart.addLineSeries();
-      const areaSeries = chart.addAreaSeries({
-        topColor: "rgba(67, 83, 254, 0.15)",
-        bottomColor: "rgba(67, 83, 254, 0.01)",
-        lineColor: "rgba(67, 83, 254, 1)",
+
+      const areaSeries1 = chart.addAreaSeries({
+        topColor: "rgba(235, 100, 4, 0.15)",
+        bottomColor: "rgba(235, 100, 4, 0.01)",
+        lineColor: "rgba(235, 100, 4, 1)",
         lineWidth: 3,
       });
-      areaSeries.setData([
+      areaSeries1.setData([
+        { time: "2019-04-11", value: 120.01 },
+        { time: "2019-04-12", value: 76.63 },
+        { time: "2019-04-13", value: 76.64 },
+        { time: "2019-04-14", value: 61.89 },
+        { time: "2019-04-15", value: 54.43 },
+        { time: "2019-04-16", value: 70.01 },
+        { time: "2019-04-17", value: 86.63 },
+        { time: "2019-04-18", value: 86.64 },
+        { time: "2019-04-19", value: 101.89 },
+        { time: "2019-04-20", value: 107.43 },
+      ]);
+
+      const areaSeries2 = chart.addAreaSeries({
+        topColor: "rgba(26, 169, 255, 0.15)",
+        bottomColor: "rgba(26, 169, 255, 0.01)",
+        lineColor: "rgba(26, 169, 255, 1)",
+        lineWidth: 3,
+      });
+      areaSeries2.setData([
+        { time: "2019-04-11", value: 110.01 },
+        { time: "2019-04-12", value: 96.63 },
+        { time: "2019-04-13", value: 86.64 },
+        { time: "2019-04-14", value: 66.89 },
+        { time: "2019-04-15", value: 59.43 },
+        { time: "2019-04-16", value: 67.01 },
+        { time: "2019-04-17", value: 77.63 },
+        { time: "2019-04-18", value: 80.64 },
+        { time: "2019-04-19", value: 91.89 },
+        { time: "2019-04-20", value: 97.43 },
+      ]);
+
+      const areaSeries3 = chart.addAreaSeries({
+        topColor: "rgba(177, 99, 255, 0.15)",
+        bottomColor: "rgba(177, 99, 255, 0.01)",
+        lineColor: "rgba(177, 99, 255, 1)",
+        lineWidth: 3,
+      });
+      areaSeries3.setData([
+        { time: "2019-04-11", value: 115.01 },
+        { time: "2019-04-12", value: 90.63 },
+        { time: "2019-04-13", value: 86.64 },
+        { time: "2019-04-14", value: 96.89 },
+        { time: "2019-04-15", value: 100.43 },
+        { time: "2019-04-16", value: 97.01 },
+        { time: "2019-04-17", value: 97.63 },
+        { time: "2019-04-18", value: 100.64 },
+        { time: "2019-04-19", value: 103.89 },
+        { time: "2019-04-20", value: 107.43 },
+      ]);
+
+      const areaSeries4 = chart.addAreaSeries({
+        topColor: "rgba(51, 225, 144, 0.15)",
+        bottomColor: "rgba(51, 225, 144, 0.01)",
+        lineColor: "rgba(51, 225, 144, 1)",
+        lineWidth: 3,
+      });
+      areaSeries4.setData([
         { time: "2019-04-11", value: 80.01 },
         { time: "2019-04-12", value: 96.63 },
         { time: "2019-04-13", value: 76.64 },
@@ -168,24 +242,67 @@
         { time: "2019-04-20", value: 74.43 },
       ]);
 
-      const lineSeries2 = chart.addLineSeries();
-      lineSeries2.setData([
-        { time: "2019-04-11", value: 89.01 },
-        { time: "2019-04-12", value: 111.63 },
-        { time: "2019-04-13", value: 99.64 },
-        { time: "2019-04-14", value: 96.89 },
-        { time: "2019-04-15", value: 89.43 },
-        { time: "2019-04-16", value: 95.01 },
-        { time: "2019-04-17", value: 101.63 },
-        { time: "2019-04-18", value: 78.64 },
-        { time: "2019-04-19", value: 90.89 },
-        { time: "2019-04-20", value: 79.43 },
+      const areaSeries5 = chart.addAreaSeries({
+        topColor: "rgba(140, 160, 214, 0.15)",
+        bottomColor: "rgba(140, 160, 214, 0.01)",
+        lineColor: "rgba(140, 160, 214, 1)",
+        lineWidth: 3,
+      });
+      areaSeries5.setData([
+        { time: "2019-04-11", value: 40.01 },
+        { time: "2019-04-12", value: 36.63 },
+        { time: "2019-04-13", value: 46.64 },
+        { time: "2019-04-14", value: 31.89 },
+        { time: "2019-04-15", value: 44.43 },
+        { time: "2019-04-16", value: 30.01 },
+        { time: "2019-04-17", value: 36.63 },
+        { time: "2019-04-18", value: 36.64 },
+        { time: "2019-04-19", value: 31.89 },
+        { time: "2019-04-20", value: 34.43 },
       ]);
 
       chart.timeScale().fitContent();
       return chart;
     }
     chart = makeChart();
+  </script>
+  <script>
+    //get rid of background grid and legend,make text color white
+    Chart.defaults.plugins.legend.display = false;
+    Chart.defaults.color = "#fff";
+
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var myChart = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: ["advance", "neutral", "decline"],
+        datasets: [
+          {
+            label: "stocks",
+            barThickness: 18,
+            data: [12, 3, 19],
+            backgroundColor: [
+              "rgba(0, 137, 123, 0.12)",
+              "rgba(209, 212, 220, 0.12)",
+              "rgba(229, 57, 53, 0.12)",
+            ],
+            borderColor: [
+              "rgba(0, 137, 123, 1)",
+              "rgba(209, 212, 220, 1)",
+              "rgba(229, 57, 53, 1)",
+            ],
+            borderWidth: 3,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
   </script>
 </div>
 {%endblock%}

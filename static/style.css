@@ -45,7 +45,7 @@ nav {
   height: 60px;
   background-color: rgba(4, 8, 101, 0.5);
   box-shadow: 0px 4px 10px 0px rgba(4, 12, 33, 0.5);
-  padding: 4px 16px;
+  padding: 0px 16px;
 }
 #logo {
   color: white;
@@ -86,7 +86,7 @@ nav {
   width: 80%;
   min-width: 120px;
   border-radius: 8px;
-  padding: 8px 6px;
+  padding: 4px 6px;
   margin-right: 22px;
   border: thin solid rgba(255, 255, 255, 0.5);
 }
@@ -174,11 +174,20 @@ input[type="text"] {
 
 .item-main-content {
   height: 90%;
+  width: 100%;
   background-color: #09003f;
   border-radius: 0px 0px 10px 10px;
 }
 
 /* <------ TABLES  ------->  */
+
+.color-up {
+  color: rgba(0, 137, 123, 1);
+}
+
+.color-down {
+  color: rgba(229, 57, 53, 1);
+}
 
 table {
   border-collapse: collapse;
@@ -285,6 +294,13 @@ tbody tr:hover {
 
 .home-item-3 {
   grid-area: three;
+}
+
+.market-internals-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .table-headers {

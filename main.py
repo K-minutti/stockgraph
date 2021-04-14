@@ -33,6 +33,7 @@ def index(request: Request):
         google_trends.append({"count": count, "item": f"{obj[0]}"})
         
     #News API / Google News wrapper library
+    # #props - title, link, published, published_parsed
     business = gn.topic_headlines('business')
     technology = gn.topic_headlines('technology')
     bus = business['entries']
@@ -51,37 +52,43 @@ def index(request: Request):
     def sort_by_key(obj):
         return obj['time_stamp']
     all_news.sort(key=sort_by_key, reverse=True)
-    # #props - title, link, published, published_parsed
-    return templates.TemplateResponse("index.html", {"request": request,  "news": all_news, "g_trends":google_trends})
+
+    top_stocks = [({"symbol": "DPW", "change": "90.00"}, {"symbol": "DPW", "change": "-40.00"}),
+    (     {"symbol": "TIRX", "change": "60.00"},     {"symbol": "TIRX", "change": "-36.00"}), 
+    ({"symbol": "MNDO", "change": "56.00"}, {"symbol": "MNDO", "change": "-24.00"}), ({"symbol": "NISN", "change": "48.00"}, {"symbol": "NISN", "change": "-18.00"})]
+    
+    return templates.TemplateResponse("index.html", {"request": request,"top_stocks": top_stocks,  "news": all_news, "g_trends":google_trends})
 
 
 @app.get("/stock/{symbol}")
 def single_stock(request: Request, symbol):
-    connection = sqlite3.connect("app.db")
-    connection.row_factory = sqlite3.Row
-    cursor = connection.cursor()
+    # connection = sqlite3.connect("app.db")
+    # connection.row_factory = sqlite3.Row
+    # cursor = connection.cursor()
 
-    cursor.execute(""" 
-        SELECT * FROM strategy
-    """)
-    strategies = cursor.fetchall()
+    # cursor.execute(""" 
+    #     SELECT * FROM strategy
+    # """)
+    # strategies = cursor.fetchall()
 
-    cursor.execute(""" 
-        SELECT id, symbol, name FROM stock WHERE symbol = ?
-    """, (symbol,))
-    row = cursor.fetchone()
+    # cursor.execute(""" 
+    #     SELECT id, symbol, name FROM stock WHERE symbol = ?
+    # """, (symbol,))
+    # row = cursor.fetchone()
 
-    cursor.execute(""" 
-        SELECT * FROM historical_prices WHERE stock_id = ? ORDER BY date DESC
-    """, (row['id'],))
-    prices = cursor.fetchall()
+    # cursor.execute(""" 
+    #     SELECT * FROM historical_prices WHERE stock_id = ? ORDER BY date DESC
+    # """, (row['id'],))
+    # prices = cursor.fetchall()
 
     #gnews custom search for Ticker-Stock, Company Name
     #fullview-ratings-outer finviz table
     # search for the best matching articles that mention MSFT and 
     # do not mention AAPL (over the past 6 month
-# search = gn.search('MSFT -APPL', when = '6m')
-    return templates.TemplateResponse("single_stock.html", {"request": request, "stock": row, "prices": prices, "strategies": strategies})
+    # search = gn.search('MSFT -APPL', when = '6m')
+    #"stock": row, "prices": prices, "strategies": strategies
+    stock = {"symbol": symbol, "name": symbol}
+    return templates.TemplateResponse("single_stock.html", {"request": request, "stock": stock})
 
 @app.post("/apply_strategy")
 def apply_strategy(strategy_id: int = Form(...), stock_id: int = Form(...)):

@@ -370,7 +370,7 @@ th {
 }
 
 #sidebar-financials {
-  display: none;
+  display: block;
 }
 
 #sidebar-ratings {
@@ -386,7 +386,7 @@ th {
 }
 
 #single-stock-sidebar {
-  width: 4.5%;
+  width: 40%;
   margin-right: 6px;
   transition: width 0.1s;
   -moz-transition: width 0.1s;
@@ -396,7 +396,7 @@ th {
 }
 
 #single-stock-sidebar-open {
-  display: none;
+  display: flex;
   height: 100%;
 }
 
@@ -407,9 +407,9 @@ th {
 }
 
 #single-stock-sidebar-closed {
+  display: none;
   height: 100%;
   padding: 0px 2px;
-  display: flex;
   font-size: 20px;
   flex-direction: column;
   align-items: center;

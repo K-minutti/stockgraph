@@ -3,13 +3,11 @@
     <div class="single-stock-item-1">
       <!-- Sidebar START-->
       <div id="single-stock-sidebar" class="grid-item-container blue-s">
+        
         <div id="single-stock-sidebar-open" class="grid-item-container">
-
-
-
           <div class="item-header row">
             <div class="sidebar-top-row row">
-              <i class="far fa-file-alt financials" onclick="displaySidebarItem('financials')" ></i>
+              <i class="far fa-file-alt financials active" onclick="displaySidebarItem('financials')" ></i>
               <i class="fas fa-award ratings" onclick="displaySidebarItem('ratings')"></i>
               <i class="fas fa-crosshairs strategy" onclick="displaySidebarItem('strategy')"></i>
               <i class="fas fa-spinner related" onclick="displaySidebarItem('related')"></i>
@@ -24,30 +22,41 @@
           </div>
 
           <div class="item-main-content">
-            <div id="sidebar-financials" class="financials">
+            <div id="sidebar-financials" class="financials active">
               <!-- TradingView Widget BEGIN -->
-<div class="tradingview-widget-container" style="font-size: small;">
-  <!-- <div class="tradingview-widget-container__widget"></div> -->
-  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>
-
-{
-  "symbol" :  "{% if stock.exchange == 'ARCA' %}AMEX{%else%}{{stock.exchange}}{%endif%}:{{stock.symbol}}",
-  "colorTheme": "dark",
-  "isTransparent": true,
-  "largeChartUrl": "",
-  "displayMode": "adaptive",
-  "width": "100%",
-  "height": "100%",
-  "locale": "en"}
-  </script>
-</div>
-<!-- TradingView Widget END -->
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>
+                
+                {
+                "symbol": "{% if stock.exchange == 'ARCA' %}AMEX{%else%}{{stock.exchange}}{%endif%}:{{stock.symbol}}",
+                "colorTheme": "dark",
+                "isTransparent": true,
+                "largeChartUrl": "",
+                "displayMode": "regular",
+                "width": "100%",
+                "height": "100%",
+                "locale": "en"
+              }
+                </script>
+              <!-- TradingView Widget END -->
             </div>
             <div id="sidebar-ratings" class="ratings">
               <p>{{stock.symbol}}</p>
               <p>{{stock.name}}</p>
-              <p>RATINGS</p>
-              <p>BRUV</p>
+              <!-- TradingView Widget BEGIN -->
+                <div class="tradingview-widget-container">
+                  <div class="tradingview-widget-container__widget"></div>
+                  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/EURUSD/?exchange=FX" rel="noopener" target="_blank"><span class="blue-text">EURUSD Rates</span></a> by TradingView</div>
+                  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+                  {
+                  "symbol": "FX:EURUSD",
+                  "width": "100%",
+                  "colorTheme": "dark",
+                  "isTransparent": true,
+                  "locale": "en"
+                }
+                  </script>
+                </div>
+              <!-- TradingView Widget END -->
             </div>
             <div id="sidebar-strategy">
               <form method="post" action="/apply_strategy" style="margin: 0; padding:0;">
@@ -68,7 +77,6 @@
             </div>
 
           </div>
-
         </div>
         <!-- Sidebar Closed Default-->
         <div id="single-stock-sidebar-closed">
@@ -118,13 +126,39 @@
     <div class="single-stock-item-2 blue-s">
       <div class="grid-item-container">
         <div class="item-header row">
-          <p>Gainers/Decliners</p>
+          <p>News</p>
         </div>
         <div class="item-main-content">
-          <p>SPY/NQ</p>
-          <p>SPY/NQ</p>
-          <p>SPY/NQ</p>
-          <p>SPY/NQ</p>
+          <div class="grid-item-container home-table">
+            <div class="item-header row">
+              <p>Market News</p>
+            </div>
+      
+            <div class="item-main-content table-container">
+              <table>
+                <thead>
+                  <div class="table-headers-row">
+                    <tr>
+                      <th>Date</th>
+                      <th>Time</th>
+                      <th>Headline</th>
+                    </tr>
+                  </div>
+                </thead>
+                <tbody>
+                  {% for item in news%}
+                  <tr>
+                    <td class="nowrap">{{item.date}}</td>
+                    <td class="tbody-left-border">{{item.time}}</td>
+                    <td class="tbody-left-border">
+                      <a href="{{item.link}}" target="_blank">{{item.title}}</a>
+                    </td>
+                  </tr>
+                  {% endfor%}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -143,7 +177,8 @@
     </div>
   </div>
   <script>
-    let lastClassname;
+    // default dispaly is financials so initialize to class financials
+    let lastClassname = 'financials' 
     function openSidebar(classname){
       document.getElementById("single-stock-sidebar").style.width = "40%";
       document.getElementById("single-stock-sidebar-open").style.display = "flex";

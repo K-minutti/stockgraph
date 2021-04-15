@@ -53,12 +53,10 @@ def index(request: Request):
         return obj['time_stamp']
     all_news.sort(key=sort_by_key, reverse=True)
 
-    top_stocks = [({"symbol": "DPW", "change": "90.00"}, {"symbol": "DPW", "change": "-40.00"}),
-    (     {"symbol": "TIRX", "change": "60.00"},     {"symbol": "TIRX", "change": "-36.00"}), 
+    top_stocks = [({"symbol": "DPW", "change": "90.00"}, {"symbol": "DPW", "change": "-40.00"}),(     {"symbol": "TIRX", "change": "60.00"},     {"symbol": "TIRX", "change": "-36.00"}), 
     ({"symbol": "MNDO", "change": "56.00"}, {"symbol": "MNDO", "change": "-24.00"}), ({"symbol": "NISN", "change": "48.00"}, {"symbol": "NISN", "change": "-18.00"})]
     
     return templates.TemplateResponse("index.html", {"request": request,"top_stocks": top_stocks,  "news": all_news, "g_trends":google_trends})
-
 
 @app.get("/stock/{symbol}")
 def single_stock(request: Request, symbol):
@@ -70,12 +68,10 @@ def single_stock(request: Request, symbol):
     #     SELECT * FROM strategy
     # """)
     # strategies = cursor.fetchall()
-
     # cursor.execute(""" 
     #     SELECT id, symbol, name FROM stock WHERE symbol = ?
     # """, (symbol,))
     # row = cursor.fetchone()
-
     # cursor.execute(""" 
     #     SELECT * FROM historical_prices WHERE stock_id = ? ORDER BY date DESC
     # """, (row['id'],))
@@ -83,12 +79,28 @@ def single_stock(request: Request, symbol):
 
     #gnews custom search for Ticker-Stock, Company Name
     #fullview-ratings-outer finviz table
-    # search for the best matching articles that mention MSFT and 
-    # do not mention AAPL (over the past 6 month
-    # search = gn.search('MSFT -APPL', when = '6m')
     #"stock": row, "prices": prices, "strategies": strategies
+    #Google news search for symbol
+
+    search = gn.search(f'{symbol}', when = '6m') #for symbol stock.exchange:symbol
+    # search_twp gn.search(f'{row.name}', when = '6m') #for name of company - this takes priority as results are better
+    news_search = search['entries']
+    news = []
+    for item in news_search:
+        time_stamp = time.mktime(item['published_parsed'])
+        date_as_dt = datetime.datetime.fromtimestamp(time_stamp) - datetime.timedelta(hours=4)
+        date_str = date_as_dt.strftime('%m-%d')
+        time_str = date_as_dt.strftime('%H:%M:%S')
+        item['time_stamp'] = time_stamp
+        item['date'] = date_str
+        item['time'] = time_str
+        news.append(item)
+    def sort_by_key(obj):
+        return obj['time_stamp']
+    news.sort(key=sort_by_key, reverse=True)
+
     stock = {"symbol": symbol, "name": symbol}
-    return templates.TemplateResponse("single_stock.html", {"request": request, "stock": stock})
+    return templates.TemplateResponse("single_stock.html", {"request": request, "stock": stock, "news":news})
 
 @app.post("/apply_strategy")
 def apply_strategy(strategy_id: int = Form(...), stock_id: int = Form(...)):

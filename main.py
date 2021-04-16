@@ -6,6 +6,7 @@ from fastapi.staticfiles import StaticFiles
 import pandas as pd
 import datetime
 import time
+import requests
 import sqlite3, config
 from pygooglenews import GoogleNews
 gn = GoogleNews()
@@ -82,7 +83,7 @@ def single_stock(request: Request, symbol):
     #"stock": row, "prices": prices, "strategies": strategies
     #Google news search for symbol
 
-    search = gn.search(f'{symbol}', when = '6m') #for symbol stock.exchange:symbol
+    search = gn.search(f'NASDAQ:{symbol}', when = '6m') #for symbol stock.exchange:symbol
     # search_twp gn.search(f'{row.name}', when = '6m') #for name of company - this takes priority as results are better
     news_search = search['entries']
     news = []
@@ -99,8 +100,13 @@ def single_stock(request: Request, symbol):
         return obj['time_stamp']
     news.sort(key=sort_by_key, reverse=True)
 
+    s_twits = requests.get(f"https://api.stocktwits.com/api/2/streams/symbol/{symbol}.json")
+    twits = s_twits.json()
+    stock_twits = twits['messages']
+    # for twit in stock_twits:
+
     stock = {"symbol": symbol, "name": symbol}
-    return templates.TemplateResponse("single_stock.html", {"request": request, "stock": stock, "news":news})
+    return templates.TemplateResponse("single_stock.html", {"request": request, "stock": stock, "news":news, "stock_twits": stock_twits})
 
 @app.post("/apply_strategy")
 def apply_strategy(strategy_id: int = Form(...), stock_id: int = Form(...)):

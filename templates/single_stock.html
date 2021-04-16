@@ -124,54 +124,67 @@
     </div>
     <!-- </bottom two divs> -->
     <div class="single-stock-item-2 blue-s">
-      <div class="grid-item-container">
+      <div class="grid-item-container home-table">
         <div class="item-header row">
           <p>News</p>
         </div>
-        <div class="item-main-content">
-          <div class="grid-item-container home-table">
-            <div class="item-header row">
-              <p>Market News</p>
-            </div>
-      
-            <div class="item-main-content table-container">
-              <table>
-                <thead>
-                  <div class="table-headers-row">
-                    <tr>
-                      <th>Date</th>
-                      <th>Time</th>
-                      <th>Headline</th>
-                    </tr>
-                  </div>
-                </thead>
-                <tbody>
-                  {% for item in news%}
-                  <tr>
-                    <td class="nowrap">{{item.date}}</td>
-                    <td class="tbody-left-border">{{item.time}}</td>
-                    <td class="tbody-left-border">
-                      <a href="{{item.link}}" target="_blank">{{item.title}}</a>
-                    </td>
-                  </tr>
-                  {% endfor%}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+                    <div class="item-main-content table-container">
+                      <table>
+                        <thead>
+                          <div class="table-headers-row">
+                            <tr>
+                              <th>Date</th>
+                              <th>Time</th>
+                              <th>Headline</th>
+                            </tr>
+                          </div>
+                        </thead>
+                        <tbody>
+                          {% for item in news%}
+                          <tr>
+                            <td class="nowrap">{{item.date}}</td>
+                            <td class="tbody-left-border">{{item.time}}</td>
+                            <td class="tbody-left-border">
+                              <a href="{{item.link}}" target="_blank">{{item.title}}</a>
+                            </td>
+                          </tr>
+                          {% endfor%}
+                        </tbody>
+                      </table>
+                    </div>
       </div>
     </div>
     <div class="single-stock-item-3 blue-s">
-      <div class="grid-item-container">
+      <div class="grid-item-container home-table">
         <div class="item-header row">
-          <p>Gainers/Decliners</p>
+          <p>Stock Twits</p>
         </div>
-        <div class="item-main-content">
-          <p>SPY/NQ</p>
-          <p>SPY/NQ</p>
-          <p>SPY/NQ</p>
-          <p>SPY/NQ</p>
+        <div class="item-main-content table-container">
+        <table>
+          <thead>
+            <div class="table-headers-row">
+              <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Message</th>
+              </tr>
+            </div>
+          </thead>
+          <tbody>
+            {% for message in stock_twits%}
+            <tr>
+              <td class="nowrap">DAY</td>
+              <td class="nowrap">TIME</td>
+              <td class="tbody-left-border">
+                <p>{{message.body}}</p>
+                <a>{{message.username}}</a>
+            
+              </td>
+        
+            </tr>
+            {% endfor%}
+          </tbody>
+        </table>
         </div>
       </div>
     </div>

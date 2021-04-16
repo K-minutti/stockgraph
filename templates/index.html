@@ -266,6 +266,7 @@
     }
     chart = makeChart();
   </script>
+  {% block javascript %}
   <script>
     //get rid of background grid and legend,make text color white
     Chart.defaults.plugins.legend.display = false;
@@ -280,7 +281,7 @@
           {
             label: "stocks",
             barThickness: 18,
-            data: [12, 3, 19],
+            data: {{ ad_data }},
             backgroundColor: [
               "rgba(0, 137, 123, 0.12)",
               "rgba(209, 212, 220, 0.12)",
@@ -299,10 +300,20 @@
         scales: {
           y: {
             beginAtZero: true,
+            display: false,
+            grid: {
+              display: false,
+            },
+          },
+          x: {
+            grid: {
+              display: false,
+            },
           },
         },
       },
     });
   </script>
+  {% endblock %}
 </div>
 {%endblock%}

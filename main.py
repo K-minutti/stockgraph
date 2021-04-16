@@ -57,7 +57,7 @@ def index(request: Request):
     top_stocks = [({"symbol": "DPW", "change": "90.00"}, {"symbol": "DPW", "change": "-40.00"}),(     {"symbol": "TIRX", "change": "60.00"},     {"symbol": "TIRX", "change": "-36.00"}), 
     ({"symbol": "MNDO", "change": "56.00"}, {"symbol": "MNDO", "change": "-24.00"}), ({"symbol": "NISN", "change": "48.00"}, {"symbol": "NISN", "change": "-18.00"})]
     
-    return templates.TemplateResponse("index.html", {"request": request,"top_stocks": top_stocks,  "news": all_news, "g_trends":google_trends})
+    return templates.TemplateResponse("index.html", {"request": request,"top_stocks": top_stocks,  "news": all_news, "g_trends":google_trends, "ad_data": [2, 10, 2]})
 
 @app.get("/stock/{symbol}")
 def single_stock(request: Request, symbol):

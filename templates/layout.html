@@ -49,12 +49,59 @@
             <i class="fas fa-search icon-large"></i>
             <input id="nav-searchbar" name="nav-searchbar" type="text" />
           </div>
+
           <a id="login-logout" class="navbar-item"> Logout </a>
         </div>
       </div>
     </nav>
+    <div><ul id="stockList"></ul></div>
+
     <div id="main-ui-container" class="board-container">
       {% block content%} {% endblock%}
     </div>
   </body>
+  <!-- <script>
+    const charactersList = document.getElementById("stockList");
+    const searchBar = document.getElementById("nav-searchbar");
+    let hpCharacters = [];
+
+    searchBar.addEventListener("keyup", (e) => {
+      const searchString = e.target.value.toLowerCase();
+
+      const filteredCharacters = hpCharacters.filter((character) => {
+        return (
+          character.name.toLowerCase().includes(searchString) ||
+          character.house.toLowerCase().includes(searchString)
+        );
+      });
+      displayCharacters(filteredCharacters);
+    });
+
+    const loadCharacters = async () => {
+      try {
+        const res = await fetch("https://hp-api.herokuapp.com/api/characters");
+        hpCharacters = await res.json();
+        displayCharacters(hpCharacters);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    const displayCharacters = (characters) => {
+      const htmlString = characters
+        .map((character) => {
+          return `
+            <li class="character">
+                <h2 class="search-symbol">${character.name}</h2>
+                <p class="symbol-name">House: ${character.house}</p>
+                <img  class="symbol-exchange" src="${character.image}"></img>
+            </li>
+        `;
+        })
+        .join("");
+      charactersList.innerHTML = htmlString;
+    };
+
+    loadCharacters();
+  </script> -->
 </html>

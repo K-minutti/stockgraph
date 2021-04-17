@@ -269,10 +269,12 @@
   {% block javascript %}
   <script>
     //get rid of background grid and legend,make text color white
+
     Chart.defaults.plugins.legend.display = false;
     Chart.defaults.color = "#fff";
 
     var ctx = document.getElementById("myChart").getContext("2d");
+
     var myChart = new Chart(ctx, {
       type: "bar",
       data: {
@@ -313,6 +315,8 @@
         },
       },
     });
+
+    myChart.destroy();
   </script>
   {% endblock %}
 </div>

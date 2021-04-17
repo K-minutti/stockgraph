@@ -35,6 +35,14 @@ a:visited {
   border-radius: 8px;
 }
 
+.text-small {
+  font-size: 10px;
+}
+
+.bold {
+  font-weight: 800;
+}
+
 /* 
 <------------- NAV BAR  -------------------------------->
 */
@@ -64,6 +72,13 @@ nav {
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .navbar-items-container {

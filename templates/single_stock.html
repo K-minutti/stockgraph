@@ -160,25 +160,22 @@
           <p>Stock Twits</p>
         </div>
         <div class="item-main-content table-container">
-        <table>
-          <thead>
-            <div class="table-headers-row">
-              <tr>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Message</th>
-              </tr>
-            </div>
-          </thead>
+        <table >
           <tbody>
             {% for message in stock_twits%}
             <tr>
-              <td class="nowrap">DAY</td>
-              <td class="nowrap">TIME</td>
-              <td class="tbody-left-border">
+              <td>
+                <div class="column" style="width: 100%; height: 100%;">
+                  <img src="{{message.user.avatar_url}}">
+                </div>
+          
+              </td>
+              <td class="tbody-left-border" >
+                <div style="width: 100%; height: 100%; padding-left: 6px;">
+                <p class="bold ice">{{ message.user.username}}</p>
                 <p>{{message.body}}</p>
-                <a>{{message.username}}</a>
-            
+                <a class="text-small">{{message.created_at}}</a>
+              </div>
               </td>
         
             </tr>

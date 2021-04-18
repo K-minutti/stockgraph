@@ -24,7 +24,7 @@ def index(request: Request):
     connection.row_factory = sqlite3.Row
     cursor = connection.cursor()
     cursor.execute(""" 
-        SELECT symbol, name, exchange FROM stock
+        SELECT symbol, name, exchange FROM stock ORDER BY symbol
     """)
     all_stocks = cursor.fetchall()
 

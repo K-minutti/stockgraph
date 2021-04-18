@@ -134,42 +134,6 @@ input[type="text"] {
   font-size: 18px;
 }
 
-#stockList {
-  padding-inline-start: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  grid-gap: 8px;
-  height: 100px;
-  width: 100%;
-  border: solid 2px red;
-  position: absolute;
-  margin-left: auto;
-  margin-right: auto;
-  left: 0;
-  right: 0;
-  text-align: center;
-}
-
-.search-symbol {
-  list-style-type: none;
-  background-color: yellowgreen;
-  padding: 5px 10px;
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  grid-template-areas: "ticker name exchange";
-  text-align: left;
-}
-.search-symbol > h5 {
-  grid-area: ticker;
-}
-.symbol-name {
-  grid-area: name;
-}
-
-.symbol-exchange {
-  grid-area: exchange;
-}
-
 .navbar-item {
   padding: 8px;
   border-radius: 6px;
@@ -187,6 +151,46 @@ input[type="text"] {
 
 #login-logout {
   background-color: #1aa9ff;
+}
+
+/* <--------- Search - Items ------->*/
+.search-items-container {
+  position: absolute;
+  z-index: 1000;
+  top: 60px;
+  right: 0;
+  max-height: 300px;
+  width: 360px;
+
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+#stockList {
+  display: grid;
+  color: white;
+  grid-template-columns: 1fr;
+  grid-gap: 0px;
+  background-color: #09003f;
+}
+
+.search-symbol {
+  list-style-type: none;
+  padding: 5px 10px;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-areas: "ticker name exchange";
+  text-align: left;
+}
+.symbol > h5 {
+  grid-area: ticker;
+}
+.symbol-name {
+  grid-area: name;
+}
+
+.symbol-exchange {
+  grid-area: exchange;
 }
 
 /* 

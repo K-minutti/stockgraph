@@ -32,6 +32,11 @@
       src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.1.0/dist/chart.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+    ></script>
     <title>Stockgraph</title>
   </head>
   <body id="body-main-container">
@@ -54,7 +59,17 @@
         </div>
       </div>
     </nav>
-    <div><ul id="stockList"></ul></div>
+    <div class="search-items-container" style="border: solid 2px red">
+      <ul id="stockList">
+        {% for stock in all_stocks%}
+        <li class="search-symbol">
+          <p class="symbol">{{stock.symbol}}</p>
+          <p class="symbol-name">{{stock.name}}</p>
+          <p class="symbol-name">{{stock.exchange}}</p>
+        </li>
+        {% endfor%}
+      </ul>
+    </div>
 
     <div id="main-ui-container" class="board-container">
       {% block content%} {% endblock%}
@@ -71,7 +86,7 @@
       const filteredCharacters = hpCharacters.filter((character) => {
         return (
           character.name.toLowerCase().includes(searchString) ||
-          character.house.toLowerCase().includes(searchString)
+          character.symbol.toLowerCase().includes(searchString)
         );
       });
       displayCharacters(filteredCharacters);
@@ -81,6 +96,7 @@
       try {
         const res = await fetch("https://hp-api.herokuapp.com/api/characters");
         hpCharacters = await res.json();
+
         displayCharacters(hpCharacters);
       } catch (err) {
         console.error(err);
@@ -93,8 +109,8 @@
           return `
             <li class="character">
                 <h2 class="search-symbol">${character.name}</h2>
-                <p class="symbol-name">House: ${character.house}</p>
-                <img  class="symbol-exchange" src="${character.image}"></img>
+                <p class="symbol-name">House: ${character.symbol}</p>
+                <img  class="symbol-exchange" src="${character.exchange}"></img>
             </li>
         `;
         })

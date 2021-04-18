@@ -125,7 +125,7 @@ def apply_strategy(strategy_id: int = Form(...), stock_id: int = Form(...)):
     return RedirectResponse(url=f"/strategy/{strategy_id}", status_code=303)
 
 
-@app.get("/strategies")
+@app.get("/screener")
 def strategies(request: Request):
     stock_filter = request.query_params.get('filter', False)
     connection = sqlite3.connect("app.db")
@@ -204,7 +204,7 @@ def strategies(request: Request):
     """)
 
     strategies = cursor.fetchall()
-    return templates.TemplateResponse("strategies.html", {"request" : request, "stocks": rows,  "indicator_values":indicator_values,"strategies": strategies})
+    return templates.TemplateResponse("screener.html", {"request" : request, "stocks": rows,  "indicator_values":indicator_values,"strategies": strategies})
 
 @app.get("/orders")
 def orders(request: Request):
@@ -236,4 +236,4 @@ def strategy(request: Request, strategy_id):
         WHERE strategy_id = ?
     """, (strategy_id,))
     stocks = cursor.fetchall()
-    return templates.TemplateResponse("strategy.html", {"request": request, "stocks": stocks, "strategy": strategy})
+    return templates.TemplateResponse("screener.html", {"request": request, "stocks": stocks, "strategy": strategy})

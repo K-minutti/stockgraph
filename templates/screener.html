@@ -1,0 +1,104 @@
+{% extends "layout.html" %} {% block content%}
+<div id="screener" class="grid-container">
+  <div class="screener-item-1">
+    <div>
+      <form method="get">
+        <div class="row">
+          <label for="standard-select">Highs/Lows</label>
+          <div class="select">
+            <select id="standard-select-1" name="high_low_filter">
+              <option {% if request.query_params.filter == "new_closing_highs" %} selected="selected"{%endif%} value="new_closing_highs">New Closing Highs</option>
+              <option {% if request.query_params.filter == "new_closing_lows" %} selected="selected"{%endif%} value="new_closing_lows">New Closing Lows</option>
+              <option value="Option length">
+                Option that has too long of a value to fit
+              </option>
+            </select>
+          </div>
+          <label for="standard-select-2">RSI(14)</label>
+          <div class="select">
+            <select id="standard-select">
+              
+              <option {% if request.query_params.filter == "rsi_overbought" %} selected="selected"{%endif%} value="rsi_overbought">RSI Overbought</option>
+              <option {% if request.query_params.filter == "rsi_oversold" %} selected="selected"{%endif%} value="rsi_oversold">RSI Oversold</option>
+              <option value="Option 5">Option 5</option>
+              <option value="Option length">
+                Option that has too long of a value to fit
+              </option>
+            </select>
+          </div>
+          <label for="standard-select">SMA(50)</label>
+          <div class="select">
+            <select id="standard-select-3">
+              <option {% if request.query_params.filter == "under_sma_50" %} selected="selected"{%endif%} value="under_sma_50">Under SMA 50D</option>
+              <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over SMA 50D</option>
+              <option value="Option 5">Option 5</option>
+              <option value="Option length">
+                Option that has too long of a value to fit
+              </option>
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="item-2 blue-s">
+    <!-- <table class="ui selectable inverted table">
+      <thead>
+        <tr>
+          <th>Strategy Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for strategy in strategies%}
+        <tr>
+          <td>
+            <a href="/strategy/{{strategy.id}}"> {{ strategy.name }} </a>
+          </td>
+        </tr>
+        {% endfor%}
+      </tbody>
+    </table> -->
+        <div class="grid-item-container home-table">
+          <div class="item-main-content table-container">
+            <table>
+              <thead>
+                <div class="table-headers-row">
+                  <tr>
+                    <th>Symbol</th>
+                    <th>Change %</th>
+                    <th>Symbol</th>
+                    <th>Change %</th>
+                    <th>Change %</th>
+                  </tr>
+                </div>
+              </thead>
+              <tbody>
+                {% for stock in stocks%}
+                <tr>
+                  <td>{{ stock.symbol }}</td>
+                  {% if indicator_values[stock.symbol] %}
+                  <td>{{ indicator_values[stock.symbol].close }}</td>
+                  <td>{{ indicator_values[stock.symbol].sma_20 }}</td>
+                  <td>{{ indicator_values[stock.symbol].sma_50 }}</td>
+                  <td>{{ indicator_values[stock.symbol].rsi_14 }}</td>
+                  {% endif%}
+                </tr>
+                {% endfor%}
+              </tbody>
+            </table>
+          </div>
+        </div>
+  </div>
+  <div class="item-3">
+    <div class="pagination">
+      <a href="#">&#10094;</a>
+      <a href="#">1</a>
+      <a href="#" class="active">2</a>
+      <a href="#">3</a>
+      <a href="#">4</a>
+      <a href="#">&#10095;</a>
+    </div>
+  </div>
+</div>
+
+{%endblock%}

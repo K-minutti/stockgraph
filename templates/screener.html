@@ -81,8 +81,7 @@
     </div>
   </div>
   <div class="screener-item-2">
-        <div class="grid-item-container screen-table">
-          <div class="item-main-content table-container">
+        <div class="grid-item-container screen-table-container">
             <table>
               <thead>
                 <div class="table-headers-row">
@@ -96,7 +95,7 @@
                 </div>
               </thead>
               <tbody>
-                {% for stock in stocks%}
+                {% for stock in stocks[:20]%}
                 <tr>
                   <td>{{ stock.symbol }}</td>
                   {% if indicator_values[stock.symbol] %}
@@ -109,10 +108,9 @@
                 {% endfor%}
               </tbody>
             </table>
-          </div>
         </div>
   </div>
-  <div class="item-3">
+  <div class="screener-item-3">
     <div class="pagination">
       <a href="#">&#10094;</a>
       <a href="#">1</a>

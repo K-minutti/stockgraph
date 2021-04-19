@@ -49,27 +49,32 @@
           <a href="/orders" class="navbar-item">Order History</a>
           <a href="/study" class="navbar-item">Study</a>
         </div>
-        <div class="navbar-items-right row">
-          <div class="searchbar-container row">
-            <i class="fas fa-search icon-large"></i>
-            <input id="nav-searchbar" name="nav-searchbar" type="text" />
-          </div>
+        <div class="navbar-items-right">
+          <div id="nav-right-search-grid" class="grid-item-container">
+            <div class="navbar-right-grid-item-1 row">
+              <div class="searchbar-container row">
+                <i class="fas fa-search icon-large"></i>
+                <input id="nav-searchbar" name="nav-searchbar" type="text" />
+              </div>
 
-          <a id="login-logout" class="navbar-item"> Logout </a>
+              <a id="login-logout" class="navbar-item"> Logout </a>
+            </div>
+
+            <div class="search-results-container">
+              <ul id="stockList">
+                {% for stock in all_stocks[:20]%}
+                <li class="search-symbol row">
+                  <p class="symbol">{{stock.symbol}}</p>
+                  <p class="symbol-name">{{stock.name}}</p>
+                  <p class="symbol-exchange">{{stock.exchange}}</p>
+                </li>
+                {% endfor%}
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </nav>
-    <!-- <div class="search-items-container" style="border: solid 2px red">
-      <ul id="stockList">
-        {% for stock in all_stocks[:12]%}
-        <li class="search-symbol">
-          <p class="symbol">{{stock.symbol}}</p>
-          <p class="symbol-name">{{stock.name}}</p>
-          <p class="symbol-name">{{stock.exchange}}</p>
-        </li>
-        {% endfor%}
-      </ul>
-    </div> -->
 
     <div id="main-ui-container" class="board-container">
       {% block content%} {% endblock%}

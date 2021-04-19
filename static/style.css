@@ -94,6 +94,7 @@ nav {
 .navbar-items-right {
   width: 38%;
   justify-content: flex-start;
+  padding-top: 4px;
   padding-right: 32px;
 }
 
@@ -130,6 +131,22 @@ input[type="text"] {
   text-shadow: 0.5px 0.5px 1px rgba(240, 248, 255, 0.4);
 }
 
+#nav-right-search-grid {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    "main"
+    "search";
+}
+
+.navbar-right-grid-item-1 {
+  grid-area: main;
+}
+
+.search-results-container {
+  grid-area: search;
+}
+
 .icon-large {
   font-size: 18px;
 }
@@ -154,42 +171,38 @@ input[type="text"] {
 }
 
 /* <--------- Search - Items ------->*/
-.search-items-container {
-  position: absolute;
+.search-results-container {
+  position: relative;
   z-index: 1000;
-  top: 60px;
+  top: 0px;
   right: 0;
-  max-height: 300px;
-  width: 360px;
+  width: 400px;
+  padding-top: 0;
 }
 
 #stockList {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   color: white;
-  grid-template-columns: 1fr;
-  grid-gap: 0px;
+  max-height: 280px;
+  font-size: 12px;
   background-color: #09003f;
+  padding: 0px 4px;
   overflow: scroll;
   overflow-x: hidden;
+  border: 1px solid salmon;
+}
+
+#stockList::-webkit-scrollbar {
+  display: none;
 }
 
 .search-symbol {
-  list-style-type: none;
-  padding: 5px 10px;
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  grid-template-areas: "ticker name exchange";
-  text-align: left;
-}
-.symbol > h5 {
-  grid-area: ticker;
-}
-.symbol-name {
-  grid-area: name;
-}
-
-.symbol-exchange {
-  grid-area: exchange;
+  border: 1px solid olivedrab;
+  height: 30px;
+  /* flex-direction: row;
+  align-items: center;
+  justify-content: center; */
 }
 
 /* 
@@ -566,7 +579,7 @@ input[type="submit"] {
 }
 
 .screen-table-container {
-  width: 94%;
+  width: 92%;
   height: 100%;
   background-color: #09003f;
   padding-top: 20px;

@@ -86,13 +86,13 @@ nav {
   height: 40px;
 }
 .navbar-items-left {
-  width: 60%;
+  width: 62%;
   justify-content: space-evenly;
   padding: 0px 12px;
 }
 
 .navbar-items-right {
-  width: 40%;
+  width: 38%;
   justify-content: flex-start;
   padding-right: 32px;
 }
@@ -161,9 +161,6 @@ input[type="text"] {
   right: 0;
   max-height: 300px;
   width: 360px;
-
-  overflow: scroll;
-  overflow-x: hidden;
 }
 
 #stockList {
@@ -172,6 +169,8 @@ input[type="text"] {
   grid-template-columns: 1fr;
   grid-gap: 0px;
   background-color: #09003f;
+  overflow: scroll;
+  overflow-x: hidden;
 }
 
 .search-symbol {
@@ -506,8 +505,8 @@ th {
 #screener {
   height: 100%;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(3, 1fr);
-  gap: 60px 6px;
+  grid-template-rows: 1fr 6fr 1fr;
+  gap: 20px 6px;
   grid-template-areas:
     "one"
     "two"
@@ -516,9 +515,60 @@ th {
 
 .screener-item-1 {
   grid-area: one;
+  max-height: 120px;
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
+}
+
+.screener-form {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.screener-form > form {
+  width: 92%;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  padding: 20px 8px;
+  background-color: #09003f;
+  justify-content: space-evenly;
+}
+
+input[type="submit"] {
+  background-color: #a5a5b0;
+  color: white;
+  padding: 2px 10px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+}
+
+.screen-select > select {
+  width: 120px;
+  font-size: 10px;
+}
+
+.screener-item-2 {
+  grid-area: two;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.screen-table {
+  width: 96%;
+  max-height: 60vh;
 }
 
 .pagination {

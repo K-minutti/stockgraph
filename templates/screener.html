@@ -1,64 +1,87 @@
 {% extends "layout.html" %} {% block content%}
 <div id="screener" class="grid-container">
   <div class="screener-item-1">
-    <div>
+    <div class="screener-form">
       <form method="get">
-        <div class="row">
-          <label for="standard-select">Highs/Lows</label>
-          <div class="select">
-            <select id="standard-select-1" name="high_low_filter">
-              <option {% if request.query_params.filter == "new_closing_highs" %} selected="selected"{%endif%} value="new_closing_highs">New Closing Highs</option>
-              <option {% if request.query_params.filter == "new_closing_lows" %} selected="selected"{%endif%} value="new_closing_lows">New Closing Lows</option>
-              <option value="Option length">
-                Option that has too long of a value to fit
-              </option>
-            </select>
-          </div>
-          <label for="standard-select-2">RSI(14)</label>
-          <div class="select">
-            <select id="standard-select">
+              <div class="screen-select">
+                <label for="standard-select">Highs/Lows</label>
+                <select id="standard-select-1" name="high_low_filter">
+                  <option {% if request.query_params.filter == "new_closing_highs" %} selected="selected"{%endif%} value="new_closing_highs">New Closing Highs</option>
+                  <option {% if request.query_params.filter == "new_closing_lows" %} selected="selected"{%endif%} value="new_closing_lows">New Closing Lows</option>
+                  <option value="Option length">
+                    Option that has too long of a value to fit
+                  </option>
+                </select>
+              </div>
+          
+
+              <div class="screen-select">
+                <label for="standard-select-2">RSI(14)</label>
+                <select id="standard-select">
+                  
+                  <option {% if request.query_params.filter == "rsi_overbought" %} selected="selected"{%endif%} value="rsi_overbought">RSI Overbought</option>
+                  <option {% if request.query_params.filter == "rsi_oversold" %} selected="selected"{%endif%} value="rsi_oversold">RSI Oversold</option>
+                  <option value="Option 5">Option 5</option>
+                  <option value="Option length">
+                    Option that has too long of a value to fit
+                  </option>
+                </select>
+              </div>
               
-              <option {% if request.query_params.filter == "rsi_overbought" %} selected="selected"{%endif%} value="rsi_overbought">RSI Overbought</option>
-              <option {% if request.query_params.filter == "rsi_oversold" %} selected="selected"{%endif%} value="rsi_oversold">RSI Oversold</option>
-              <option value="Option 5">Option 5</option>
-              <option value="Option length">
-                Option that has too long of a value to fit
-              </option>
-            </select>
-          </div>
-          <label for="standard-select">SMA(50)</label>
-          <div class="select">
-            <select id="standard-select-3">
-              <option {% if request.query_params.filter == "under_sma_50" %} selected="selected"{%endif%} value="under_sma_50">Under SMA 50D</option>
-              <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over SMA 50D</option>
-              <option value="Option 5">Option 5</option>
-              <option value="Option length">
-                Option that has too long of a value to fit
-              </option>
-            </select>
-          </div>
-        </div>
+              <div class="screen-select">
+                <label for="standard-select">SMA(50)</label>
+                <select id="standard-select-3">
+                  <option {% if request.query_params.filter == "under_sma_50" %} selected="selected"{%endif%} value="under_sma_50">Under SMA 50D</option>
+                  <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over SMA 50D</option>
+                  <option value="Option 5">Option 5</option>
+                  <option value="Option length">
+                    Option that has too long of a value to fit
+                  </option>
+                </select>
+              </div>
+
+              <div class="screen-select">
+                <label for="standard-select">SMA(20)</label>
+                <select id="standard-select-4">
+                  <option {% if request.query_params.filter == "under_sma_50" %} selected="selected"{%endif%} value="under_sma_50">Under SMA 50D</option>
+                  <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over SMA 50D</option>
+                  <option value="Option 5">Option 5</option>
+                  <option value="Option length">
+                    Option that has too long of a value to fit
+                  </option>
+                </select>
+              </div>
+              
+              <div class="screen-select">
+                <label for="standard-select">Current Volume</label>
+                <select id="standard-select-4">
+                  <option {% if request.query_params.filter == "under_sma_50" %} selected="selected"{%endif%} value="under_sma_50">Under SMA 50D</option>
+                  <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over SMA 50D</option>
+                  <option value="Option 5">Option 5</option>
+                  <option value="Option length">
+                    Option that has too long of a value to fit
+                  </option>
+                </select>
+              </div>
+
+              <div class="screen-select">
+                <label for="standard-select">Change %</label>
+                <select id="standard-select-4">
+                  <option {% if request.query_params.filter == "under_sma_50" %} selected="selected"{%endif%} value="under_sma_50">Under SMA 50D</option>
+                  <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over SMA 50D</option>
+                  <option value="Option 5">Option 5</option>
+                  <option value="Option length">
+                    Option that has too long of a value to fit
+                  </option>
+                </select>
+              </div>
+              
+              <input type="submit" value="Submit">
       </form>
     </div>
   </div>
-  <div class="item-2 blue-s">
-    <!-- <table class="ui selectable inverted table">
-      <thead>
-        <tr>
-          <th>Strategy Name</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for strategy in strategies%}
-        <tr>
-          <td>
-            <a href="/strategy/{{strategy.id}}"> {{ strategy.name }} </a>
-          </td>
-        </tr>
-        {% endfor%}
-      </tbody>
-    </table> -->
-        <div class="grid-item-container home-table">
+  <div class="screener-item-2">
+        <div class="grid-item-container screen-table">
           <div class="item-main-content table-container">
             <table>
               <thead>

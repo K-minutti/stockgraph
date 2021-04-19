@@ -45,7 +45,7 @@
       <div class="navbar-items-container row">
         <div class="navbar-items-left row">
           <a href="/" class="navbar-item">Home</a>
-          <a href="/strategies" class="navbar-item">Strategies</a>
+          <a href="/screener" class="navbar-item">Screener</a>
           <a href="/orders" class="navbar-item">Order History</a>
           <a href="/study" class="navbar-item">Study</a>
         </div>
@@ -59,9 +59,9 @@
         </div>
       </div>
     </nav>
-    <div class="search-items-container" style="border: solid 2px red">
+    <!-- <div class="search-items-container" style="border: solid 2px red">
       <ul id="stockList">
-        {% for stock in all_stocks%}
+        {% for stock in all_stocks[:12]%}
         <li class="search-symbol">
           <p class="symbol">{{stock.symbol}}</p>
           <p class="symbol-name">{{stock.name}}</p>
@@ -69,12 +69,13 @@
         </li>
         {% endfor%}
       </ul>
-    </div>
+    </div> -->
 
     <div id="main-ui-container" class="board-container">
       {% block content%} {% endblock%}
     </div>
   </body>
+
   <!-- <script>
     const charactersList = document.getElementById("stockList");
     const searchBar = document.getElementById("nav-searchbar");

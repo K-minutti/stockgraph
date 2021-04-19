@@ -17,6 +17,7 @@ pytrends = TrendReq(hl='en-US', tz=300)
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
+    
 
 @app.get("/")
 def index(request: Request):
@@ -203,8 +204,16 @@ def strategies(request: Request):
         select * from strategy
     """)
 
+    connection = sqlite3.connect("app.db")
+    connection.row_factory = sqlite3.Row
+    cursor = connection.cursor()
+    cursor.execute(""" 
+        SELECT symbol, name, exchange FROM stock ORDER BY symbol
+    """)
+    all_stocks = cursor.fetchall()
+
     strategies = cursor.fetchall()
-    return templates.TemplateResponse("screener.html", {"request" : request, "stocks": rows,  "indicator_values":indicator_values,"strategies": strategies})
+    return templates.TemplateResponse("screener.html", {"request" : request, "stocks": rows,  "indicator_values":indicator_values,"strategies": strategies, "all_stocks": all_stocks})
 
 @app.get("/orders")
 def orders(request: Request):

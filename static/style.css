@@ -176,8 +176,9 @@ input[type="text"] {
   z-index: 1000;
   top: 0px;
   right: 0;
-  width: 400px;
+  width: 420px;
   padding-top: 0;
+  display: none;
 }
 
 #stockList {
@@ -190,7 +191,7 @@ input[type="text"] {
   padding: 0px 4px;
   overflow: scroll;
   overflow-x: hidden;
-  border: 1px solid salmon;
+  border-radius: 0px 0px 12px 12px;
 }
 
 #stockList::-webkit-scrollbar {
@@ -199,10 +200,23 @@ input[type="text"] {
 
 .search-symbol {
   border: 1px solid olivedrab;
-  height: 30px;
-  /* flex-direction: row;
-  align-items: center;
-  justify-content: center; */
+  padding: 8px;
+}
+
+.symbol {
+  width: 50px;
+}
+
+.symbol-name {
+  width: 300px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+}
+
+.symbol-exchange {
+  width: 70px;
+  padding-left: 10px;
 }
 
 /* 

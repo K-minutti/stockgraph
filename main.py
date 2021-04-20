@@ -66,10 +66,13 @@ def index(request: Request):
 
 @app.get("/stock/{symbol}")
 def single_stock(request: Request, symbol):
-    # connection = sqlite3.connect("app.db")
-    # connection.row_factory = sqlite3.Row
-    # cursor = connection.cursor()
-
+    connection = sqlite3.connect("app.db")
+    connection.row_factory = sqlite3.Row
+    cursor = connection.cursor()
+    cursor.execute(""" 
+        SELECT symbol, name, exchange FROM stock ORDER BY symbol
+    """)
+    all_stocks = cursor.fetchall()
     # cursor.execute(""" 
     #     SELECT * FROM strategy
     # """)
@@ -111,7 +114,7 @@ def single_stock(request: Request, symbol):
     # for twit in stock_twits:
 
     stock = {"symbol": symbol, "name": symbol}
-    return templates.TemplateResponse("single_stock.html", {"request": request, "stock": stock, "news":news, "stock_twits": stock_twits})
+    return templates.TemplateResponse("single_stock.html", {"request": request, "stock": stock, "news":news, "stock_twits": stock_twits, "all_stocks": all_stocks})
 
 @app.post("/apply_strategy")
 def apply_strategy(strategy_id: int = Form(...), stock_id: int = Form(...)):

@@ -60,14 +60,17 @@
               <a id="login-logout" class="navbar-item"> Logout </a>
             </div>
 
-            <div class="search-results-container">
+            <div id="stockList-container" class="search-results-container">
               <ul id="stockList">
-                {% for stock in all_stocks[:20]%}
-                <li class="search-symbol row">
-                  <p class="symbol">{{stock.symbol}}</p>
-                  <p class="symbol-name">{{stock.name}}</p>
-                  <p class="symbol-exchange">{{stock.exchange}}</p>
-                </li>
+                {% for stock in all_stocks%}
+                <a href="/stock/{{stock.symbol}}">
+                  <li class="search-symbol row">
+                    <div class="symbol">{{stock.symbol}}</div>
+
+                    <div class="symbol-name">{{stock.name}}</div>
+                    <div class="symbol-exchange">{{stock.exchange}}</div>
+                  </li>
+                </a>
                 {% endfor%}
               </ul>
             </div>
@@ -80,50 +83,32 @@
       {% block content%} {% endblock%}
     </div>
   </body>
+  <script>
+    $("#nav-searchbar").keyup(function () {
+      document.getElementById("stockList-container").style.display = "block";
+      const regex = new RegExp($("#nav-searchbar").val(), "i");
+      const rows = $("#stockList li");
 
-  <!-- <script>
-    const charactersList = document.getElementById("stockList");
-    const searchBar = document.getElementById("nav-searchbar");
-    let hpCharacters = [];
-
-    searchBar.addEventListener("keyup", (e) => {
-      const searchString = e.target.value.toLowerCase();
-
-      const filteredCharacters = hpCharacters.filter((character) => {
-        return (
-          character.name.toLowerCase().includes(searchString) ||
-          character.symbol.toLowerCase().includes(searchString)
-        );
+      rows.each(function (index) {
+        symbol = $(this).children(".symbol").html();
+        if (symbol.search(regex) != -1) {
+          $(this).show();
+        } else {
+          $(this).hide();
+        }
       });
-      displayCharacters(filteredCharacters);
     });
 
-    const loadCharacters = async () => {
-      try {
-        const res = await fetch("https://hp-api.herokuapp.com/api/characters");
-        hpCharacters = await res.json();
-
-        displayCharacters(hpCharacters);
-      } catch (err) {
-        console.error(err);
+    $("#nav-searchbar").keyup(function () {
+      const string = $("#nav-searchbar").val();
+      const val = string.trim();
+      if (val == "" || val == " ") {
+        document.getElementById("stockList-container").style.display = "none";
       }
-    };
+    });
 
-    const displayCharacters = (characters) => {
-      const htmlString = characters
-        .map((character) => {
-          return `
-            <li class="character">
-                <h2 class="search-symbol">${character.name}</h2>
-                <p class="symbol-name">House: ${character.symbol}</p>
-                <img  class="symbol-exchange" src="${character.exchange}"></img>
-            </li>
-        `;
-        })
-        .join("");
-      charactersList.innerHTML = htmlString;
-    };
-
-    loadCharacters();
-  </script> -->
+    $("#nav-searchbar").focusout(function () {
+      document.getElementById("stockList-container").style.display = "none";
+    });
+  </script>
 </html>

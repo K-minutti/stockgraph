@@ -193,7 +193,7 @@ def strategies(request: Request):
     rows = cursor.fetchall()
 
     cursor.execute(""" 
-        select symbol, sma_20, sma_50, rsi_14, close
+        select symbol, name, sma_20, sma_50, rsi_14, close
         from stock join historical_prices on historical_prices.stock_id = stock.id
         where date = (select max(date) from historical_prices)
     """)

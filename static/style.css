@@ -600,6 +600,11 @@ input[type="submit"] {
   border-radius: 10px;
 }
 
+.screener-table tbody tr td {
+  border-left: 0.3px solid rgba(152, 152, 152, 0.35);
+  border-right: 0.3px solid rgba(152, 152, 152, 0.35);
+}
+
 .screener-item-3 {
   grid-area: three;
 }

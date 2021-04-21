@@ -3,7 +3,7 @@
   <div class="home-item-1 blue-s">
     <div class="grid-item-container">
       <div class="item-header row">
-        <p>Gainers/Decliners</p>
+        <p>Advance / Decline</p>
       </div>
       <div class="item-main-content market-internals-container">
         <canvas id="myChart" height="200px"></canvas>
@@ -28,10 +28,10 @@
   <div class="home-item-3 blue-s">
     <div class="grid-item-container">
       <div class="item-header row">
-        <p>Market Internals</p>
+        <p>Top Gainers / Decliners</p>
       </div>
       <div class="item-main-content">
-        <table>
+        <table class="gd-table">
           <thead>
             <div class="table-headers-row">
               <tr>
@@ -45,9 +45,13 @@
           <tbody>
             {% for stock in top_stocks%}
             <tr>
-              <td>{{stock[0].symbol}}</td>
+              <td>
+                <a href="/stock/{{stock[0].symbol}}">{{stock[0].symbol}}</a>
+              </td>
               <td class="color-up">{{stock[0].change}}</td>
-              <td class="tbody-left-border">{{stock[1].symbol}}</td>
+              <td class="tbody-left-border">
+                <a href="/stock/{{stock[0].symbol}}">{{stock[1].symbol}}</a>
+              </td>
               <td class="color-down">{{stock[1].change}}</td>
             </tr>
             {% endfor%}
@@ -115,7 +119,54 @@
       </div>
     </div>
   </div>
+  {% block javascript %}
   <script>
+    Chart.defaults.plugins.legend.display = false;
+    Chart.defaults.color = "#fff";
+
+    var ctx = document.getElementById("myChart").getContext("2d");
+
+    var myChart = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: ["advance", "neutral", "decline"],
+        datasets: [
+          {
+            label: "stocks",
+            barThickness: 18,
+            data: {{ ad_data }},
+            backgroundColor: [
+              "rgba(0, 137, 123, 0.12)",
+              "rgba(209, 212, 220, 0.12)",
+              "rgba(229, 57, 53, 0.12)",
+            ],
+            borderColor: [
+              "rgba(0, 137, 123, 1)",
+              "rgba(209, 212, 220, 1)",
+              "rgba(229, 57, 53, 1)",
+            ],
+            borderWidth: 3,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            display: false,
+            grid: {
+              display: false,
+            },
+          },
+          x: {
+            grid: {
+              display: false,
+            },
+          },
+        },
+      },
+    });
+
     function getSize() {
       let element = document.getElementById("main-home-chart");
       const style = window.getComputedStyle(element);
@@ -173,16 +224,16 @@
         lineWidth: 3,
       });
       areaSeries1.setData([
-        { time: "2019-04-11", value: 120.01 },
-        { time: "2019-04-12", value: 76.63 },
-        { time: "2019-04-13", value: 76.64 },
-        { time: "2019-04-14", value: 61.89 },
-        { time: "2019-04-15", value: 54.43 },
-        { time: "2019-04-16", value: 70.01 },
-        { time: "2019-04-17", value: 86.63 },
-        { time: "2019-04-18", value: 86.64 },
-        { time: "2019-04-19", value: 101.89 },
-        { time: "2019-04-20", value: 107.43 },
+        { time: "2019-04-08", value: 411.87 },
+        { time: "2019-04-09", value: 412.15 },
+        { time: "2019-04-12", value: 411.45 },
+        { time: "2019-04-13", value: 415.87 },
+        { time: "2019-04-14", value: 417.24 },
+        { time: "2019-04-15", value: 417.24 },
+        { time: "2019-04-16", value: 417.26 },
+        { time: "2019-04-19", value: 415.21 },
+        { time: "2019-04-20", value: 412.17 },
+        { time: "2019-04-21", value: 415.43 },
       ]);
 
       const areaSeries2 = chart.addAreaSeries({
@@ -192,16 +243,16 @@
         lineWidth: 3,
       });
       areaSeries2.setData([
-        { time: "2019-04-11", value: 110.01 },
-        { time: "2019-04-12", value: 96.63 },
-        { time: "2019-04-13", value: 86.64 },
-        { time: "2019-04-14", value: 66.89 },
-        { time: "2019-04-15", value: 59.43 },
-        { time: "2019-04-16", value: 67.01 },
-        { time: "2019-04-17", value: 77.63 },
-        { time: "2019-04-18", value: 80.64 },
-        { time: "2019-04-19", value: 91.89 },
-        { time: "2019-04-20", value: 97.43 },
+        { time: "2019-04-08", value: 336.70 },
+        { time: "2019-04-09", value: 334.67 },
+        { time: "2019-04-12", value: 334.97 },
+        { time: "2019-04-13", value: 336.67 },
+        { time: "2019-04-14", value: 340.60 },
+        { time: "2019-04-15", value: 336.51 },
+        { time: "2019-04-16", value: 341.61 },
+        { time: "2019-04-19", value: 340.26 },
+        { time: "2019-04-20", value: 336.41 },
+        { time: "2019-04-21", value: 339.03 },
       ]);
 
       const areaSeries3 = chart.addAreaSeries({
@@ -211,16 +262,16 @@
         lineWidth: 3,
       });
       areaSeries3.setData([
-        { time: "2019-04-11", value: 115.01 },
-        { time: "2019-04-12", value: 90.63 },
-        { time: "2019-04-13", value: 86.64 },
-        { time: "2019-04-14", value: 96.89 },
-        { time: "2019-04-15", value: 100.43 },
-        { time: "2019-04-16", value: 97.01 },
-        { time: "2019-04-17", value: 97.63 },
-        { time: "2019-04-18", value: 100.64 },
-        { time: "2019-04-19", value: 103.89 },
-        { time: "2019-04-20", value: 107.43 },
+      { time: "2019-04-08", value: 33570.601 },
+        { time: "2019-04-09", value: 33800.60 },
+        { time: "2019-04-12", value: 33745.40 },
+        { time: "2019-04-13", value: 33677.27 },
+        { time: "2019-04-14", value: 33730.89 },
+        { time: "2019-04-15", value: 34035.99 },
+        { time: "2019-04-16", value: 34600.67 },
+        { time: "2019-04-19", value: 34077.63 },
+        { time: "2019-04-20", value: 33821.30 },
+        { time: "2019-04-21", value: 34137.31 },
       ]);
 
       const areaSeries4 = chart.addAreaSeries({
@@ -230,16 +281,16 @@
         lineWidth: 3,
       });
       areaSeries4.setData([
-        { time: "2019-04-11", value: 80.01 },
-        { time: "2019-04-12", value: 96.63 },
-        { time: "2019-04-13", value: 76.64 },
-        { time: "2019-04-14", value: 81.89 },
-        { time: "2019-04-15", value: 74.43 },
-        { time: "2019-04-16", value: 80.01 },
-        { time: "2019-04-17", value: 96.63 },
-        { time: "2019-04-18", value: 76.64 },
-        { time: "2019-04-19", value: 81.89 },
-        { time: "2019-04-20", value: 74.43 },
+      { time: "2019-04-08", value: 222.56 },
+        { time: "2019-04-09", value: 222.59 },
+        { time: "2019-04-12", value: 221.72 },
+        { time: "2019-04-13", value: 221.14 },
+        { time: "2019-04-14", value: 223.32 },
+        { time: "2019-04-15", value: 224.29 },
+        { time: "2019-04-16", value: 224.65 },
+        { time: "2019-04-19", value: 221.73 },
+        { time: "2019-04-20", value: 217.19 },
+        { time: "2019-04-21", value: 222.50 },
       ]);
 
       const areaSeries5 = chart.addAreaSeries({
@@ -249,74 +300,22 @@
         lineWidth: 3,
       });
       areaSeries5.setData([
-        { time: "2019-04-11", value: 40.01 },
-        { time: "2019-04-12", value: 36.63 },
-        { time: "2019-04-13", value: 46.64 },
-        { time: "2019-04-14", value: 31.89 },
-        { time: "2019-04-15", value: 44.43 },
-        { time: "2019-04-16", value: 30.01 },
-        { time: "2019-04-17", value: 36.63 },
-        { time: "2019-04-18", value: 36.64 },
-        { time: "2019-04-19", value: 31.89 },
-        { time: "2019-04-20", value: 34.43 },
+      { time: "2019-04-08", value: 16.95 },
+        { time: "2019-04-09", value: 16.69 },
+        { time: "2019-04-12", value: 16.91 },
+        { time: "2019-04-13", value: 16.65 },
+        { time: "2019-04-14", value: 16.99 },
+        { time: "2019-04-15", value: 16.57 },
+        { time: "2019-04-16", value: 16.25 },
+        { time: "2019-04-19", value: 17.29 },
+        { time: "2019-04-20", value: 18.68 },
+        { time: "2019-04-21", value: 17.50 },
       ]);
 
       chart.timeScale().fitContent();
       return chart;
     }
     chart = makeChart();
-  </script>
-  {% block javascript %}
-  <script>
-    //get rid of background grid and legend,make text color white
-
-    Chart.defaults.plugins.legend.display = false;
-    Chart.defaults.color = "#fff";
-
-    var ctx = document.getElementById("myChart").getContext("2d");
-
-    var myChart = new Chart(ctx, {
-      type: "bar",
-      data: {
-        labels: ["advance", "neutral", "decline"],
-        datasets: [
-          {
-            label: "stocks",
-            barThickness: 18,
-            data: {{ ad_data }},
-            backgroundColor: [
-              "rgba(0, 137, 123, 0.12)",
-              "rgba(209, 212, 220, 0.12)",
-              "rgba(229, 57, 53, 0.12)",
-            ],
-            borderColor: [
-              "rgba(0, 137, 123, 1)",
-              "rgba(209, 212, 220, 1)",
-              "rgba(229, 57, 53, 1)",
-            ],
-            borderWidth: 3,
-          },
-        ],
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-            display: false,
-            grid: {
-              display: false,
-            },
-          },
-          x: {
-            grid: {
-              display: false,
-            },
-          },
-        },
-      },
-    });
-
-    myChart.destroy();
   </script>
   {% endblock %}
 </div>

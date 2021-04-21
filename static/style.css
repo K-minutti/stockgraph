@@ -377,6 +377,10 @@ tbody tr:hover {
   grid-area: three;
 }
 
+.gd-table tbody tr:hover {
+  background-color: #09003f;
+}
+
 .market-internals-container {
   display: flex;
   flex-direction: column;

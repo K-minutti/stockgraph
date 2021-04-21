@@ -59,10 +59,28 @@ def index(request: Request):
         return obj['time_stamp']
     all_news.sort(key=sort_by_key, reverse=True)
 
-    top_stocks = [({"symbol": "DPW", "change": "90.00"}, {"symbol": "DPW", "change": "-40.00"}),(     {"symbol": "TIRX", "change": "60.00"},     {"symbol": "TIRX", "change": "-36.00"}), 
-    ({"symbol": "MNDO", "change": "56.00"}, {"symbol": "MNDO", "change": "-24.00"}), ({"symbol": "NISN", "change": "48.00"}, {"symbol": "NISN", "change": "-18.00"})]
+    #we need the top stocks in a list of two tuples like below for the top stocks
+    # cursor.execute(""" 
+    #     SELECT symbol, change FROM historical_prices ORDER BY change DESC
+    # """)
+    # top_stocks = cursor.fetchall()
+    #we need to make an object with the 5 symbols for the market overview {"SPY": [{"time": time, value: close}]}
+    #each symbol needs a list of objects with time series data
+
+
+    top_stocks = [
+    ({"symbol": "WBT", "change": "44.47"}, {"symbol": "UFAB", "change": "-20.00"}),
+    ({"symbol": "SKLZ", "change": "33.55"}, {"symbol": "DGLY", "change": "-11.86"}), 
+    ({"symbol": "TYHT", "change": "31.50"}, {"symbol": "EBET", "change": "-10.18"}), 
+    ({"symbol": "ASXC", "change": "30.26"}, {"symbol": "LVTX", "change": "-9.63"}), 
+    ({"symbol": "GBOX", "change": "27.39"}, {"symbol": "BTX", "change": "-9.09"}), 
+    ({"symbol": "TIPT", "change": "30.26"}, {"symbol": "JCOM", "change": "-8.51"}), 
+    ({"symbol": "PLBY", "change": "26.27"}, {"symbol": "DSGN", "change": "-8.43"}), 
+    ({"symbol": "BIVI", "change": "36.21"}, {"symbol": "PLAG", "change": "-8.33"})
     
-    return templates.TemplateResponse("index.html", {"request": request,"top_stocks": top_stocks,  "news": all_news, "g_trends":google_trends, "ad_data": [2, 10, 2], "all_stocks": all_stocks})
+    ]
+    
+    return templates.TemplateResponse("index.html", {"request": request,"top_stocks": top_stocks,  "news": all_news, "g_trends":google_trends, "ad_data": [2411, 320, 4046], "all_stocks": all_stocks})
 
 @app.get("/stock/{symbol}")
 def single_stock(request: Request, symbol):

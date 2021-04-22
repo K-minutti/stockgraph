@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Request, Form 
-import alpaca_trade_api as tradeapi
+# import alpaca_trade_api as tradeapi
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -7,7 +7,7 @@ import pandas as pd
 import datetime
 import time
 import requests
-import sqlite3, config
+import sqlite3
 from pygooglenews import GoogleNews
 gn = GoogleNews()
 from pytrends.request import TrendReq
@@ -148,7 +148,7 @@ def apply_strategy(strategy_id: int = Form(...), stock_id: int = Form(...)):
 
 
 @app.get("/screener")
-def strategies(request: Request):
+def screener(request: Request):
     stock_filter = request.query_params.get('filter', False)
     connection = sqlite3.connect("app.db")
     connection.row_factory = sqlite3.Row
@@ -236,11 +236,11 @@ def strategies(request: Request):
     strategies = cursor.fetchall()
     return templates.TemplateResponse("screener.html", {"request" : request, "stocks": rows,  "indicator_values":indicator_values,"strategies": strategies, "all_stocks": all_stocks})
 
-@app.get("/orders")
-def orders(request: Request):
-    api = tradeapi.REST(config.API_KEY, config.API_SECRET, base_url=config.BASE_URL)
-    orders = api.list_orders(status="all")
-    return templates.TemplateResponse("orders.html", {"request" :request, "orders": orders})
+# @app.get("/orders")
+# def orders(request: Request):
+#     api = tradeapi.REST(config.API_KEY, config.API_SECRET, base_url=config.BASE_URL)
+#     orders = api.list_orders(status="all")
+#     return templates.TemplateResponse("orders.html", {"request" :request, "orders": orders})
 
 
 @app.get("/study")

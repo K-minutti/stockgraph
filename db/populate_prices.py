@@ -4,6 +4,7 @@ import tulipy as ti
 import alpaca_trade_api as tradeapi
 from datetime import date
 
+
 API_KEY = config.API_KEY
 SECRET_KEY = config.API_SECRET
 BASE_URL = config.BASE_URL
@@ -35,6 +36,8 @@ for i in range(0, len(symbols), chunk_size):
     for symbol in barsets:
 
         recent_closes = [bar.c for bar in barsets[symbol]]
+        recent_highs = [bar.h for bar in barsets[symbol]]
+        recent_lows = [bar.l for bar in barsets[symbol]]
         print(f"processing symbol {symbol}")
         for bar in barsets[symbol]:
             stock_id = stock_dict[symbol]
@@ -42,12 +45,14 @@ for i in range(0, len(symbols), chunk_size):
                 sma_20 = ti.sma(np.array(recent_closes), period=20)[-1]
                 sma_50 = ti.sma(np.array(recent_closes), period=50)[-1]
                 rsi_14 = ti.rsi(np.array(recent_closes), period=14)[-1]
+                atr_14 = ti.atr(recent_highs, recent_lows, recent_closes, period=14)[-1]
+                change = (recent_closes[-1] - recent_closes[-2]) / recent_closes[-2]
             else:
-                sma_20, sma_50, rsi_14 = None, None, None
-            print(f"{symbol} {sma_20} {sma_50} {rsi_14}")
+                sma_20, sma_50, rsi_14, atr_14, change = None, None, None, None, None
+            print(f"{symbol} {sma_20} {sma_50} {rsi_14} {atr_14} {change}")
             cursor.execute(""" 
-                INSERT INTO historical_prices (stock_id, date, open, high, low, close, volume, sma_20, sma_50, rsi_14)
-                VALUES (?,?,?,?,?,?,?,?,?,?)
-            """, (stock_id, bar.t.date(), bar.o, bar.h, bar.l, bar.c, bar.v, sma_20, sma_50, rsi_14))
+                INSERT INTO historical_prices (stock_id, date, open, high, low, close, volume, change, sma_20, sma_50, rsi_14)
+                VALUES (?,?,?,?,?,?,?,?,?,?,?)
+            """, (stock_id, bar.t.date(), bar.o, bar.h, bar.l, bar.c, bar.v, change, sma_20, sma_50, rsi_14))
 
 connection.commit() 

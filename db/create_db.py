@@ -23,6 +23,7 @@ cursor.execute("""
         low NOT NULL,
         close NOT NULL,
         volume NOT NULL,
+        change,
         sma_20,
         sma_50,
         rsi_14, 

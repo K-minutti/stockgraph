@@ -4,8 +4,8 @@
     <div class="screener-form">
       <form method="get">
         <div class="screen-select">
-          <label for="standard-select">Change %</label>
-          <select id="standard-select-4">
+          <label for="standard-select-1">Change %</label>
+          <select id="standard-select-1" name="change">
             <option hidden disabled selected value>select</option>
             <option {% if request.query_params.filter == "under_sma_50" %} selected="selected"{%endif%} value="under_sma_50">+3% or more</option>
             <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">+6% or more</option>
@@ -23,8 +23,8 @@
         </div>
 
         <div class="screen-select">
-          <label for="standard-select">Current Volume</label>
-          <select id="standard-select-4">
+          <label for="standard-select-2">Current Volume</label>
+          <select id="standard-select-2">
             <option hidden disabled selected value>select</option>
             <option {% if request.query_params.filter == "under_sma_50" %} selected="selected"{%endif%} value="under_sma_50">Under SMA 50D</option>
             <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over SMA 50D</option>
@@ -38,8 +38,8 @@
 
               <div class="screen-select">
 
-                <label for="standard-select">Highs/Lows</label>
-                <select id="standard-select-1" name="high_low_filter">
+                <label for="standard-select-3"> New Highs/Lows</label>
+                <select id="standard-select-3" name="high_low_filter">
                   <option hidden disabled selected value>select</option>
                   <option {% if request.query_params.filter == "new_closing_highs" %} selected="selected"{%endif%} value="new_closing_highs">New Closing Highs</option>
                   <option {% if request.query_params.filter == "new_closing_lows" %} selected="selected"{%endif%} value="new_closing_lows">New Closing Lows</option>
@@ -51,8 +51,8 @@
         
               
               <div class="screen-select">
-                <label for="standard-select">SMA(50)</label>
-                <select id="standard-select-3">
+                <label for="standard-select-4">SMA(50)</label>
+                <select id="standard-select-4">
                   <option hidden disabled selected value>select</option>
                   <option {% if request.query_params.filter == "under_sma_50" %} selected="selected"{%endif%} value="under_sma_50">Under SMA 50D</option>
                   <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over SMA 50D</option>
@@ -64,8 +64,8 @@
               </div>
 
               <div class="screen-select">
-                <label for="standard-select">SMA(20)</label>
-                <select id="standard-select-4">
+                <label for="standard-select-5">SMA(20)</label>
+                <select id="standard-select-5">
                   <option hidden disabled selected value>select</option>
                   <option {% if request.query_params.filter == "under_sma_50" %} selected="selected"{%endif%} value="under_sma_50">Under SMA 50D</option>
                   <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over SMA 50D</option>
@@ -78,8 +78,8 @@
               
     
               <div class="screen-select">
-                <label for="standard-select-2">RSI(14)</label>
-                <select id="standard-select">
+                <label for="standard-select-6">RSI(14)</label>
+                <select id="standard-select-6">
                   <option hidden disabled selected value>select</option>
                   <option {% if request.query_params.filter == "rsi_overbought" %} selected="selected"{%endif%} value="rsi_overbought">RSI Overbought</option>
                   <option {% if request.query_params.filter == "rsi_oversold" %} selected="selected"{%endif%} value="rsi_oversold">RSI Oversold</option>

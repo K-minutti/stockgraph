@@ -42,21 +42,7 @@
             <div id="sidebar-ratings" class="ratings">
               <p>{{stock.symbol}}</p>
               <p>{{stock.name}}</p>
-              <!-- TradingView Widget BEGIN -->
-                <div class="tradingview-widget-container">
-                  <div class="tradingview-widget-container__widget"></div>
-                  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/EURUSD/?exchange=FX" rel="noopener" target="_blank"><span class="blue-text">EURUSD Rates</span></a> by TradingView</div>
-                  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-                  {
-                  "symbol": "FX:EURUSD",
-                  "width": "100%",
-                  "colorTheme": "dark",
-                  "isTransparent": true,
-                  "locale": "en"
-                }
-                  </script>
-                </div>
-              <!-- TradingView Widget END -->
+
             </div>
             <div id="sidebar-strategy">
               <form method="post" action="/apply_strategy" style="margin: 0; padding:0;">
@@ -70,10 +56,43 @@
               </form>
             </div>
             <div id="sidebar-related">
-              <p>{{stock.symbol}}</p>
-              <p>{{stock.name}}</p>
-              <p>RELATED</p>
-              <p>RELATED</p>
+                            <!-- TradingView Widget BEGIN -->
+                    <div>Related Tickers</div>
+
+                      
+
+
+                              <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+                                {
+                              "symbol": "NASDAQ:AAPL",
+                              "width": "100%",
+                              "colorTheme": "dark",
+                              "isTransparent": true,
+                              "locale": "en"
+                              }
+                              </script>
+                     
+  
+                                  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+                                    {
+                         "symbol": "NASDAQ:AAPL",
+                         "width": "100%",
+                         "colorTheme": "dark",
+                         "isTransparent": true,
+                         "locale": "en"
+                       }
+                         </script>
+                                         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+                                          {
+                               "symbol": "NASDAQ:AAPL",
+                               "width": "100%",
+                               "colorTheme": "dark",
+                               "isTransparent": true,
+                               "locale": "en"
+                             }
+                               </script>
+                <!-- </div> -->
+              <!-- TradingView Widget END -->
             </div>
 
           </div>

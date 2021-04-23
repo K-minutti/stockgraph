@@ -469,6 +469,10 @@ th {
   display: none;
 }
 
+.avoid-clicks {
+  pointer-events: none;
+}
+
 #single-stock-sidebar {
   width: 40%;
   margin-right: 6px;

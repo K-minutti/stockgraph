@@ -1,5 +1,4 @@
 from fastapi import FastAPI, Request, Form 
-# import alpaca_trade_api as tradeapi
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -8,6 +7,7 @@ import datetime
 import time
 import requests
 import sqlite3
+# import alpaca_trade_api as tradeapi
 from pygooglenews import GoogleNews
 gn = GoogleNews()
 from pytrends.request import TrendReq

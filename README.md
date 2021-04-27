@@ -22,31 +22,35 @@ Data for this app is updated at the end of the day. It uses crontab jobs to run 
 ### Requirements
 
 FastAPI<br>
-fastapi==0.63.0 <br>
-uvicorn==0.13.4 <br>
+
+- fastapi <br>
+- uvicorn<br>
 
 SQLite<br>
 sqlite3 <br>
 Download [here](https://www.sqlite.org/download.html)
 
 Tulip Indicators <br>
-tulipy==0.3.1 <br>
+
+- tulipy <br>
 
 Alpaca <br>
-alpaca_trade_api <br>
+
+- alpaca_trade_api <br>
 
 UI <br>
-tradingview widgets <br>
-chart.js <br>
-Jinja2 Template <br>
+[Tradingview widgets](https://github.com/tradingview/lightweight-charts) <br>
+[Chart.js](https://www.chartjs.org/docs/latest/getting-started/) <br>
+[Jinja2 Templates](https://fastapi.tiangolo.com/advanced/templates/) <br>
 
 Other <br>
-requests <br>
-DateTime <br>
-pytrends <br>
-pygooglenews <br>
-pandas <br>
-numpy <br>
+
+- requests <br>
+- DateTime <br>
+- pytrends <br>
+- pygooglenews <br>
+- pandas <br>
+- numpy <br>
 
 ## Contents
 

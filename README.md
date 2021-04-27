@@ -8,24 +8,29 @@ Stockgraph is a web app to explore the stock market and individual stocks.
 
 ## Notes
 
-config file
+This app uses the FastAPI framework you can learn more about it [here](https://fastapi.tiangolo.com/).
+
+A full list of the libaries and pacakages used can be found below. One important to note is that the price data
+used comes from [Alpaca](https://alpaca.markets/docs/). Alpaca is a an API provider for algorithimic traders. You will need to sign up for an account in order to receive an API key.
+
+Once you have your credentials create a config.py file to store your API_KEY and SECRET_KEY.
 
 ### Requirements
 
-tulip indicators
-sqlite3
-crontab
-pandas
-numpy
-datetime
-alpaca_trade_api
-pytrends
-pygooglenews
-requests
-tradingview widgets
-chart.js
-Jinja2 Template
-Fast API
+tulip indicators <br>
+sqlite3 <br>
+crontab <br>
+pandas <br>
+numpy <br>
+datetime <br>
+alpaca_trade_api <br>
+pytrends <br>
+pygooglenews <br>
+requests <br>
+tradingview widgets <br>
+chart.js <br>
+Jinja2 Template <br>
+FastAPI <br>
 
 ---
 

@@ -4,15 +4,9 @@
 
 Stockgraph is a web app to explore the stock market and individual stocks.
 
-Intro to projects
-In order to to show an image
-
-<!-- ![m'lady](https://i.imgur.com/v8IVDka.jpg)
- -->
+![repo-home](https://user-images.githubusercontent.com/58534537/116260472-b74fb100-a744-11eb-9ec6-ab247585c8e6.png)
 
 ## Notes
-
-Makes use of
 
 ### Requirements
 

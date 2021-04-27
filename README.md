@@ -8,15 +8,24 @@ Stockgraph is a web app to explore the stock market and individual stocks.
 
 ## Notes
 
+config file
+
 ### Requirements
 
 tulip indicators
 sqlite3
 crontab
 pandas
-alpaca-trade api
-googletrends
-googlenews
+numpy
+datetime
+alpaca_trade_api
+pytrends
+pygooglenews
+requests
+tradingview widgets
+chart.js
+Jinja2 Template
+Fast API
 
 ---
 

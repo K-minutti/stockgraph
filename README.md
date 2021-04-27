@@ -50,18 +50,18 @@ numpy <br>
 
 ## Contents
 
-[**Home**]
-**Screener**
-**Single View**
-**Order History**
-**Study**
+**[Home](https://github.com/K-minutti/stockgraph#home)**
+**[Screener](https://github.com/K-minutti/stockgraph#screener)**
+**[Single View](https://github.com/K-minutti/stockgraph#single-view)**
+**[Order History]()**
+**[Study]()**
 
 ### Home
 
--APIs that is uses
-
 ### Screener
 
--Function
-
 ### Single View
+
+### Order History
+
+### Study

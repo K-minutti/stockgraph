@@ -50,16 +50,11 @@ numpy <br>
 
 ## Contents
 
-**Home**
-The home screen is the base url and it pulls data from the following APIs.
-
-Advance Decliners are computed every night.
-
+[**Home**]
 **Screener**
-
 **Single View**
-
-[link](https://example.com)
+**Order History**
+**Study**
 
 ### Home
 

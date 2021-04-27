@@ -53,15 +53,30 @@ numpy <br>
 **[Home](https://github.com/K-minutti/stockgraph#home)**
 **[Screener](https://github.com/K-minutti/stockgraph#screener)**
 **[Single View](https://github.com/K-minutti/stockgraph#single-view)**
-**[Order History]()**
-**[Study]()**
+**[Order History](https://github.com/K-minutti/stockgraph#order-history)**
+**[Study](https://github.com/K-minutti/stockgraph#study)**
 
 ### Home
 
+The home is the base page and will be the first thing you see when entering the site. The page was built using CSS grid and it displays data from the DB as well as data from google trends, and google news by using the packages pytrends and pygooglenews respectively. The charts make us of Chart.js and TradingView Lightweight Charts.
+
 ### Screener
+
+The screener is for end of day screening and doesn't display intraday data. The data is pulled from the DB and the percentage change as well as the indicators are computed
+using numpy and the tulip indicators library.
 
 ### Single View
 
+To see information on individual stocks use the searchbar of click on the company names when using the screener. This view features a side bar with the following information:<br>
+company financials <br>
+analyst ratings <br>
+related companies <br>
+strategy <br>
+
 ### Order History
 
+Note: In order to see order history you need access to your Alpaca trading account.
+
 ### Study
+
+IP: This section shows andvance analysis on one stock at a time.

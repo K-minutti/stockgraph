@@ -7,7 +7,7 @@ import datetime
 import time
 import requests
 import sqlite3
-# import alpaca_trade_api as tradeapi
+import alpaca_trade_api as tradeapi
 from pygooglenews import GoogleNews
 gn = GoogleNews()
 from pytrends.request import TrendReq

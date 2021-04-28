@@ -1,10 +1,15 @@
-import scrapy
-
+import scrapy 
 
 class RatingsSpider(scrapy.Spider):
-    name = 'ratingsspider'
-    start_urls = ['https://finviz.com/quote.ashx?t=SYPR']
+    name='rating_spider'
+
+    start_urls = ['https://finviz.com/quote.ashx?t=AAPl&ty=c&ta=1&p=d']
 
     def parse(self, response):
-        for table in response.css('td.fullview-ratings-inner'):
-            yield {'rating': table.xpath('/td[@align="left"]/text()').get()}
+        print("\n")
+        print("HTTP STATUS "+str(response.status))
+        table = response.css("table.fullview-ratings-outer") #getting the main ratings table
+        statuses = table.css("b")
+        print(statuses)
+        print("\n")
+        

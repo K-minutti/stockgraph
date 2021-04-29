@@ -57,11 +57,11 @@ jQuery
 
 ## Contents
 
-**[Home](https://github.com/K-minutti/stockgraph#home)**
-**[Screener](https://github.com/K-minutti/stockgraph#screener)**
-**[Single View](https://github.com/K-minutti/stockgraph#single-view)**
-**[Order History](https://github.com/K-minutti/stockgraph#order-history)**
-**[Study](https://github.com/K-minutti/stockgraph#study)**
+**[Home](https://github.com/K-minutti/stockgraph#home)** <br>
+**[Screener](https://github.com/K-minutti/stockgraph#screener)** <br>
+**[Single View](https://github.com/K-minutti/stockgraph#single-view)** <br>
+**[Order History](https://github.com/K-minutti/stockgraph#order-history)** <br>
+**[Study](https://github.com/K-minutti/stockgraph#study)** <br>
 
 ### Home
 

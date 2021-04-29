@@ -7,11 +7,14 @@ import datetime
 import time
 import requests
 import sqlite3
+from trading_features import ratings
 import alpaca_trade_api as tradeapi
 from pygooglenews import GoogleNews
 gn = GoogleNews()
 from pytrends.request import TrendReq
 pytrends = TrendReq(hl='en-US', tz=300)
+import scrapy 
+from scrapy.crawler import CrawlerProcess 
 
 
 app = FastAPI()
@@ -82,6 +85,15 @@ def index(request: Request):
     
     return templates.TemplateResponse("index.html", {"request": request,"top_stocks": top_stocks,  "news": all_news, "g_trends":google_trends, "ad_data": [2411, 320, 4046], "all_stocks": all_stocks})
 
+
+
+
+
+
+
+
+
+
 @app.get("/stock/{symbol}")
 def single_stock(request: Request, symbol):
     connection = sqlite3.connect("app.db")
@@ -107,7 +119,6 @@ def single_stock(request: Request, symbol):
     #Ratings for sidebar
     #webscrapping module
 
-
     search = gn.search(f'NASDAQ:{symbol}', when = '6m') #for symbol stock.exchange:symbol
     # search_twp gn.search(f'{row.name}', when = '6m') #for name of company - this takes priority as results are better
     news_search = search['entries']
@@ -129,9 +140,8 @@ def single_stock(request: Request, symbol):
     twits = s_twits.json()
     stock_twits = twits['messages']
     # for twit in stock_twits:
-
     stock = {"symbol": symbol, "name": symbol}
-    return templates.TemplateResponse("single_stock.html", {"request": request, "stock": stock, "news":news, "stock_twits": stock_twits, "all_stocks": all_stocks})
+    return templates.TemplateResponse("single_stock.html", {"request": request, "stock": stock, "news":news, "stock_twits": stock_twits,  "all_stocks": all_stocks})
 
 @app.post("/apply_strategy")
 def apply_strategy(strategy_id: int = Form(...), stock_id: int = Form(...)):

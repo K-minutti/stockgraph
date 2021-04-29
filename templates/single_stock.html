@@ -40,8 +40,12 @@
               <!-- TradingView Widget END -->
             </div>
             <div id="sidebar-ratings" class="ratings">
+              {% for rating in ratings%}
+              <p>Date: {{rating[0]}}</p>
+              {% endfor%}
               <p>{{stock.symbol}}</p>
               <p>{{stock.name}}</p>
+              
 
             </div>
             <div id="sidebar-strategy">

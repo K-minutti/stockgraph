@@ -27,11 +27,12 @@ for row in rows:
     stock_dict[symbol] = row['id']
 
 api = tradeapi.REST(API_KEY, SECRET_KEY, base_url=BASE_URL)
-#limit per aplaca
+#limit per alpaca
 chunk_size = 200
 for i in range(0, len(symbols), chunk_size):
     symbol_chunk = symbols[i:i+chunk_size]
-    barsets = api.get_barset(symbol_chunk, 'day', after=date.today().isoformat())
+    #after=date.today().isoformat()
+    barsets = api.get_barset(symbol_chunk, 'day', limit=60)
  
     for symbol in barsets:
 
@@ -46,7 +47,7 @@ for i in range(0, len(symbols), chunk_size):
                 sma_50 = ti.sma(np.array(recent_closes), period=50)[-1]
                 rsi_14 = ti.rsi(np.array(recent_closes), period=14)[-1]
                 atr_14 = ti.atr(recent_highs, recent_lows, recent_closes, period=14)[-1]
-                change = (recent_closes[-1] - recent_closes[-2]) / recent_closes[-2]
+                change = (recent_closes[-1] - recent_closes[-2]) / recent_closes[-2] * 100
             else:
                 sma_20, sma_50, rsi_14, atr_14, change = None, None, None, None, None
             print(f"{symbol} {sma_20} {sma_50} {rsi_14} {atr_14} {change}")

@@ -2,7 +2,6 @@ import sqlite3
 import config
 import alpaca_trade_api as tradeapi
 
-
 API_KEY = config.API_KEY
 SECRET_KEY = config.API_SECRET
 BASE_URL = config.BASE_URL

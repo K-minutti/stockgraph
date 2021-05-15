@@ -2,7 +2,7 @@ import sqlite3
 connection = sqlite3.connect('app.db')
 cursor = connection.cursor()
 
-#create execute statements for creating stock table
+
 cursor.execute(""" 
     CREATE TABLE IF NOT EXISTS stock (
         id INTEGER PRIMARY KEY,

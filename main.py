@@ -13,8 +13,7 @@ from pygooglenews import GoogleNews
 gn = GoogleNews()
 from pytrends.request import TrendReq
 pytrends = TrendReq(hl='en-US', tz=300)
-import scrapy 
-from scrapy.crawler import CrawlerProcess 
+
 
 
 app = FastAPI()

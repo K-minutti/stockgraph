@@ -61,14 +61,32 @@ def index(request: Request):
         return obj['time_stamp']
     all_news.sort(key=sort_by_key, reverse=True)
 
-    #we need the top stocks in a list of two tuples like below for the top stocks
+    #grabbing top gainers
     # cursor.execute(""" 
-    #     SELECT symbol, change FROM historical_prices ORDER BY change DESC
+    #     SELECT stock_id, change FROM historical_prices WHERE change IS NOT NULL ORDER BY change DESC LIMIT 10
     # """)
-    # top_stocks = cursor.fetchall()
+    # top_gainers = cursor.fetchall()
+    #grabbing top decliners
+    # cursor.execute(""" 
+    #     SELECT stock_id, change FROM historical_prices WHERE change IS NOT NULL ORDER BY change ASC LIMIT 10
+    # """)
+    # top_decliners = cursor.fetchall()
+    #
+    #for each list above we need to retrieve the stock symbol at stock_id using the stocks table
+
+
+
+    # top_stocks = []
+    #grouping top stocks
+    #for gainer, decliner in zip(top_gainers, top_decliners):
+        #top_stocks.append()
+
     #we need to make an object with the 5 symbols for the market overview {"SPY": [{"time": time, value: close}]}
     #each symbol needs a list of objects with time series data
 
+    #get count of all stocks below 0  , 0 or none, and those above 0
+    #
+    #
 
     top_stocks = [
     ({"symbol": "WBT", "change": "44.47"}, {"symbol": "UFAB", "change": "-20.00"}),

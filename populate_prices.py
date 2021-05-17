@@ -31,7 +31,7 @@ for row in rows:
 api = tradeapi.REST(API_KEY, SECRET_KEY, base_url=BASE_URL)
 #limit per alpaca
 chunk_size = 200
-yesterday = date.today() - timedelta(days=1)
+#yesterday = date.today() - timedelta(days=1)
 for i in range(0, len(symbols), chunk_size):
     symbol_chunk = symbols[i:i+chunk_size]
     #after=date.today().isoformat()
@@ -46,8 +46,7 @@ for i in range(0, len(symbols), chunk_size):
         print(f"processing symbol {symbol}")
         for bar in barsets[symbol]:
             stock_id = stock_dict[symbol]
-            #if len(recent_closes) >= 50 and date.today().isoformat() == bar.t.date().isoformat():
-            if len(recent_closes) >= 50 and yesterday.isoformat() == bar.t.date().isoformat():
+            if len(recent_closes) >= 50 and date.today().isoformat() == bar.t.date().isoformat():
                 sma_20 = ti.sma(np.array(recent_closes), period=20)[-1]
                 sma_50 = ti.sma(np.array(recent_closes), period=50)[-1]
                 rsi_14 = ti.rsi(np.array(recent_closes), period=14)[-1]

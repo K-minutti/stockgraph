@@ -65,21 +65,39 @@ def index(request: Request):
     # cursor.execute(""" 
     #     SELECT stock_id, change FROM historical_prices WHERE change IS NOT NULL ORDER BY change DESC LIMIT 10
     # """)
-    # top_gainers = cursor.fetchall()
+    # gainers = cursor.fetchall()
     #grabbing top decliners
     # cursor.execute(""" 
     #     SELECT stock_id, change FROM historical_prices WHERE change IS NOT NULL ORDER BY change ASC LIMIT 10
     # """)
-    # top_decliners = cursor.fetchall()
+    # decliners = cursor.fetchall()
     #
     #for each list above we need to retrieve the stock symbol at stock_id using the stocks table
-
-
+    #for id in each of the top lists we will get the stock symbol and append them to a list called top_symbols and add we will append the following object result symbol {symbol: result, change: row.change}
+    #
+    #top_gainers = []
+    #top_decliners = []
+    #for stock in gainers:
+    #   cursor.execute(""" 
+    #        SELECT symbol FROM stocks WHERE id IS ?
+    #   """,(stock['stock_id'],))
+    #   symbol = cursor.fetchone()
+    #   top_gainers.append({"symbol": symbol, "change": stock.change})
+    #
+    #
+    #for stock in decliners:
+    #   cursor.execute(""" 
+    #        SELECT symbol FROM stocks WHERE id IS ?
+    #   """,(stock['stock_id'],))
+    #   symbol = cursor.fetchone()
+    #   top_decliners.append({"symbol": symbol, "change": stock.change})
+    #
+    #
 
     # top_stocks = []
     #grouping top stocks
     #for gainer, decliner in zip(top_gainers, top_decliners):
-        #top_stocks.append()
+        #top_stocks.append((gainer, decliner))
 
     #we need to make an object with the 5 symbols for the market overview {"SPY": [{"time": time, value: close}]}
     #each symbol needs a list of objects with time series data

@@ -62,61 +62,47 @@ def index(request: Request):
     all_news.sort(key=sort_by_key, reverse=True)
 
     #grabbing top gainers
-    # cursor.execute(""" 
-    #     SELECT stock_id, change FROM historical_prices WHERE change IS NOT NULL ORDER BY change DESC LIMIT 10
-    # """)
-    # gainers = cursor.fetchall()
+    cursor.execute(""" 
+        SELECT stock_id, change FROM historical_prices WHERE change IS NOT NULL ORDER BY change DESC LIMIT 10
+    """)
+    gainers = cursor.fetchall()
     #grabbing top decliners
-    # cursor.execute(""" 
-    #     SELECT stock_id, change FROM historical_prices WHERE change IS NOT NULL ORDER BY change ASC LIMIT 10
-    # """)
-    # decliners = cursor.fetchall()
-    #
-    #for each list above we need to retrieve the stock symbol at stock_id using the stocks table
-    #for id in each of the top lists we will get the stock symbol and append them to a list called top_symbols and add we will append the following object result symbol {symbol: result, change: row.change}
-    #
-    #top_gainers = []
-    #top_decliners = []
-    #for stock in gainers:
-    #   cursor.execute(""" 
-    #        SELECT symbol FROM stocks WHERE id IS ?
-    #   """,(stock['stock_id'],))
-    #   symbol = cursor.fetchone()
-    #   top_gainers.append({"symbol": symbol, "change": stock.change})
-    #
-    #
-    #for stock in decliners:
-    #   cursor.execute(""" 
-    #        SELECT symbol FROM stocks WHERE id IS ?
-    #   """,(stock['stock_id'],))
-    #   symbol = cursor.fetchone()
-    #   top_decliners.append({"symbol": symbol, "change": stock.change})
-    #
-    #
-
-    # top_stocks = []
-    #grouping top stocks
-    #for gainer, decliner in zip(top_gainers, top_decliners):
-        #top_stocks.append((gainer, decliner))
-
-    #we need to make an object with the 5 symbols for the market overview {"SPY": [{"time": time, value: close}]}
-    #each symbol needs a list of objects with time series data
-
-    #get count of all stocks below 0  , 0 or none, and those above 0
-    #
-    #
-
-    top_stocks = [
-    ({"symbol": "WBT", "change": "44.47"}, {"symbol": "UFAB", "change": "-20.00"}),
-    ({"symbol": "SKLZ", "change": "33.55"}, {"symbol": "DGLY", "change": "-11.86"}), 
-    ({"symbol": "TYHT", "change": "31.50"}, {"symbol": "EBET", "change": "-10.18"}), 
-    ({"symbol": "ASXC", "change": "30.26"}, {"symbol": "LVTX", "change": "-9.63"}), 
-    ({"symbol": "GBOX", "change": "27.39"}, {"symbol": "BTX", "change": "-9.09"}), 
-    ({"symbol": "TIPT", "change": "30.26"}, {"symbol": "JCOM", "change": "-8.51"}), 
-    ({"symbol": "PLBY", "change": "26.27"}, {"symbol": "DSGN", "change": "-8.43"}), 
-    ({"symbol": "BIVI", "change": "36.21"}, {"symbol": "PLAG", "change": "-8.33"})
+    cursor.execute(""" 
+        SELECT stock_id, change FROM historical_prices WHERE change IS NOT NULL ORDER BY change ASC LIMIT 10
+    """)
+    decliners = cursor.fetchall()
+    print(gainers)
+    top_gainers = []
+    top_decliners = []
+    for stock in gainers:
+      cursor.execute(""" 
+           SELECT symbol FROM stock WHERE id IS ?
+      """,(stock['stock_id'],))
+      symbol = cursor.fetchone()
+      top_gainers.append({"symbol": symbol['symbol'], "change": round(stock['change'], 2)})
     
-    ]
+    for stock in decliners:
+      cursor.execute(""" 
+           SELECT symbol FROM stock WHERE id IS ?
+      """,(stock['stock_id'],))
+      symbol = cursor.fetchone()
+      top_decliners.append({"symbol": symbol['symbol'], "change": round(stock['change'], 2)})
+    
+    top_stocks = []
+    #grouping top stocks
+    for gainer, decliner in zip(top_gainers, top_decliners):
+        top_stocks.append((gainer, decliner))
+
+
+    # topo_stocks = [
+    # ({"symbol": "WBT", "change": "44.47"}, {"symbol": "UFAB", "change": "-20.00"}),
+    # ({"symbol": "SKLZ", "change": "33.55"}, {"symbol": "DGLY", "change": "-11.86"})
+    # ]
+    # get the advance /decline
+    #SELECT COUNT(change) FROM historical_prices WHERE change>0;
+    #SELECT COUNT(change) FROM historical_prices WHERE change<0;
+    #SELECT COUNT(change) FROM historical_prices WHERE change=0;
+
     
     return templates.TemplateResponse("index.html", {"request": request,"top_stocks": top_stocks,  "news": all_news, "g_trends":google_trends, "ad_data": [2411, 320, 4046], "all_stocks": all_stocks})
 

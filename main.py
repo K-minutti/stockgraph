@@ -106,6 +106,15 @@ def index(request: Request):
     """)
     neutral_count = cursor.fetchone()
 
+    #for stocks in indices fetch by id the historical data
+    #for each data point produce an array for each Index that looks like      { time: "2019-04-08", value: 411.87 },
+    #indices['SPY']
+    #indices{'i': [{ time: "2019-04-08", value: 411.87 }], 'i2': [{}, {}]}
+    #index_ids = [3545,4544,4524,4523,435]
+    #for id in index_ids:
+    #cursor.excute(""" 
+    #   SELECT * FROM historical_prices WHERE stock_id IS ? LIMIT 21
+    # """, (id,))
     
     return templates.TemplateResponse("index.html", {"request": request,"top_stocks": top_stocks,  "news": all_news, "g_trends":google_trends, "ad_data": [decliners_count[0], neutral_count[0], advancers_count[0]], "all_stocks": all_stocks})
 
@@ -301,3 +310,4 @@ def strategy(request: Request, strategy_id):
     """, (strategy_id,))
     stocks = cursor.fetchall()
     return templates.TemplateResponse("screener.html", {"request": request, "stocks": stocks, "strategy": strategy})
+  

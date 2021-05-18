@@ -71,7 +71,6 @@ def index(request: Request):
         SELECT stock_id, change FROM historical_prices WHERE change IS NOT NULL ORDER BY change ASC LIMIT 10
     """)
     decliners = cursor.fetchall()
-    print(gainers)
     top_gainers = []
     top_decliners = []
     for stock in gainers:
@@ -93,18 +92,22 @@ def index(request: Request):
     for gainer, decliner in zip(top_gainers, top_decliners):
         top_stocks.append((gainer, decliner))
 
-
-    # topo_stocks = [
-    # ({"symbol": "WBT", "change": "44.47"}, {"symbol": "UFAB", "change": "-20.00"}),
-    # ({"symbol": "SKLZ", "change": "33.55"}, {"symbol": "DGLY", "change": "-11.86"})
-    # ]
     # get the advance /decline
-    #SELECT COUNT(change) FROM historical_prices WHERE change>0;
-    #SELECT COUNT(change) FROM historical_prices WHERE change<0;
-    #SELECT COUNT(change) FROM historical_prices WHERE change=0;
+    cursor.execute(""" 
+        SELECT COUNT(change) FROM historical_prices WHERE change>0
+    """)
+    advancers_count = cursor.fetchone()
+    cursor.execute(""" 
+        SELECT COUNT(change) FROM historical_prices WHERE change<0
+    """)
+    decliners_count = cursor.fetchone()
+    cursor.execute(""" 
+        SELECT COUNT(change) FROM historical_prices WHERE change=0
+    """)
+    neutral_count = cursor.fetchone()
 
     
-    return templates.TemplateResponse("index.html", {"request": request,"top_stocks": top_stocks,  "news": all_news, "g_trends":google_trends, "ad_data": [2411, 320, 4046], "all_stocks": all_stocks})
+    return templates.TemplateResponse("index.html", {"request": request,"top_stocks": top_stocks,  "news": all_news, "g_trends":google_trends, "ad_data": [decliners_count[0], neutral_count[0], advancers_count[0]], "all_stocks": all_stocks})
 
 
 

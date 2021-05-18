@@ -122,7 +122,8 @@
       </div>
     </div>
   </div>
-  {% block javascript %}
+
+  {% block script %}
   <script>
     Chart.defaults.plugins.legend.display = false;
     Chart.defaults.color = "#fff";
@@ -226,19 +227,20 @@
         lineColor: "rgba(235, 100, 4, 1)",
         lineWidth: 3,
       });
-
-      areaSeries1.setData([
-        { time: "2019-04-08", value: 411.87 },
-        { time: "2019-04-09", value: 412.15 },
-        { time: "2019-04-12", value: 411.45 },
-        { time: "2019-04-13", value: 415.87 },
-        { time: "2019-04-14", value: 417.24 },
-        { time: "2019-04-15", value: 417.24 },
-        { time: "2019-04-16", value: 417.26 },
-        { time: "2019-04-19", value: 415.21 },
-        { time: "2019-04-20", value: 412.17 },
-        { time: "2019-04-21", value: 415.43 },
-      ]);
+      let data = {{ SPY }}
+      areaSeries1.setData(data)
+      // areaSeries1.setData([
+      //   { time: "2019-04-08", value: 411.87 },
+      //   { time: "2019-04-09", value: 412.15 },
+      //   { time: "2019-04-12", value: 411.45 },
+      //   { time: "2019-04-13", value: 415.87 },
+      //   { time: "2019-04-14", value: 417.24 },
+      //   { time: "2019-04-15", value: 417.24 },
+      //   { time: "2019-04-16", value: 417.26 },
+      //   { time: "2019-04-19", value: 415.21 },
+      //   { time: "2019-04-20", value: 412.17 },
+      //   { time: "2019-04-21", value: 415.43 },
+      // ]);
 
       const areaSeries2 = chart.addAreaSeries({
         topColor: "rgba(26, 169, 255, 0.15)",

@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request, Form
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+from numpy.lib.twodim_base import diag
 import pandas as pd
 import datetime
 import time
@@ -105,18 +106,23 @@ def index(request: Request):
         SELECT COUNT(change) FROM historical_prices WHERE change=0
     """)
     neutral_count = cursor.fetchone()
-
-    #for stocks in indices fetch by id the historical data
-    #for each data point produce an array for each Index that looks like      { time: "2019-04-08", value: 411.87 },
-    #indices['SPY']
-    #indices{'i': [{ time: "2019-04-08", value: 411.87 }], 'i2': [{}, {}]}
-    #index_ids = [3545,4544,4524,4523,435]
-    #for id in index_ids:
-    #cursor.excute(""" 
-    #   SELECT * FROM historical_prices WHERE stock_id IS ? LIMIT 21
-    # """, (id,))
-    
-    return templates.TemplateResponse("index.html", {"request": request,"top_stocks": top_stocks,  "news": all_news, "g_trends":google_trends, "ad_data": [decliners_count[0], neutral_count[0], advancers_count[0]], "all_stocks": all_stocks})
+    #.isoformat()
+    #for stocks in indices fetch the historical data by id 
+    indices = {"SPY": [], "QQQ": [], "DIA": [], "IWM": []}
+    index_ids = {10: "SPY", 5424:"QQQ", 50:"DIA", 3499:"IWM"}
+    for key in index_ids:
+        cursor.execute(""" 
+            SELECT date, close FROM historical_prices WHERE stock_id IS ? ORDER BY date DESC LIMIT 21
+        """, (key,))
+        stock_index_data = cursor.fetchall()
+        length = len(stock_index_data) - 1
+        for i in range(length, 0, -1):
+            indices[index_ids[key]].append({'time': stock_index_data[i]['date'], 'value': stock_index_data[i]['close']}) 
+    spy = indices['SPY']
+    qqq = indices['QQQ']
+    dia = indices['DIA']
+    iwm = indices['IWM']
+    return templates.TemplateResponse("index.html", {"request": request,"top_stocks": top_stocks,  "news": all_news, "g_trends":google_trends, "ad_data": [decliners_count[0], neutral_count[0], advancers_count[0]], "SPY": spy, "QQQ": qqq,"DIA": dia, "IWM": iwm, "all_stocks": all_stocks})
 
 
 

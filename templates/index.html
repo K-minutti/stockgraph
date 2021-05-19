@@ -20,7 +20,7 @@
       <div class="item-header row index-header">
         <div class="row"><i class="fas fa-circle orange dot"></i>SPY</div>
         <div class="row"><i class="fas fa-circle blue dot"></i>QQQ</div>
-        <div class="row"><i class="fas fa-circle violet dot"></i>DJI</div>
+        <div class="row"><i class="fas fa-circle violet dot"></i>DIA</div>
         <div class="row"><i class="fas fa-circle green dot"></i>IWM</div>
       </div>
       <div class="item-main-content">
@@ -171,6 +171,7 @@
       },
     });
 
+
     function getSize() {
       let element = document.getElementById("main-home-chart");
       const style = window.getComputedStyle(element);
@@ -227,20 +228,8 @@
         lineColor: "rgba(235, 100, 4, 1)",
         lineWidth: 3,
       });
-      let data = {{ SPY }}
-      areaSeries1.setData(data)
-      // areaSeries1.setData([
-      //   { time: "2019-04-08", value: 411.87 },
-      //   { time: "2019-04-09", value: 412.15 },
-      //   { time: "2019-04-12", value: 411.45 },
-      //   { time: "2019-04-13", value: 415.87 },
-      //   { time: "2019-04-14", value: 417.24 },
-      //   { time: "2019-04-15", value: 417.24 },
-      //   { time: "2019-04-16", value: 417.26 },
-      //   { time: "2019-04-19", value: 415.21 },
-      //   { time: "2019-04-20", value: 412.17 },
-      //   { time: "2019-04-21", value: 415.43 },
-      // ]);
+      areaSeries1.setData({{ spy|safe }})
+
 
       const areaSeries2 = chart.addAreaSeries({
         topColor: "rgba(26, 169, 255, 0.15)",
@@ -248,18 +237,8 @@
         lineColor: "rgba(26, 169, 255, 1)",
         lineWidth: 3,
       });
-      areaSeries2.setData([
-        { time: "2019-04-08", value: 336.70 },
-        { time: "2019-04-09", value: 334.67 },
-        { time: "2019-04-12", value: 334.97 },
-        { time: "2019-04-13", value: 336.67 },
-        { time: "2019-04-14", value: 340.60 },
-        { time: "2019-04-15", value: 336.51 },
-        { time: "2019-04-16", value: 341.61 },
-        { time: "2019-04-19", value: 340.26 },
-        { time: "2019-04-20", value: 336.41 },
-        { time: "2019-04-21", value: 339.03 },
-      ]);
+      areaSeries2.setData({{ qqq|safe }})
+
 
       const areaSeries3 = chart.addAreaSeries({
         topColor: "rgba(177, 99, 255, 0.15)",
@@ -267,18 +246,8 @@
         lineColor: "rgba(177, 99, 255, 1)",
         lineWidth: 3,
       });
-      areaSeries3.setData([
-      { time: "2019-04-08", value: 33570.601 },
-        { time: "2019-04-09", value: 33800.60 },
-        { time: "2019-04-12", value: 33745.40 },
-        { time: "2019-04-13", value: 33677.27 },
-        { time: "2019-04-14", value: 33730.89 },
-        { time: "2019-04-15", value: 34035.99 },
-        { time: "2019-04-16", value: 34600.67 },
-        { time: "2019-04-19", value: 34077.63 },
-        { time: "2019-04-20", value: 33821.30 },
-        { time: "2019-04-21", value: 34137.31 },
-      ]);
+      areaSeries3.setData({{ dia|safe }})
+
 
       const areaSeries4 = chart.addAreaSeries({
         topColor: "rgba(51, 225, 144, 0.15)",
@@ -286,19 +255,7 @@
         lineColor: "rgba(51, 225, 144, 1)",
         lineWidth: 3,
       });
-      areaSeries4.setData([
-      { time: "2019-04-08", value: 222.56 },
-        { time: "2019-04-09", value: 222.59 },
-        { time: "2019-04-12", value: 221.72 },
-        { time: "2019-04-13", value: 221.14 },
-        { time: "2019-04-14", value: 223.32 },
-        { time: "2019-04-15", value: 224.29 },
-        { time: "2019-04-16", value: 224.65 },
-        { time: "2019-04-19", value: 221.73 },
-        { time: "2019-04-20", value: 217.19 },
-        { time: "2019-04-21", value: 222.50 },
-      ]);
-
+      areaSeries4.setData({{ iwm|safe }})
       chart.timeScale().fitContent();
       return chart;
     }

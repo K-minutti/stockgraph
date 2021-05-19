@@ -122,7 +122,8 @@ def index(request: Request):
     qqq = indices['QQQ']
     dia = indices['DIA']
     iwm = indices['IWM']
-    return templates.TemplateResponse("index.html", {"request": request,"top_stocks": top_stocks,  "news": all_news, "g_trends":google_trends, "ad_data": [decliners_count[0], neutral_count[0], advancers_count[0]], "SPY": spy, "QQQ": qqq,"DIA": dia, "IWM": iwm, "all_stocks": all_stocks})
+    #"all_stocks": all_stocks
+    return templates.TemplateResponse("index.html", {"request": request,"top_stocks": top_stocks,  "news": all_news, "g_trends":google_trends, "ad_data": [decliners_count[0], neutral_count[0], advancers_count[0]], "spy": spy, "qqq": qqq,"dia": dia, "iwm": iwm})
 
 
 

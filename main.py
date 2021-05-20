@@ -130,8 +130,11 @@ def index(request: Request):
 
 
 @app.get("/search/{item_id}")
-async def read_user_item(item_id: str, needy: str):
-    item = {"item_id": item_id, "needy": needy}
+async def search_stock(item_id: str):
+    #here we will search stockdb by str
+    #SELECT * FROM stock WHERE symbol LIKE '3D%'  OR name LIKE '3D%'
+    #
+    item = {"item_id": item_id, "custom_message": "YOOOO Whatsup!"}
     return item
 
 

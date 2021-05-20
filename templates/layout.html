@@ -47,7 +47,7 @@
                 <i class="fas fa-search icon-large"></i>
                 <input id="nav-searchbar" name="nav-searchbar" type="text" />
               </div>
-
+              <button onclick="testFunc()">CLICK-ME</button>
               <a id="login-logout" class="navbar-item"> Logout </a>
             </div>
 
@@ -75,6 +75,11 @@
     </div>
   </body>
   <script>
+    const testFunc = async () => {
+      const res = await fetch(`http://127.0.0.1:8000/search/{}`);
+      const realResponse = await res.json();
+      console.log(realResponse);
+    };
     // $("#nav-searchbar").keyup(function () {
     //   document.getElementById("stockList-container").style.display = "block";
     //   const regex = new RegExp($("#nav-searchbar").val(), "i");

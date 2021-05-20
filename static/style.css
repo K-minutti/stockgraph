@@ -265,7 +265,6 @@ input[type="text"] {
 .table-container {
   overflow: scroll;
   overflow-x: hidden;
-  max-height: 200px;
 }
 
 .color-up {
@@ -280,6 +279,7 @@ table {
   border-collapse: collapse;
   table-layout: auto;
   width: 100%;
+  max-height: 100%;
 }
 
 th,
@@ -333,6 +333,19 @@ tbody tr:hover {
 }
 .home-item-1 {
   grid-area: one;
+  max-height: 45vh;
+}
+
+.market-internals-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#myChart {
+  max-width: 90%;
+  max-height: 90%;
 }
 
 .ad-header {
@@ -341,9 +354,11 @@ tbody tr:hover {
 
 .home-item-2 {
   grid-area: two;
+  max-height: 45vh;
 }
 
 #main-home-chart {
+  max-height: 45vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -381,17 +396,11 @@ tbody tr:hover {
 
 .home-item-3 {
   grid-area: three;
+  max-height: 45vh;
 }
 
 .gd-table tbody tr:hover {
   background-color: #09003f;
-}
-
-.market-internals-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 .table-headers {
@@ -420,9 +429,11 @@ th {
 
 .home-item-4 {
   grid-area: four;
+  max-height: 45vh;
 }
 .home-item-5 {
   grid-area: five;
+  max-height: 45vh;
 }
 
 /* <------ SINGLE STOCK ITEMS  ------->  */

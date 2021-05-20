@@ -47,7 +47,6 @@
                 <i class="fas fa-search icon-large"></i>
                 <input id="nav-searchbar" name="nav-searchbar" type="text" />
               </div>
-              <button onclick="testFunc()">CLICK-ME</button>
               <a id="login-logout" class="navbar-item"> Logout </a>
             </div>
 
@@ -75,6 +74,11 @@
     </div>
   </body>
   <script>
+    //we need a function to make the call
+    //we need a function to monitor the input element
+    //and we need a function to validate the input search query
+    //function to add and display the search results
+    //
     const testFunc = async () => {
       const res = await fetch(`http://127.0.0.1:8000/search/{}`);
       const realResponse = await res.json();

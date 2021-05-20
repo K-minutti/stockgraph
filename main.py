@@ -129,24 +129,26 @@ def index(request: Request):
 
 
 
-@app.get("/search/{item_id}")
-async def search_stock(item_id: str):
-    #here we will search stockdb by str
+@app.get("/search/{query_str}")
+async def search_stock(query_str: str):
+    query = query_str + '%'
+
+    connection = sqlite3.connect("app.db")
+    connection.row_factory = sqlite3.Row
+    cursor = connection.cursor()
+    cursor.execute("""
+        SELECT symbol, name, exchange FROM stock WHERE symbol LIKE ? OR name LIKE ?
+    """,(query,query))
+    search_results = cursor.fetchall()
+    #dhx
+    #here we will search stockdb by str 
     #SELECT * FROM stock WHERE symbol LIKE '3D%'  OR name LIKE '3D%'
     #
-    item = {"item_id": item_id, "custom_message": "YOOOO Whatsup!"}
-    return item
+    return {"results": search_results}
 
 
 @app.get("/stock/{symbol}")
 def single_stock(request: Request, symbol):
-    connection = sqlite3.connect("app.db")
-    connection.row_factory = sqlite3.Row
-    cursor = connection.cursor()
-    cursor.execute(""" 
-        SELECT symbol, name, exchange FROM stock ORDER BY symbol
-    """)
-    all_stocks = cursor.fetchall()
     # cursor.execute(""" 
     #     SELECT * FROM strategy
     # """)

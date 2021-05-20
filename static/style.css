@@ -549,9 +549,11 @@ th {
 
 .single-stock-item-2 {
   grid-area: two;
+  max-height: 36vh;
 }
 .single-stock-item-3 {
   grid-area: three;
+  max-height: 36vh;
 }
 
 /* <------ SCREENER ITEM  ------->  */

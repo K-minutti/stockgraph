@@ -137,14 +137,10 @@ async def search_stock(query_str: str):
     connection.row_factory = sqlite3.Row
     cursor = connection.cursor()
     cursor.execute("""
-        SELECT symbol, name, exchange FROM stock WHERE symbol LIKE ? OR name LIKE ?
+        SELECT symbol, name, exchange FROM stock WHERE symbol LIKE ? OR name LIKE ? LIMIT 30
     """,(query,query))
     search_results = cursor.fetchall()
-    #dhx
-    #here we will search stockdb by str 
-    #SELECT * FROM stock WHERE symbol LIKE '3D%'  OR name LIKE '3D%'
-    #
-    return {"results": search_results}
+    return {"results": search_results, "res": query}
 
 
 @app.get("/stock/{symbol}")

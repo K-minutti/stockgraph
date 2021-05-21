@@ -45,7 +45,12 @@
             <div class="navbar-right-grid-item-1 row">
               <div class="searchbar-container row">
                 <i class="fas fa-search icon-large"></i>
-                <input id="nav-searchbar" name="nav-searchbar" type="text" />
+                <input
+                  id="nav-searchbar"
+                  name="nav-searchbar"
+                  type="text"
+                  onkeyup="search()"
+                />
               </div>
               <a id="login-logout" class="navbar-item"> Logout </a>
             </div>
@@ -74,46 +79,37 @@
     </div>
   </body>
   <script>
-    //we need a function to make the call
-    //we need a function to monitor the input element
+    const searchStocks = async (queryString) => {
+      const res = await fetch(`http://127.0.0.1:8000/search/${queryString}`);
+      const realResponse = await res.json();
+      return realResponse.results;
+    };
+
+    async function search() {
+      let searchbar = document.getElementById("nav-searchbar");
+      //text = searchbar.value
+      //queryString text.trim()
+      // we will make a call with our function if the text is not null
+      // and if it is all alpha chars
+      if (searchbar.value != "") {
+        let alertValue = await searchStocks();
+        console.log(alertValue);
+        alert(alertValue);
+      }
+    }
+
     //and we need a function to validate the input search query
     //function to add and display the search results
-    //
-    const testFunc = async () => {
-      const res = await fetch(`http://127.0.0.1:8000/search/{}`);
-      const realResponse = await res.json();
-      console.log(realResponse);
-    };
-    // $("#nav-searchbar").keyup(function () {
-    //   document.getElementById("stockList-container").style.display = "block";
-    //   const regex = new RegExp($("#nav-searchbar").val(), "i");
-    //   const rows = $("#stockList li");
-
-    //   rows.each(function (index) {
-    //     symbol = $(this).children(".symbol").html();
-    //     if (symbol.search(regex) != -1) {
-    //       $(this).show();
-    //     } else {
-    //       $(this).hide();
-    //     }
-    //   });
-    // });
-
-    // $("#nav-searchbar").keyup(function () {
-    //   const string = $("#nav-searchbar").val();
-    //   const val = string.trim();
-    //   if (val == "" || val == " ") {
-    //     document.getElementById("stockList-container").style.display = "none";
-    //   }
-    // });
+    //what we are going to say is on search display the
+    //the container   document.getElementById("stockList-container").style.display = "block";
+    // then append a list item for every item in the results
+    // on a new search we will remove any items in the container list and
+    // append new items
+    // we will also hide the stockList container once the user is not
+    // focused on the container
 
     // $("#nav-searchbar").focusout(function () {
     //   document.getElementById("stockList-container").style.display = "none";
-    // });
-
-    // $("#nav-searchbar").keyup(function () {
-    //   fetch("/stock/search/anything");
-
     // });
   </script>
 </html>

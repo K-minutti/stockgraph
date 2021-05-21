@@ -132,7 +132,6 @@ def index(request: Request):
 @app.get("/search/{query_str}")
 async def search_stock(query_str: str):
     query = query_str + '%'
-
     connection = sqlite3.connect("app.db")
     connection.row_factory = sqlite3.Row
     cursor = connection.cursor()

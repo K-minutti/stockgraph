@@ -81,20 +81,22 @@
   <script>
     const searchStocks = async (queryString) => {
       const res = await fetch(`http://127.0.0.1:8000/search/${queryString}`);
-      const realResponse = await res.json();
-      return realResponse.results;
+      const searchResults = await res.json();
+      return searchResults.results;
     };
 
     async function search() {
       let searchbar = document.getElementById("nav-searchbar");
-      //text = searchbar.value
-      //queryString text.trim()
-      // we will make a call with our function if the text is not null
-      // and if it is all alpha chars
-      if (searchbar.value != "") {
-        let alertValue = await searchStocks();
-        console.log(alertValue);
-        alert(alertValue);
+      let text = searchbar.value;
+      let queryText = text.trim();
+      console.log("DIS B QueryString -->", queryText);
+      try {
+        if (text != "") {
+          let alertValue = await searchStocks(queryText);
+          console.log(alertValue);
+        }
+      } catch (err) {
+        console.error(err);
       }
     }
 

@@ -139,7 +139,7 @@ async def search_stock(query_str: str):
         SELECT symbol, name, exchange FROM stock WHERE symbol LIKE ? OR name LIKE ? LIMIT 30
     """,(query,query))
     search_results = cursor.fetchall()
-    return {"results": search_results, "res": query}
+    return {"results": search_results, "res": query_str}
 
 
 @app.get("/stock/{symbol}")

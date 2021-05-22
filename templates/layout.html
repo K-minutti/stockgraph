@@ -56,18 +56,15 @@
             </div>
 
             <div id="stockList-container" class="search-results-container">
-              <!-- <ul id="stockList">
-                {% for stock in all_stocks%}
-                <a href="/stock/{{stock.symbol}}">
-                  <li class="search-symbol row">
-                    <div class="symbol">{{stock.symbol}}</div>
-
-                    <div class="symbol-name">{{stock.name}}</div>
-                    <div class="symbol-exchange">{{stock.exchange}}</div>
-                  </li>
-                </a>
-                {% endfor%}
-              </ul> -->
+              <ul id="stockList">
+                <li class="search-symbol row">
+                  <a href="/stock/AAPL">
+                    <div class="symbol">test</div>
+                  </a>
+                  <div class="symbol-name">test</div>
+                  <div class="symbol-exchange">test</div>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -88,18 +85,26 @@
     async function search() {
       let searchbar = document.getElementById("nav-searchbar");
       let text = searchbar.value;
-      let queryText = text.trim();
-      console.log("DIS B QueryString -->", queryText);
+      let queryStr = text.trim();
+      let queryText = queryStr.replace("?", "");
       try {
-        if (text != "") {
-          let alertValue = await searchStocks(queryText);
-          console.log(alertValue);
+        if (text != "" && !text.includes("?")) {
+          let searchResults = await searchStocks(queryText);
+          // here we need a function to display the results
+
+          let searchResultItems = document.getElementById(
+            "stockList-container"
+          );
+          searchResultItems.style.display = "block";
+          for (let i = 0; i < searchResults.length; ++i) {
+            let record = searchResults[i];
+          }
         }
       } catch (err) {
         console.error(err);
       }
     }
-
+    //If the input i
     //and we need a function to validate the input search query
     //function to add and display the search results
     //what we are going to say is on search display the

@@ -56,17 +56,7 @@
             </div>
 
             <div id="stockList-container" class="search-results-container">
-              <ul id="stockList">
-                <li class="search-symbol row">
-                  <a href="/stock/DDD">
-                    <div class="symbol">test</div>
-                  </a>
-                  <a href="/stock/DDD">
-                    <div class="symbol-name">test</div>
-                  </a>
-                  <div class="symbol-exchange">test</div>
-                </li>
-              </ul>
+              <ul id="stockList"></ul>
             </div>
           </div>
         </div>
@@ -124,12 +114,14 @@
       }
     }
     let searchbar = document.getElementById("nav-searchbar");
-    // searchbar.addEventListener("focusout", () => {
-    //   let searchResultsContainer = document.getElementById(
-    //     "stockList-container"
-    //   );
-    //   searchResultsContainer.style.display = "none";
-    // });
+    searchbar.addEventListener("focusout", () => {
+      let searchResultsContainer = document.getElementById(
+        "stockList-container"
+      );
+      setTimeout(() => {
+        searchResultsContainer.style.display = "none";
+      }, 1600);
+    });
     searchbar.addEventListener("focusin", () => {
       let searchResultsContainer = document.getElementById(
         "stockList-container"

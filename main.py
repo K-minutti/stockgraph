@@ -160,7 +160,7 @@ def single_stock(request: Request, symbol):
     #Ratings for sidebar
     #webscrapping module
 
-    search = gn.search(f'NASDAQ:{symbol}', when = '6m') #for symbol stock.exchange:symbol
+    search = gn.search(f'NASDAQ:{symbol}', when = '6m') #for symbol stock.exchange:symbol, stock.name
     # search_twp gn.search(f'{row.name}', when = '6m') #for name of company - this takes priority as results are better
     news_search = search['entries']
     news = []

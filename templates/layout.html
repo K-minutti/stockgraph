@@ -89,12 +89,12 @@
       let text = searchbar.value;
       let queryStr = text.trim();
       let queryText = queryStr.replace("?", "");
+      let searchResultsContainer = document.getElementById(
+        "stockList-container"
+      );
       try {
         if (text != "" && !text.includes("?")) {
           let searchResults = await searchStocks(queryText);
-          let searchResultsContainer = document.getElementById(
-            "stockList-container"
-          );
           searchResultsContainer.style.display = "block";
           resultsList = document.getElementById("stockList");
 
@@ -103,36 +103,38 @@
             let record = searchResults[i];
             let recordHTML = `
               <li class="search-symbol row">
-                  <a href="/stock/${record.symbol}">
-                    <div class="symbol">${record.symbol}</div>
+                  <a href="/stock/${searchResults[i]["symbol"]}">
+                    <div class="symbol">${searchResults[i]["symbol"]}</div>
                   </a>
-                  <a href="/stock/${record.symbol}">
-                  <div class="symbol-name">${record.name}</div>
+                  <a href="/stock/${searchResults[i]["symbol"]}">
+                  <div class="symbol-name">${searchResults[i]["name"]}</div>
                   </a>
-                  <div class="symbol-exchange">${record.exchange}</div>
+                  <div class="symbol-exchange">${searchResults[i]["exchange"]}</div>
               </li>
             `;
             newInnerHTML += recordHTML;
           }
           resultsList.innerHTML = newInnerHTML;
         }
+        if (text == "") {
+          searchResultsContainer.style.display = "none";
+        }
       } catch (err) {
         console.error(err);
       }
     }
-    //If the input i
-    //and we need a function to validate the input search query
-    //function to add and display the search results
-    //what we are going to say is on search display the
-    //the container   document.getElementById("stockList-container").style.display = "block";
-    // then append a list item for every item in the results
-    // on a new search we will remove any items in the container list and
-    // append new items
-    // we will also hide the stockList container once the user is not
-    // focused on the container
-
-    // $("#nav-searchbar").focusout(function () {
-    //   document.getElementById("stockList-container").style.display = "none";
+    let searchbar = document.getElementById("nav-searchbar");
+    // searchbar.addEventListener("focusout", () => {
+    //   let searchResultsContainer = document.getElementById(
+    //     "stockList-container"
+    //   );
+    //   searchResultsContainer.style.display = "none";
     // });
+    searchbar.addEventListener("focusin", () => {
+      let searchResultsContainer = document.getElementById(
+        "stockList-container"
+      );
+      if (searchbar.value != "") searchResultsContainer.style.display = "block";
+    });
   </script>
 </html>

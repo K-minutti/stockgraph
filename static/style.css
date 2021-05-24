@@ -177,7 +177,7 @@ input[type="text"] {
   z-index: 1000;
   top: 0px;
   right: 0;
-  width: 400px;
+  width: 410px;
   padding-top: 0;
   display: none;
 }
@@ -189,6 +189,7 @@ input[type="text"] {
   max-height: 280px;
   font-size: 12px;
   background-color: #09003f;
+  border: solid thin #2d305a;
   padding: 0px 4px;
   overflow: scroll;
   overflow-x: hidden;
@@ -203,19 +204,23 @@ input[type="text"] {
   padding: 8px;
 }
 
+.search-symbol:hover {
+  background-color: #2d305a;
+}
+
 .symbol {
   width: 50px;
 }
 
 .symbol-name {
-  width: 300px;
+  width: 280px;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow-x: hidden;
 }
 
 .symbol-exchange {
-  width: 70px;
+  width: 80px;
   padding-left: 10px;
 }
 

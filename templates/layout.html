@@ -61,7 +61,9 @@
                   <a href="/stock/DDD">
                     <div class="symbol">test</div>
                   </a>
-                  <div class="symbol-name">test</div>
+                  <a href="/stock/DDD">
+                    <div class="symbol-name">test</div>
+                  </a>
                   <div class="symbol-exchange">test</div>
                 </li>
               </ul>
@@ -90,14 +92,29 @@
       try {
         if (text != "" && !text.includes("?")) {
           let searchResults = await searchStocks(queryText);
-          // here we need a function to display the results
-          let searchResultItems = document.getElementById(
+          let searchResultsContainer = document.getElementById(
             "stockList-container"
           );
-          searchResultItems.style.display = "block";
+          searchResultsContainer.style.display = "block";
+          resultsList = document.getElementById("stockList");
+
+          let newInnerHTML = "";
           for (let i = 0; i < searchResults.length; ++i) {
             let record = searchResults[i];
+            let recordHTML = `
+              <li class="search-symbol row">
+                  <a href="/stock/${record.symbol}">
+                    <div class="symbol">${record.symbol}</div>
+                  </a>
+                  <a href="/stock/${record.symbol}">
+                  <div class="symbol-name">${record.name}</div>
+                  </a>
+                  <div class="symbol-exchange">${record.exchange}</div>
+              </li>
+            `;
+            newInnerHTML += recordHTML;
           }
+          resultsList.innerHTML = newInnerHTML;
         }
       } catch (err) {
         console.error(err);

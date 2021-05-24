@@ -182,7 +182,7 @@ def single_stock(request: Request, symbol):
     stock_twits = twits['messages']
     # for twit in stock_twits:
     stock = {"symbol": symbol, "name": symbol}
-    return templates.TemplateResponse("single_stock.html", {"request": request, "stock": stock, "news":news, "stock_twits": stock_twits,  "all_stocks": all_stocks})
+    return templates.TemplateResponse("single_stock.html", {"request": request, "stock": stock, "news":news, "stock_twits": stock_twits})
 
 @app.post("/apply_strategy")
 def apply_strategy(strategy_id: int = Form(...), stock_id: int = Form(...)):

@@ -58,7 +58,7 @@
             <div id="stockList-container" class="search-results-container">
               <ul id="stockList">
                 <li class="search-symbol row">
-                  <a href="/stock/AAPL">
+                  <a href="/stock/DDD">
                     <div class="symbol">test</div>
                   </a>
                   <div class="symbol-name">test</div>
@@ -91,7 +91,6 @@
         if (text != "" && !text.includes("?")) {
           let searchResults = await searchStocks(queryText);
           // here we need a function to display the results
-
           let searchResultItems = document.getElementById(
             "stockList-container"
           );

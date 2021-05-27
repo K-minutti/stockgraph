@@ -179,8 +179,13 @@ def single_stock(request: Request, symbol):
 
     s_twits = requests.get(f"https://api.stocktwits.com/api/2/streams/symbol/{symbol}.json")
     twits = s_twits.json()
+    #2021-05-27T12:24:08Z
     stock_twits = twits['messages']
-    # for twit in stock_twits:
+    for twit in stock_twits:
+        day_f = datetime.datetime.strptime(twit['created_at'],"%Y-%m-%dT%H:%M:%SZ")
+        day_f.strftime("%Y-%m-%d %H:%M")
+        twit['created_at'] = day_f 
+
     stock = {"symbol": symbol, "name": symbol}
     return templates.TemplateResponse("single_stock.html", {"request": request, "stock": stock, "news":news, "stock_twits": stock_twits})
 

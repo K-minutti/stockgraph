@@ -26,12 +26,14 @@
           <label for="standard-select-2">Current Volume</label>
           <select id="standard-select-2">
             <option hidden disabled selected value>select</option>
-            <option {% if request.query_params.filter == "under_sma_50" %} selected="selected"{%endif%} value="under_sma_50">Under SMA 50D</option>
-            <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over SMA 50D</option>
-            <option value="Option 5">Option 5</option>
-            <option value="Option length">
-              Option that has too long of a value to fit
-            </option>
+            <option {% if request.query_params.filter == "under_sma_50" %} selected="selected"{%endif%} value="under_sma_50">Under 100K</option>
+            <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over 100K</option>
+            <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over 250K</option>
+            <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over 500K</option>
+            <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over 1M</option>
+            <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over 3M</option>
+            <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over 6M</option>
+            <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over 10M</option>
           </select>
         </div>
 
@@ -41,11 +43,8 @@
                 <label for="standard-select-3"> New Highs/Lows</label>
                 <select id="standard-select-3" name="high_low_filter">
                   <option hidden disabled selected value>select</option>
-                  <option {% if request.query_params.filter == "new_closing_highs" %} selected="selected"{%endif%} value="new_closing_highs">New Closing Highs</option>
-                  <option {% if request.query_params.filter == "new_closing_lows" %} selected="selected"{%endif%} value="new_closing_lows">New Closing Lows</option>
-                  <option value="Option length">
-                    Option that has too long of a value to fit
-                  </option>
+                  <option {% if request.query_params.filter == "new_closing_highs" %} selected="selected"{%endif%} value="new_closing_highs">New Closing Highs(6M)</option>
+                  <option {% if request.query_params.filter == "new_closing_lows" %} selected="selected"{%endif%} value="new_closing_lows">New Closing Lows(6M)</option>
                 </select>
               </div>
         
@@ -55,11 +54,9 @@
                 <select id="standard-select-4">
                   <option hidden disabled selected value>select</option>
                   <option {% if request.query_params.filter == "under_sma_50" %} selected="selected"{%endif%} value="under_sma_50">Under SMA 50D</option>
+                  <option {% if request.query_params.filter == "under_sma_50" %} selected="selected"{%endif%} value="under_sma_50">Under or Equal to SMA 50D</option>
                   <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over SMA 50D</option>
-                  <option value="Option 5">Option 5</option>
-                  <option value="Option length">
-                    Option that has too long of a value to fit
-                  </option>
+                  <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over or Equal to SMA 50D</option>
                 </select>
               </div>
 
@@ -67,12 +64,10 @@
                 <label for="standard-select-5">SMA(20)</label>
                 <select id="standard-select-5">
                   <option hidden disabled selected value>select</option>
-                  <option {% if request.query_params.filter == "under_sma_50" %} selected="selected"{%endif%} value="under_sma_50">Under SMA 50D</option>
-                  <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over SMA 50D</option>
-                  <option value="Option 5">Option 5</option>
-                  <option value="Option length">
-                    Option that has too long of a value to fit
-                  </option>
+                  <option {% if request.query_params.filter == "under_sma_50" %} selected="selected"{%endif%} value="under_sma_50">Under SMA 20D</option>
+                  <option {% if request.query_params.filter == "under_sma_50" %} selected="selected"{%endif%} value="under_sma_50">Under or Equal to SMA 20D</option>
+                  <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over SMA 20D</option>
+                  <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over or Equal to SMA 20D</option>
                 </select>
               </div>
               
@@ -83,10 +78,6 @@
                   <option hidden disabled selected value>select</option>
                   <option {% if request.query_params.filter == "rsi_overbought" %} selected="selected"{%endif%} value="rsi_overbought">RSI Overbought</option>
                   <option {% if request.query_params.filter == "rsi_oversold" %} selected="selected"{%endif%} value="rsi_oversold">RSI Oversold</option>
-                  <option value="Option 5">Option 5</option>
-                  <option value="Option length">
-                    Option that has too long of a value to fit
-                  </option>
                 </select>
               </div>
 

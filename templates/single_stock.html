@@ -205,7 +205,7 @@
               <td class="tbody-left-border" >
                 <div style="width: 100%; height: 100%; padding-left: 6px;">
                 <p class="bold ice">{{ message.user.username}}</p>
-                <p>{{message.body}}</p>
+                <p>{{message.body | safe}}</p>
                 <a class="text-small">{{message.created_at}}</a>
               </div>
               </td>

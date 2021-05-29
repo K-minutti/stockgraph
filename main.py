@@ -205,6 +205,13 @@ def apply_strategy(strategy_id: int = Form(...), stock_id: int = Form(...)):
 @app.get("/screener")
 def screener(request: Request):
     stock_filter = request.query_params.get('filter', False)
+    change_filter = request.query_params.get('change', False )
+    volume_filter = request.query_params.get('volume', False )
+    high_low_filter = request.query_params.get('high_low', False )
+    sma50_filter = request.query_params.get('sma50', False )
+    sma20_filter = request.query_params.get('sma20', False )
+    rsi_filter = request.query_params.get('rsi', False )
+
     connection = sqlite3.connect("app.db")
     connection.row_factory = sqlite3.Row
     cursor = connection.cursor()

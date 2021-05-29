@@ -7,18 +7,17 @@
           <label for="standard-select-1">Change %</label>
           <select id="standard-select-1" name="change">
             <option hidden disabled selected value>select</option>
-            <option {% if request.query_params.filter == "under_sma_50" %} selected="selected"{%endif%} value="under_sma_50">+3% or more</option>
-            <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">+6% or more</option>
-            <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">+8% or more</option>
-            <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">+10% or more</option>
-            <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">+15% or more</option>
-            <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">+20% or more</option>
-            <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">+25% or more</option>
-            <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">+30% or more</option>
-            <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">-3% or more</option>
-            <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">-6% or more</option>
-            <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">-10% or more</option>
-            <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">-15% or more</option>
+            <option {% if request.query_params.change == "greater_than_3%" %} selected="selected"{%endif%} value="greater_than_3%">+3% or more</option>
+            <option {% if request.query_params.change == "greater_than_6%" %} selected="selected"{%endif%} value="greater_than_6%">+6% or more</option>
+            <option {% if request.query_params.change == "greater_than_10%" %} selected="selected"{%endif%} value="greater_than_10%">+10% or more</option>
+            <option {% if request.query_params.change == "greater_than_15%" %} selected="selected"{%endif%} value="greater_than_15%">+15% or more</option>
+            <option {% if request.query_params.change == "greater_than_20%" %} selected="selected"{%endif%} value="greater_than_20%">+20% or more</option>
+            <option {% if request.query_params.change == "greater_than_25%" %} selected="selected"{%endif%} value="greater_than_25%">+25% or more</option>
+            <option {% if request.query_params.change == "greater_than_30%" %} selected="selected"{%endif%} value="greater_than_30%">+30% or more</option>
+            <option {% if request.query_params.change == "less_than_-3%" %} selected="selected"{%endif%} value="less_than_-3%">-3% or more</option>
+            <option {% if request.query_params.change == "less_than_-6%" %} selected="selected"{%endif%} value="less_than_-6%">-6% or more</option>
+            <option {% if request.query_params.change == "less_than_-10%" %} selected="selected"{%endif%} value="less_than_-10%">-10% or more</option>
+            <option {% if request.query_params.change == "less_than_-15%" %} selected="selected"{%endif%} value="less_than_-15%">-15% or more</option>
           </select>
         </div>
 
@@ -26,14 +25,14 @@
           <label for="standard-select-2">Current Volume</label>
           <select id="standard-select-2">
             <option hidden disabled selected value>select</option>
-            <option {% if request.query_params.filter == "under_sma_50" %} selected="selected"{%endif%} value="under_sma_50">Under 100K</option>
-            <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over 100K</option>
-            <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over 250K</option>
-            <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over 500K</option>
-            <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over 1M</option>
-            <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over 3M</option>
-            <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over 6M</option>
-            <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over 10M</option>
+            <option {% if request.query_params.volume == "less_than_100000" %} selected="selected"{%endif%} value="less_than_100000">Under 100K</option>
+            <option {% if request.query_params.volume == "greater_than_100000" %} selected="selected"{%endif%} value="greater_than_100000">Over 100K</option>
+            <option {% if request.query_params.volume == "greater_than_250000" %} selected="selected"{%endif%} value="greater_than_250000">Over 250K</option>
+            <option {% if request.query_params.volume == "greater_than_500000" %} selected="selected"{%endif%} value="greater_than_500000">Over 500K</option>
+            <option {% if request.query_params.volume == "greater_than_1000000" %} selected="selected"{%endif%} value="greater_than_1000000">Over 1M</option>
+            <option {% if request.query_params.volume == "greater_than_3000000" %} selected="selected"{%endif%} value="greater_than_3000000">Over 3M</option>
+            <option {% if request.query_params.volume == "greater_than_6000000" %} selected="selected"{%endif%} value="greater_than_6000000">Over 6M</option>
+            <option {% if request.query_params.volume == "greater_than_10000000" %} selected="selected"{%endif%} value="greater_than_10000000">Over 10M</option>
           </select>
         </div>
 
@@ -41,43 +40,43 @@
               <div class="screen-select">
 
                 <label for="standard-select-3"> New Highs/Lows</label>
-                <select id="standard-select-3" name="high_low_filter">
+                <select id="standard-select-3" name="high_low">
                   <option hidden disabled selected value>select</option>
-                  <option {% if request.query_params.filter == "new_closing_highs" %} selected="selected"{%endif%} value="new_closing_highs">New Closing Highs(6M)</option>
-                  <option {% if request.query_params.filter == "new_closing_lows" %} selected="selected"{%endif%} value="new_closing_lows">New Closing Lows(6M)</option>
+                  <option {% if request.query_params.high_low == "new_closing_highs" %} selected="selected"{%endif%} value="new_closing_highs">New Closing Highs(6M)</option>
+                  <option {% if request.query_params.high_low == "new_closing_lows" %} selected="selected"{%endif%} value="new_closing_lows">New Closing Lows(6M)</option>
                 </select>
               </div>
         
               
               <div class="screen-select">
                 <label for="standard-select-4">SMA(50)</label>
-                <select id="standard-select-4">
+                <select id="standard-select-4" name="sma50">
                   <option hidden disabled selected value>select</option>
-                  <option {% if request.query_params.filter == "under_sma_50" %} selected="selected"{%endif%} value="under_sma_50">Under SMA 50D</option>
-                  <option {% if request.query_params.filter == "under_sma_50" %} selected="selected"{%endif%} value="under_sma_50">Under or Equal to SMA 50D</option>
-                  <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over SMA 50D</option>
-                  <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over or Equal to SMA 50D</option>
+                  <option {% if request.query_params.sma50 == "under_sma_50" %} selected="selected"{%endif%} value="under_sma_50">Under SMA 50D</option>
+                  <option {% if request.query_params.sma50 == "under_equal_sma_50" %} selected="selected"{%endif%} value="under_sma_50">Under or Equal to SMA 50D</option>
+                  <option {% if request.query_params.sma50 == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over SMA 50D</option>
+                  <option {% if request.query_params.sma50 == "over_equal_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over or Equal to SMA 50D</option>
                 </select>
               </div>
 
               <div class="screen-select">
                 <label for="standard-select-5">SMA(20)</label>
-                <select id="standard-select-5">
+                <select id="standard-select-5" name="sma20">
                   <option hidden disabled selected value>select</option>
-                  <option {% if request.query_params.filter == "under_sma_50" %} selected="selected"{%endif%} value="under_sma_50">Under SMA 20D</option>
-                  <option {% if request.query_params.filter == "under_sma_50" %} selected="selected"{%endif%} value="under_sma_50">Under or Equal to SMA 20D</option>
-                  <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over SMA 20D</option>
-                  <option {% if request.query_params.filter == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over or Equal to SMA 20D</option>
+                  <option {% if request.query_params.sma20 == "under_sma_20" %} selected="selected"{%endif%} value="under_sma_50">Under SMA 20D</option>
+                  <option {% if request.query_params.sma20 == "under_equal_sma_20" %} selected="selected"{%endif%} value="under_sma_50">Under or Equal to SMA 20D</option>
+                  <option {% if request.query_params.sma20 == "over_sma_20" %} selected="selected"{%endif%} value="over_sma_50">Over SMA 20D</option>
+                  <option {% if request.query_params.sma20 == "over_equal_sma_20" %} selected="selected"{%endif%} value="over_sma_50">Over or Equal to SMA 20D</option>
                 </select>
               </div>
               
     
               <div class="screen-select">
                 <label for="standard-select-6">RSI(14)</label>
-                <select id="standard-select-6">
+                <select id="standard-select-6" name="rsi">
                   <option hidden disabled selected value>select</option>
-                  <option {% if request.query_params.filter == "rsi_overbought" %} selected="selected"{%endif%} value="rsi_overbought">RSI Overbought</option>
-                  <option {% if request.query_params.filter == "rsi_oversold" %} selected="selected"{%endif%} value="rsi_oversold">RSI Oversold</option>
+                  <option {% if request.query_params.rsi == "rsi_overbought" %} selected="selected"{%endif%} value="rsi_overbought">RSI Overbought</option>
+                  <option {% if request.query_params.rsi == "rsi_oversold" %} selected="selected"{%endif%} value="rsi_oversold">RSI Oversold</option>
                 </select>
               </div>
 

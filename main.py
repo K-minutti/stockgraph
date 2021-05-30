@@ -212,10 +212,11 @@ def screener(request: Request):
     sma20_filter = request.query_params.get('sma20', False )
     rsi_filter = request.query_params.get('rsi', False )
 
+    print(change_filter, volume_filter, high_low_filter, sma50_filter, sma20_filter, rsi_filter)
+
     connection = sqlite3.connect("app.db")
     connection.row_factory = sqlite3.Row
     cursor = connection.cursor()
-
     if stock_filter == 'new_closing_highs':
         cursor.execute(""" 
             select * from (
@@ -273,30 +274,17 @@ def screener(request: Request):
     rows = cursor.fetchall()
 
     cursor.execute(""" 
-        select symbol, name, sma_20, sma_50, rsi_14, close
+        select symbol, sma_20, sma_50, rsi_14, close
         from stock join historical_prices on historical_prices.stock_id = stock.id
         where date = (select max(date) from historical_prices)
     """)
-
     indicator_rows = cursor.fetchall()
     indicator_values = {}
     for row in indicator_rows:
         indicator_values[row['symbol']] = row
 
-    cursor.execute(""" 
-        select * from strategy
-    """)
 
-    connection = sqlite3.connect("app.db")
-    connection.row_factory = sqlite3.Row
-    cursor = connection.cursor()
-    cursor.execute(""" 
-        SELECT symbol, name, exchange FROM stock ORDER BY symbol
-    """)
-    all_stocks = cursor.fetchall()
-
-    strategies = cursor.fetchall()
-    return templates.TemplateResponse("screener.html", {"request" : request, "stocks": rows,  "indicator_values":indicator_values,"strategies": strategies, "all_stocks": all_stocks})
+    return templates.TemplateResponse("screener.html", {"request" : request, "stocks": rows,  "indicator_values":indicator_values})
 
 # @app.get("/orders")
 # def orders(request: Request):

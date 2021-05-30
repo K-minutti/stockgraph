@@ -23,7 +23,7 @@
 
         <div class="screen-select">
           <label for="standard-select-2">Current Volume</label>
-          <select id="standard-select-2">
+          <select id="standard-select-2" name="volume">
             <option hidden disabled selected value>select</option>
             <option {% if request.query_params.volume == "less_than_100000" %} selected="selected"{%endif%} value="less_than_100000">Under 100K</option>
             <option {% if request.query_params.volume == "greater_than_100000" %} selected="selected"{%endif%} value="greater_than_100000">Over 100K</option>
@@ -53,9 +53,9 @@
                 <select id="standard-select-4" name="sma50">
                   <option hidden disabled selected value>select</option>
                   <option {% if request.query_params.sma50 == "under_sma_50" %} selected="selected"{%endif%} value="under_sma_50">Under SMA 50D</option>
-                  <option {% if request.query_params.sma50 == "under_equal_sma_50" %} selected="selected"{%endif%} value="under_sma_50">Under or Equal to SMA 50D</option>
+                  <option {% if request.query_params.sma50 == "under_equal_sma_50" %} selected="selected"{%endif%} value="under_equal_sma_50">Under or Equal to SMA 50D</option>
                   <option {% if request.query_params.sma50 == "over_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over SMA 50D</option>
-                  <option {% if request.query_params.sma50 == "over_equal_sma_50" %} selected="selected"{%endif%} value="over_sma_50">Over or Equal to SMA 50D</option>
+                  <option {% if request.query_params.sma50 == "over_equal_sma_50" %} selected="selected"{%endif%} value="over_equal_sma_50">Over or Equal to SMA 50D</option>
                 </select>
               </div>
 
@@ -63,10 +63,10 @@
                 <label for="standard-select-5">SMA(20)</label>
                 <select id="standard-select-5" name="sma20">
                   <option hidden disabled selected value>select</option>
-                  <option {% if request.query_params.sma20 == "under_sma_20" %} selected="selected"{%endif%} value="under_sma_50">Under SMA 20D</option>
-                  <option {% if request.query_params.sma20 == "under_equal_sma_20" %} selected="selected"{%endif%} value="under_sma_50">Under or Equal to SMA 20D</option>
-                  <option {% if request.query_params.sma20 == "over_sma_20" %} selected="selected"{%endif%} value="over_sma_50">Over SMA 20D</option>
-                  <option {% if request.query_params.sma20 == "over_equal_sma_20" %} selected="selected"{%endif%} value="over_sma_50">Over or Equal to SMA 20D</option>
+                  <option {% if request.query_params.sma20 == "under_sma_20" %} selected="selected"{%endif%} value="under_sma_20">Under SMA 20D</option>
+                  <option {% if request.query_params.sma20 == "under_equal_sma_20" %} selected="selected"{%endif%} value="under_equal_sma_20">Under or Equal to SMA 20D</option>
+                  <option {% if request.query_params.sma20 == "over_sma_20" %} selected="selected"{%endif%} value="over_sma_20">Over SMA 20D</option>
+                  <option {% if request.query_params.sma20 == "over_equal_sma_20" %} selected="selected"{%endif%} value="over_equal_sma_20">Over or Equal to SMA 20D</option>
                 </select>
               </div>
               

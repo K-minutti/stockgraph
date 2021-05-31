@@ -144,18 +144,6 @@ async def search_stock(query_str: str):
 
 @app.get("/stock/{symbol}")
 def single_stock(request: Request, symbol):
-    # cursor.execute(""" 
-    #     SELECT * FROM strategy
-    # """)
-    # strategies = cursor.fetchall()
-    # cursor.execute(""" 
-    #     SELECT id, symbol, name FROM stock WHERE symbol = ?
-    # """, (symbol,))
-    # row = cursor.fetchone()
-    # cursor.execute(""" 
-    #     SELECT * FROM historical_prices WHERE stock_id = ? ORDER BY date DESC
-    # """, (row['id'],))
-    # prices = cursor.fetchall()
 
     #Ratings for sidebar
     #webscrapping module
@@ -189,6 +177,8 @@ def single_stock(request: Request, symbol):
     stock = {"symbol": symbol, "name": symbol}
     return templates.TemplateResponse("single_stock.html", {"request": request, "stock": stock, "news":news, "stock_twits": stock_twits})
 
+
+
 @app.post("/apply_strategy")
 def apply_strategy(strategy_id: int = Form(...), stock_id: int = Form(...)):
     connection = sqlite3.connect('app.db')
@@ -204,20 +194,27 @@ def apply_strategy(strategy_id: int = Form(...), stock_id: int = Form(...)):
 
 @app.get("/screener")
 def screener(request: Request):
-    stock_filter = request.query_params.get('filter', False)
     change_filter = request.query_params.get('change', False )
     volume_filter = request.query_params.get('volume', False )
     high_low_filter = request.query_params.get('high_low', False )
     sma50_filter = request.query_params.get('sma50', False )
     sma20_filter = request.query_params.get('sma20', False )
     rsi_filter = request.query_params.get('rsi', False )
-
-    print(change_filter, volume_filter, high_low_filter, sma50_filter, sma20_filter, rsi_filter)
-
+    #[change_filter, volume_filter, high_low_filter, sma50_filter, sma20_filter, rsi_filter]
+    #for filter in filters:
+    #   if filter:
+    #       valid_queries[filter]
+    #
+    #
+    # should we append it to a list and then for ev
+    #we build an object that has every option as a key and we add for the value 
+    #we can make it the SQL statement that corresponds to it for example change +3 % will be change > 3
+    #column operator threshold 
+    #
     connection = sqlite3.connect("app.db")
     connection.row_factory = sqlite3.Row
     cursor = connection.cursor()
-    if stock_filter == 'new_closing_highs':
+    if high_low_filter == 'new_closing_highs':
         cursor.execute(""" 
             select * from (
                 select symbol, name, stock_id, max(close), date
@@ -226,7 +223,7 @@ def screener(request: Request):
                 order by symbol
             ) where date = (select max(date) from historical_prices)
         """)
-    elif stock_filter == 'new_closing_lows':
+    elif high_low_filter == 'new_closing_lows':
         cursor.execute(""" 
             select * from (
                 select symbol, name, stock_id, min(close), date
@@ -235,42 +232,42 @@ def screener(request: Request):
                 order by symbol
             ) where date = (select max(date) from historical_prices)
         """)
-    elif stock_filter == 'rsi_overbought':
-        cursor.execute(""" 
-            select symbol, name, stock_id, date
-            from historical_prices join stock on stock.id = historical_prices.stock_id
-            where rsi_14 > 70
-            AND date = (select max(date) from historical_prices)
-            order by rsi_14 desc
-        """)
-    elif stock_filter == 'rsi_oversold':
-        cursor.execute(""" 
-            select symbol, name, stock_id, date
-            from historical_prices join stock on stock.id = historical_prices.stock_id
-            where rsi_14 < 30
-            AND date = (select max(date) from historical_prices)
-            order by rsi_14 asc
-        """)
-    elif stock_filter == 'under_sma_50':
-        cursor.execute(""" 
-            select symbol, name, stock_id, date
-            from historical_prices join stock on stock.id = historical_prices.stock_id
-            where close < sma_50
-            AND date = (select max(date) from historical_prices)
-            order by symbol
-        """)
-    elif stock_filter == 'over_sma_50':
-        cursor.execute(""" 
-            select symbol, name, stock_id, date
-            from historical_prices join stock on stock.id = historical_prices.stock_id
-            where close > sma_50
-            AND date = (select max(date) from historical_prices)
-            order by symbol
-        """)
+    # elif stock_filter == 'rsi_overbought':
+    #     cursor.execute(""" 
+    #         select symbol, name, stock_id, date
+    #         from historical_prices join stock on stock.id = historical_prices.stock_id
+    #         where rsi_14 > 70
+    #         AND date = (select max(date) from historical_prices)
+    #         order by rsi_14 desc
+    #     """)
+    # elif stock_filter == 'rsi_oversold':
+    #     cursor.execute(""" 
+    #         select symbol, name, stock_id, date
+    #         from historical_prices join stock on stock.id = historical_prices.stock_id
+    #         where rsi_14 < 30
+    #         AND date = (select max(date) from historical_prices)
+    #         order by rsi_14 asc
+    #     """)
+    # elif stock_filter == 'under_sma_50':
+    #     cursor.execute(""" 
+    #         select symbol, name, stock_id, date
+    #         from historical_prices join stock on stock.id = historical_prices.stock_id
+    #         where close < sma_50
+    #         AND date = (select max(date) from historical_prices)
+    #         order by symbol
+    #     """)
+    # elif stock_filter == 'over_sma_50':
+    #     cursor.execute(""" 
+    #         select symbol, name, stock_id, date
+    #         from historical_prices join stock on stock.id = historical_prices.stock_id
+    #         where close > sma_50
+    #         AND date = (select max(date) from historical_prices)
+    #         order by symbol
+    #     """)
     else:
         cursor.execute(""" 
-            select id, symbol, name from stock order by symbol
-        """)
+                select id, symbol, name from stock order by symbol
+            """)
     rows = cursor.fetchall()
 
     cursor.execute(""" 

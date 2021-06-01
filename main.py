@@ -8,6 +8,7 @@ import datetime
 import time
 import requests
 import sqlite3
+from utils import api_utils as utils
 from trading_features import ratings
 import alpaca_trade_api as tradeapi
 from pygooglenews import GoogleNews
@@ -201,16 +202,18 @@ def screener(request: Request):
     sma20_filter = request.query_params.get('sma20', False )
     rsi_filter = request.query_params.get('rsi', False )
     #[change_filter, volume_filter, high_low_filter, sma50_filter, sma20_filter, rsi_filter]
+    #filter_statements = []
     #for filter in filters:
     #   if filter:
-    #       valid_queries[filter]
+    #       filter_statements.append(valid_queries[filter])
     #
     #
-    # should we append it to a list and then for ev
-    #we build an object that has every option as a key and we add for the value 
-    #we can make it the SQL statement that corresponds to it for example change +3 % will be change > 3
+    #for statement in filter_statements 
+    #join with " AND "
+    #
     #column operator threshold 
     #
+    print("HEY THIS IS IT-->", utils.db_calls['greater_than_3%'])
     connection = sqlite3.connect("app.db")
     connection.row_factory = sqlite3.Row
     cursor = connection.cursor()

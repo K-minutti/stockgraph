@@ -26,6 +26,7 @@
           <select id="standard-select-2" name="volume">
             <option hidden disabled selected value>select</option>
             <option {% if request.query_params.volume == "less_than_100000" %} selected="selected"{%endif%} value="less_than_100000">Under 100K</option>
+            <option {% if request.query_params.volume == "less_than_1000000" %} selected="selected"{%endif%} value="less_than_1000000">Under 1M</option>
             <option {% if request.query_params.volume == "greater_than_100000" %} selected="selected"{%endif%} value="greater_than_100000">Over 100K</option>
             <option {% if request.query_params.volume == "greater_than_250000" %} selected="selected"{%endif%} value="greater_than_250000">Over 250K</option>
             <option {% if request.query_params.volume == "greater_than_500000" %} selected="selected"{%endif%} value="greater_than_500000">Over 500K</option>
@@ -42,8 +43,8 @@
                 <label for="standard-select-3"> New Highs/Lows</label>
                 <select id="standard-select-3" name="high_low">
                   <option hidden disabled selected value>select</option>
-                  <option {% if request.query_params.high_low == "new_closing_highs" %} selected="selected"{%endif%} value="new_closing_highs">New Closing Highs(6M)</option>
-                  <option {% if request.query_params.high_low == "new_closing_lows" %} selected="selected"{%endif%} value="new_closing_lows">New Closing Lows(6M)</option>
+                  <option {% if request.query_params.high_low == "new_closing_highs" %} selected="selected"{%endif%} value="new_closing_highs">New Closing Highs (6M)</option>
+                  <option {% if request.query_params.high_low == "new_closing_lows" %} selected="selected"{%endif%} value="new_closing_lows">New Closing Lows (6M)</option>
                 </select>
               </div>
         

@@ -142,7 +142,8 @@ async def search_stock(query_str: str):
     search_results = cursor.fetchall()
     return {"results": search_results, "res": query_str}
 
-
+#in search bar on key == enter if the str is in a list of valid tickers then we redirect to stock/querystr
+#otherwise we stick with search results
 @app.get("/stock/{symbol}")
 def single_stock(request: Request, symbol):
 
@@ -201,27 +202,25 @@ def screener(request: Request):
     sma50_filter = request.query_params.get('sma50', False )
     sma20_filter = request.query_params.get('sma20', False )
     rsi_filter = request.query_params.get('rsi', False )
-    #[change_filter, volume_filter, high_low_filter, sma50_filter, sma20_filter, rsi_filter]
-    #filter_statements = []
-    #for filter in filters:
-    #   if filter:
-    #       filter_statements.append(valid_queries[filter])
-    #
-    #
-    #for statement in filter_statements 
-    #join with " AND "
-    #
-    #column operator threshold 
-    #
-    print("HEY THIS IS IT-->", utils.db_calls['greater_than_3%'])
+    filters = [change_filter, volume_filter, sma50_filter, sma20_filter, rsi_filter]
+
+    filter_statements = []
+    for form_filter in filters:
+        if form_filter:
+            filter_statements.append(utils.db_calls.get(form_filter, ""))
+    
+    db_query = " AND ".join(filter_statements)
+    print(db_query)
     connection = sqlite3.connect("app.db")
     connection.row_factory = sqlite3.Row
     cursor = connection.cursor()
+
     if high_low_filter == 'new_closing_highs':
-        cursor.execute(""" 
+        cursor.execute(f""" 
             select * from (
                 select symbol, name, stock_id, max(close), date
                 from historical_prices join stock on stock.id = historical_prices.stock_id
+                where {db_query}
                 group by stock_id
                 order by symbol
             ) where date = (select max(date) from historical_prices)
@@ -235,6 +234,24 @@ def screener(request: Request):
                 order by symbol
             ) where date = (select max(date) from historical_prices)
         """)
+    #  TEST QUERIES
+    #  cursor.execute(""" 
+    #         select symbol, name, stock_id, date
+    #         from historical_prices join stock on stock.id = historical_prices.stock_id
+    #         -INSERT --> where {db_query}
+    #         AND date = (select max(date) from historical_prices)
+    #         order by change desc
+    #     """)
+    # cursor.execute(""" 
+    #        select * from (
+    #            select symbol, name, stock_id, min(close), date
+    #            from historical_prices join stock on stock.id = historical_prices.stock_id
+    #            -INSERT --> where {db_query}
+    #            group by stock_id
+    #            order by symbol
+    #        ) where date = (select max(date) from historical_prices)
+    #    """)
+    #----
     # elif stock_filter == 'rsi_overbought':
     #     cursor.execute(""" 
     #         select symbol, name, stock_id, date

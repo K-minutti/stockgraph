@@ -24,4 +24,14 @@ db_calls = {
     "greater_than_3000000": "volume > 3000000",
     "greater_than_6000000": "volume > 6000000",
     "greater_than_10000000": "volume > 10000000",
+    "under_sma_50": "close < sma_50",
+    "under_equal_sma_50": "close <= sma_50",
+    "over_sma_50": "close > sma_50",
+    "over_equal_sma_50": "close >= sma_50",
+    "under_sma_20": "close < sma_20",
+    "under_equal_sma_20": "close <= sma_20",
+    "over_sma_20": "close > sma_20",
+    "over_equal_sma_20": "close >= sma_20",
+    "rsi_overbought" : "rsi_14 > 70",
+    "rsi_oversold" : "rsi_14 < 30"
     }

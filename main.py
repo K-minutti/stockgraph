@@ -291,7 +291,7 @@ def screener(request: Request):
     rows = cursor.fetchall()
 
     cursor.execute(""" 
-        select symbol, sma_20, sma_50, rsi_14, close
+        select symbol, sma_20, sma_50, rsi_14, close, change
         from stock join historical_prices on historical_prices.stock_id = stock.id
         where date = (select max(date) from historical_prices)
     """)

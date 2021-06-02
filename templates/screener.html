@@ -104,16 +104,17 @@
                   </tr>
                 </div>
               </thead>
+
               <tbody >
                 {% for stock in stocks[:20]%}
                 <tr>
-                  <td>{{ stock.symbol }}</td>
-                  <td>{{ stock.name }}</td>
+                  <td><a href="/stock/{{stock.symbol}}">{{ stock.symbol }}</a></td>
+                  <td><a href="/stock/{{stock.symbol}}">{{ stock.name }}</a></td>
               
                   {% if indicator_values[stock.symbol] %}
                     <td>{{ indicator_values[stock.symbol].close }}</td>
-                    {% if indicator_values[stock.symbol].sma_50%}
-                    <td>{{ indicator_values[stock.symbol].sma_50|round(2) }}</td>
+                    {% if indicator_values[stock.symbol].change%}
+                    <td>{{ indicator_values[stock.symbol].change|round(2) }}%</td>
                     {% else %}
                     <td>na</td>
                     {% endif%}

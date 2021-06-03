@@ -208,82 +208,41 @@ def screener(request: Request):
     for form_filter in filters:
         if form_filter:
             filter_statements.append(utils.db_calls.get(form_filter, ""))
+    db_query = " AND ".join(filter_statements) if filter_statements else False
     
-    db_query = " AND ".join(filter_statements)
-    print(db_query)
     connection = sqlite3.connect("app.db")
     connection.row_factory = sqlite3.Row
     cursor = connection.cursor()
 
+    insert_query = 'where ' + db_query if db_query else ""
     if high_low_filter == 'new_closing_highs':
         cursor.execute(f""" 
             select * from (
                 select symbol, name, stock_id, max(close), date
                 from historical_prices join stock on stock.id = historical_prices.stock_id
-                where {db_query}
+                {insert_query}
                 group by stock_id
                 order by symbol
             ) where date = (select max(date) from historical_prices)
         """)
     elif high_low_filter == 'new_closing_lows':
-        cursor.execute(""" 
+        cursor.execute(f""" 
             select * from (
                 select symbol, name, stock_id, min(close), date
                 from historical_prices join stock on stock.id = historical_prices.stock_id
+                {insert_query}
                 group by stock_id
                 order by symbol
             ) where date = (select max(date) from historical_prices)
         """)
-    #  TEST QUERIES
-    #  cursor.execute(""" 
-    #         select symbol, name, stock_id, date
-    #         from historical_prices join stock on stock.id = historical_prices.stock_id
-    #         -INSERT --> where {db_query}
-    #         AND date = (select max(date) from historical_prices)
-    #         order by change desc
-    #     """)
-    # cursor.execute(""" 
-    #        select * from (
-    #            select symbol, name, stock_id, min(close), date
-    #            from historical_prices join stock on stock.id = historical_prices.stock_id
-    #            -INSERT --> where {db_query}
-    #            group by stock_id
-    #            order by symbol
-    #        ) where date = (select max(date) from historical_prices)
-    #    """)
-    #----
-    # elif stock_filter == 'rsi_overbought':
-    #     cursor.execute(""" 
-    #         select symbol, name, stock_id, date
-    #         from historical_prices join stock on stock.id = historical_prices.stock_id
-    #         where rsi_14 > 70
-    #         AND date = (select max(date) from historical_prices)
-    #         order by rsi_14 desc
-    #     """)
-    # elif stock_filter == 'rsi_oversold':
-    #     cursor.execute(""" 
-    #         select symbol, name, stock_id, date
-    #         from historical_prices join stock on stock.id = historical_prices.stock_id
-    #         where rsi_14 < 30
-    #         AND date = (select max(date) from historical_prices)
-    #         order by rsi_14 asc
-    #     """)
-    # elif stock_filter == 'under_sma_50':
-    #     cursor.execute(""" 
-    #         select symbol, name, stock_id, date
-    #         from historical_prices join stock on stock.id = historical_prices.stock_id
-    #         where close < sma_50
-    #         AND date = (select max(date) from historical_prices)
-    #         order by symbol
-    #     """)
-    # elif stock_filter == 'over_sma_50':
-    #     cursor.execute(""" 
-    #         select symbol, name, stock_id, date
-    #         from historical_prices join stock on stock.id = historical_prices.stock_id
-    #         where close > sma_50
-    #         AND date = (select max(date) from historical_prices)
-    #         order by symbol
-    #     """)
+    elif filter_statements:
+        cursor.execute(f""" 
+                select symbol, name, stock_id, date
+                from historical_prices join stock on stock.id = historical_prices.stock_id
+                where {insert_query}
+                AND date = (select max(date) from historical_prices)
+                order by change desc
+            """)
     else:
         cursor.execute(""" 
                 select id, symbol, name from stock order by symbol
@@ -299,7 +258,9 @@ def screener(request: Request):
     indicator_values = {}
     for row in indicator_rows:
         indicator_values[row['symbol']] = row
-
+    #
+    #RESET FORM BUTTON ------>
+    #
 
     return templates.TemplateResponse("screener.html", {"request" : request, "stocks": rows,  "indicator_values":indicator_values})
 

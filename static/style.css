@@ -324,7 +324,9 @@ tbody tr:hover {
   background-color: #2d305a;
 }
 
-/* <------ HOME ITEMS  ------->  */
+/* 
+<------------------------ HOME ITEMS  ------->  
+*/
 
 #home {
   height: 100%;
@@ -441,7 +443,9 @@ th {
   max-height: 45vh;
 }
 
-/* <------ SINGLE STOCK ITEMS  ------->  */
+/* 
+<-------------------------------- SINGLE STOCK ITEMS  ------->  
+*/
 
 #single-stock {
   height: 100%;
@@ -561,7 +565,9 @@ th {
   max-height: 36vh;
 }
 
-/* <------ SCREENER ITEM  ------->  */
+/* 
+<------------------------- SCREENER ITEM  ------->  
+*/
 
 #screener {
   height: 100%;
@@ -604,10 +610,12 @@ th {
   justify-content: space-evenly;
 }
 
-input[type="submit"] {
+input[type="submit"],
+.form-button {
   background-color: #a5a5b0;
   color: white;
   padding: 2px 10px;
+  margin-right: 4px;
   border-radius: 5px;
   border: none;
   outline: none;

@@ -2,7 +2,7 @@
 <div id="screener" class="grid-container">
   <div class="screener-item-1">
     <div class="screener-form">
-      <form method="get">
+      <form id="screenerForm" method="get">
         <div class="screen-select">
           <label for="standard-select-1">Change %</label>
           <select id="standard-select-1" name="change">
@@ -82,8 +82,8 @@
               </div>
 
 
-              
               <input type="submit" value="Submit">
+              <button class="form-button" onclick="resetForm()">Reset</button>
       </form>
     </div>
   </div>
@@ -163,5 +163,12 @@
     </div>
   </div>
 </div>
+
+
+<script>
+  function resetForm() {
+    document.getElementById("screenerForm").reset()
+  }
+</script>
 
 {%endblock%}

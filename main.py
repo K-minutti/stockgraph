@@ -214,7 +214,7 @@ def screener(request: Request):
     connection.row_factory = sqlite3.Row
     cursor = connection.cursor()
 
-    insert_query = 'where ' + db_query if db_query else ""
+    insert_query = ' where ' + db_query if db_query else ""
     if high_low_filter == 'new_closing_highs':
         cursor.execute(f""" 
             select * from (
@@ -239,7 +239,7 @@ def screener(request: Request):
         cursor.execute(f""" 
                 select symbol, name, stock_id, date
                 from historical_prices join stock on stock.id = historical_prices.stock_id
-                where {insert_query}
+                {insert_query}
                 AND date = (select max(date) from historical_prices)
                 order by change desc
             """)
@@ -259,7 +259,7 @@ def screener(request: Request):
     for row in indicator_rows:
         indicator_values[row['symbol']] = row
     #
-    #RESET FORM BUTTON ------>
+    #RESET FORM BUTTON ------> 
     #
 
     return templates.TemplateResponse("screener.html", {"request" : request, "stocks": rows,  "indicator_values":indicator_values})

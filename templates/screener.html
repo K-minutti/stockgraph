@@ -5,7 +5,7 @@
       <form id="screenerForm" method="get">
         <div class="screen-select">
           <label for="standard-select-1">Change %</label>
-          <select id="standard-select-1" name="change">
+          <select id="standard-select-1" class="standard-select" name="change">
             <option hidden disabled selected value>select</option>
             <option {% if request.query_params.change == "greater_than_3%" %} selected="selected"{%endif%} value="greater_than_3%">+3% or more</option>
             <option {% if request.query_params.change == "greater_than_6%" %} selected="selected"{%endif%} value="greater_than_6%">+6% or more</option>
@@ -23,7 +23,7 @@
 
         <div class="screen-select">
           <label for="standard-select-2">Current Volume</label>
-          <select id="standard-select-2" name="volume">
+          <select id="standard-select-2" class="standard-select"  name="volume">
             <option hidden disabled selected value>select</option>
             <option {% if request.query_params.volume == "less_than_100000" %} selected="selected"{%endif%} value="less_than_100000">Under 100K</option>
             <option {% if request.query_params.volume == "less_than_1000000" %} selected="selected"{%endif%} value="less_than_1000000">Under 1M</option>
@@ -41,7 +41,7 @@
               <div class="screen-select">
 
                 <label for="standard-select-3"> New Highs/Lows</label>
-                <select id="standard-select-3" name="high_low">
+                <select id="standard-select-3" class="standard-select"  name="high_low">
                   <option hidden disabled selected value>select</option>
                   <option {% if request.query_params.high_low == "new_closing_highs" %} selected="selected"{%endif%} value="new_closing_highs">New Closing Highs (6M)</option>
                   <option {% if request.query_params.high_low == "new_closing_lows" %} selected="selected"{%endif%} value="new_closing_lows">New Closing Lows (6M)</option>
@@ -51,7 +51,7 @@
               
               <div class="screen-select">
                 <label for="standard-select-4">SMA(50)</label>
-                <select id="standard-select-4" name="sma50">
+                <select id="standard-select-4" class="standard-select"  name="sma50">
                   <option hidden disabled selected value>select</option>
                   <option {% if request.query_params.sma50 == "under_sma_50" %} selected="selected"{%endif%} value="under_sma_50">Under SMA 50D</option>
                   <option {% if request.query_params.sma50 == "under_equal_sma_50" %} selected="selected"{%endif%} value="under_equal_sma_50">Under or Equal to SMA 50D</option>
@@ -62,7 +62,7 @@
 
               <div class="screen-select">
                 <label for="standard-select-5">SMA(20)</label>
-                <select id="standard-select-5" name="sma20">
+                <select id="standard-select-5" class="standard-select" name="sma20">
                   <option hidden disabled selected value>select</option>
                   <option {% if request.query_params.sma20 == "under_sma_20" %} selected="selected"{%endif%} value="under_sma_20">Under SMA 20D</option>
                   <option {% if request.query_params.sma20 == "under_equal_sma_20" %} selected="selected"{%endif%} value="under_equal_sma_20">Under or Equal to SMA 20D</option>
@@ -74,8 +74,8 @@
     
               <div class="screen-select">
                 <label for="standard-select-6">RSI(14)</label>
-                <select id="standard-select-6" name="rsi">
-                  <option hidden disabled selected value>select</option>
+                <select id="standard-select-6" class="standard-select" name="rsi">
+                  <option disabled selected value>select</option>
                   <option {% if request.query_params.rsi == "rsi_overbought" %} selected="selected"{%endif%} value="rsi_overbought">RSI Overbought</option>
                   <option {% if request.query_params.rsi == "rsi_oversold" %} selected="selected"{%endif%} value="rsi_oversold">RSI Oversold</option>
                 </select>
@@ -167,7 +167,7 @@
 
 <script>
   function resetForm() {
-    document.getElementById("screenerForm").reset()
+    // https://flaviocopes.com/urlsearchparams/
   }
 </script>
 

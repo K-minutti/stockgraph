@@ -258,9 +258,7 @@ def screener(request: Request):
     indicator_values = {}
     for row in indicator_rows:
         indicator_values[row['symbol']] = row
-    #
-    #RESET FORM BUTTON ------> 
-    #
+
 
     return templates.TemplateResponse("screener.html", {"request" : request, "stocks": rows,  "indicator_values":indicator_values})
 

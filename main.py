@@ -129,7 +129,6 @@ def index(request: Request):
 
 
 
-
 @app.get("/search/{query_str}")
 async def search_stock(query_str: str):
     query = query_str + '%'
@@ -141,6 +140,8 @@ async def search_stock(query_str: str):
     """,(query,query))
     search_results = cursor.fetchall()
     return {"results": search_results, "res": query_str}
+
+
 
 #in search bar on key == enter if the str is in a list of valid tickers then we redirect to stock/querystr
 #otherwise we stick with search results
@@ -259,6 +260,7 @@ def screener(request: Request):
     for row in indicator_rows:
         indicator_values[row['symbol']] = row
 
+    #paginate func --> [[{20 results}], [{20R}], [{20R}]]
 
     return templates.TemplateResponse("screener.html", {"request" : request, "stocks": rows,  "indicator_values":indicator_values})
 

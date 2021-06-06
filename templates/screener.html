@@ -106,7 +106,7 @@
               </thead>
 
               <tbody >
-                {% for stock in stocks[:20]%}
+                {% for stock in stocks[:50]%}
                 <tr>
                   <td><a href="/stock/{{stock.symbol}}">{{ stock.symbol }}</a></td>
                   <td><a href="/stock/{{stock.symbol}}">{{ stock.name }}</a></td>
@@ -114,37 +114,37 @@
                   {% if indicator_values[stock.symbol] %}
                     <td>{{ indicator_values[stock.symbol].close }}</td>
                     {% if indicator_values[stock.symbol].change%}
-                    <td>{{ indicator_values[stock.symbol].change|round(2) }}%</td>
-                    {% else %}
-                    <td>na</td>
-                    {% endif%}
-                    {% if indicator_values[stock.symbol].sma_50%}
-                    <td>{{ indicator_values[stock.symbol].sma_50|round(2) }}</td>
-                    {% else %}
-                    <td>na</td>
-                    {% endif%}
-                    {% if indicator_values[stock.symbol].sma_20%}
-                    <td>{{ indicator_values[stock.symbol].sma_20|round(2) }}</td>
-                    {% else %}
-                    <td>na</td>
-                    {% endif%}
-                    {% if indicator_values[stock.symbol].sma_20%}
-                    <td>{{ indicator_values[stock.symbol].sma_20|round(2) }}</td>
-                    {% else %}
-                    <td>na</td>
-                    {% endif%}
-                    {% if indicator_values[stock.symbol].rsi_14%}
-                    <td>{{ indicator_values[stock.symbol].rsi_14|round(2) }}</td>
-                    {% else %}
-                    <td>na</td>
+                        <td>{{ indicator_values[stock.symbol].change|round(2) }}%</td>
+                        {% else %}
+                        <td>na</td>
+                        {% endif%}
+                        {% if indicator_values[stock.symbol].sma_50%}
+                        <td>{{ indicator_values[stock.symbol].sma_50|round(2) }}</td>
+                        {% else %}
+                        <td>na</td>
+                        {% endif%}
+                        {% if indicator_values[stock.symbol].sma_20%}
+                        <td>{{ indicator_values[stock.symbol].sma_20|round(2) }}</td>
+                        {% else %}
+                        <td>na</td>
+                        {% endif%}
+                        {% if indicator_values[stock.symbol].sma_20%}
+                        <td>{{ indicator_values[stock.symbol].sma_20|round(2) }}</td>
+                        {% else %}
+                        <td>na</td>
+                        {% endif%}
+                        {% if indicator_values[stock.symbol].rsi_14%}
+                        <td>{{ indicator_values[stock.symbol].rsi_14|round(2) }}</td>
+                        {% else %}
+                        <td>na</td>
                     {% endif%}
                     {%else%}
-                    <td>na</td>
-                    <td>na</td>
-                    <td>na</td>
-                    <td>na</td>
-                    <td>na</td>
-                    <td>na</td>
+                        <td>na</td>
+                        <td>na</td>
+                        <td>na</td>
+                        <td>na</td>
+                        <td>na</td>
+                        <td>na</td>
                   {% endif%}
                 </tr>
                 {% endfor%}
@@ -164,7 +164,11 @@
   </div>
 </div>
 
+<script>
+  //wait for the data to load 
 
+  //then use event handlers to switch pages 
+</script>
 
 
 {%endblock%}

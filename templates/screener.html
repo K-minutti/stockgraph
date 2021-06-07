@@ -106,7 +106,7 @@
               </thead>
 
               <tbody >
-                {% for stock in stocks[:50]%}
+                {% for stock in stocks%}
                 <tr>
                   <td><a href="/stock/{{stock.symbol}}">{{ stock.symbol }}</a></td>
                   <td><a href="/stock/{{stock.symbol}}">{{ stock.name }}</a></td>
@@ -159,16 +159,17 @@
       <a href="#">2</a>
       <a href="#">3</a>
       <a href="#">4</a>
+      <!-- remove current static elems and leave empty then on load or form submit populate with required pages -->
       <a href="#">&#10095;</a>
     </div>
   </div>
 </div>
 
+{% block script %}
 <script>
-  //wait for the data to load 
-
-  //then use event handlers to switch pages 
+  alert({{page_results}})
+  // render numbered page results based on total page count
 </script>
-
+{% endblock %}
 
 {%endblock%}

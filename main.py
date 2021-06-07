@@ -260,9 +260,20 @@ def screener(request: Request):
     for row in indicator_rows:
         indicator_values[row['symbol']] = row
 
-    #paginate func --> [[{20 results}], [{20R}], [{20R}]]
+    results_per_page = 20
+    results_container = []
+    if len(rows) > 20:
+        for i in range(0, len(rows), results_per_page):
+            results_container.append(rows[i:i+results_per_page-1])
+    else:
+        results_container.append(rows)
 
-    return templates.TemplateResponse("screener.html", {"request" : request, "stocks": rows,  "indicator_values":indicator_values})
+    page = request.query_params.get('page', 1)
+    total_pages = len(results_container) 
+    stock_results = results_container[page-1]
+
+    return templates.TemplateResponse("screener.html", {"request" : request, "stocks": stock_results, "page_results": total_pages,  "indicator_values":indicator_values})
+
 
 # @app.get("/orders")
 # def orders(request: Request):

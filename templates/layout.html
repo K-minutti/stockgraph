@@ -136,14 +136,17 @@
         // alert("Enter key was pressed in search");
         let searchbar = document.getElementById("nav-searchbar");
         let text = searchbar.value;
-        let queryStr = text.trim();
-        let queryText = queryStr.replace("?", "");
+        let queryStr = text.trim().replace("?", "");
+        let finalQueryText = queryStr.toUpperCase();
 
-        //fetch valid_symbol api if res.valid_symbol == true
-        //then we call window.location.href to change the curr location
-        //else we do nothing
+        const res = await fetch(
+          `http://127.0.0.1:8000/search-symbol/${finalQueryText}`
+        );
 
-        window.location.href = `http://127.0.0.1:8000/stock/${queryText.toUpperCase()}`;
+        const result = await res.json();
+        if (result["valid_symbol"]) {
+          window.location.href = `http://127.0.0.1:8000/stock/${finalQueryText}`;
+        }
       }
     }
   </script>

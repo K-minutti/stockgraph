@@ -160,19 +160,7 @@ def stock_by_symbol(query_symbol: str):
 
 @app.get("/stock/{symbol}")
 def single_stock(request: Request, symbol):
-    connection = sqlite3.connect("app.db")
-    connection.row_factory = sqlite3.Row
-    cursor = connection.cursor()
-    cursor.execute(""" 
-        SELECT symbol, name, exchange FROM stock ORDER BY symbol
-    """)
-    all_stocks = cursor.fetchall()
-    symbols = []
-    for stock in all_stocks:
-        symbols.append(stock['symbol'])
-    
-    if symbol not in symbols:
-        return 'SYMBOL NOT VALID for SINGLE VIEW'
+
     #Ratings for sidebar
     #webscrapping module
 
@@ -271,7 +259,7 @@ def screener(request: Request):
             """)
     else:
         cursor.execute(""" 
-                select id, symbol, name from stock order by symbol
+                select id, symbol, name from stock order by symbol limit 600
             """)
     rows = cursor.fetchall()
 
@@ -295,7 +283,7 @@ def screener(request: Request):
 
     page = request.query_params.get('page', 1)
     total_pages = len(results_container) 
-    stock_results = results_container[page-1]
+    stock_results = results_container[int(page)-1]
 
     return templates.TemplateResponse("screener.html", {"request" : request, "stocks": stock_results, "page_results": total_pages,  "indicator_values":indicator_values})
 

@@ -168,15 +168,6 @@
 {% block script %}
 <script>
   alert({{page_results}})
-  /*
-    if getCurrentPage() == null then we need to submit a new query with the searchParam attached
-    
-    if page is equal to page_results -1 the nextPage does nothing
-    else nextPage  adds one to the pagecount and resubmits the form so that page=curr+1
-    else prevPage subtracts one to the pagecount and resubmits the form so that page=curr-1
-    
-  */
-
 
   function getCurrentPage() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -184,17 +175,27 @@
     if (pageParam == null) {
       return 1
     } else {
-      return pageParam
+      return Number(pageParam)
     }
   }
   function prevPage(){
     let currentPage = getCurrentPage()
-    // we want to resubmit the current form in the base case the path is /screener?page=1 --> screener?page=2
-    // we'll get the current path and we can either window.history push or window.location href = new pathString
+    let newPageNumber = currentPage - 1
+    const url = new URL(window.location);
+    url.searchParams.set('page', newPageNumber)
+    window.history.pushState({}, '', url)
   }
 
   function nextPage(){
+    // bounding logic if page == N-1 return else proceed  page=curr+1
     let currentPage = getCurrentPage()
+    let currentURLPath = window.location
+    let newPageNumber = currentPage + 1
+    const url = new URL(window.location);
+    url.searchParams.set('page', newPageNumber)
+    window.history.pushState({}, '', url)
+    // console.log(window.history)
+    // window.location.search = `?page=${newPageNumber}`
   }
 </script>
 {% endblock %}

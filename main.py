@@ -161,7 +161,19 @@ def stock_by_symbol(query_symbol: str):
 
 @app.get("/stock/{symbol}")
 def single_stock(request: Request, symbol):
-
+    connection = sqlite3.connect("app.db")
+    connection.row_factory = sqlite3.Row
+    cursor = connection.cursor()
+    cursor.execute(""" 
+        SELECT symbol, name, exchange FROM stock ORDER BY symbol
+    """)
+    all_stocks = cursor.fetchall()
+    symbols = []
+    for stock in all_stocks:
+        symbols.append(stock['symbol'])
+    
+    if symbol not in symbols:
+        return 'SYMBOL NOT VALID for SINGLE VIEW'
     #Ratings for sidebar
     #webscrapping module
 

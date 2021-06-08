@@ -50,6 +50,7 @@
                   name="nav-searchbar"
                   type="text"
                   onkeyup="search()"
+                  onkeydown="searchSymbol(event)"
                 />
               </div>
               <!-- <a id="login-logout" class="navbar-item"> Logout </a> -->
@@ -128,5 +129,20 @@
       );
       if (searchbar.value != "") searchResultsContainer.style.display = "block";
     });
+
+    async function searchSymbol(e) {
+      if (e.keyCode === 13) {
+        e.preventDefault();
+        // alert("Enter key was pressed in search");
+        let searchbar = document.getElementById("nav-searchbar");
+        let text = searchbar.value;
+        let queryStr = text.trim();
+        let queryText = queryStr.replace("?", "");
+
+        const res = await fetch(
+          `http://127.0.0.1:8000/search/symbol/${queryText}`
+        );
+      }
+    }
   </script>
 </html>

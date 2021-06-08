@@ -141,10 +141,24 @@ async def search_stock(query_str: str):
     search_results = cursor.fetchall()
     return {"results": search_results, "res": query_str}
 
+    
+
+@app.get("/search/symbol/{query_symbol}")
+def stock_by_symbol(query_symbol: str):
+    connection = sqlite3.connect("app.db")
+    connection.row_factory = sqlite3.Row
+    cursor = connection.cursor()
+    cursor.execute(""" 
+        SELECT symbol, name, exchange FROM stock ORDER BY symbol
+    """)
+    all_stocks = cursor.fetchall()
+    symbols = []
+    for stock in all_stocks:
+        symbols.append(stock['symbol'])
+    if query_symbol.upper() in symbols:
+        return RedirectResponse(url=f"/stock/{query_symbol.upper()}", status_code=302)
 
 
-#in search bar on key == enter if the str is in a list of valid tickers then we redirect to stock/querystr
-#otherwise we stick with search results
 @app.get("/stock/{symbol}")
 def single_stock(request: Request, symbol):
 

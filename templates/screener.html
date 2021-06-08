@@ -168,7 +168,11 @@
 {% block script %}
 <script>
   alert({{page_results}})
-
+  
+  /*
+  get the return obj from the response 
+  then we can use it on the front side to render the table inner array by array
+  */
   function getCurrentPage() {
     const urlParams = new URLSearchParams(window.location.search);
     const pageParam = urlParams.get("page")

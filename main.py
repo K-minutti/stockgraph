@@ -149,14 +149,16 @@ def stock_by_symbol(query_symbol: str):
     connection.row_factory = sqlite3.Row
     cursor = connection.cursor()
     cursor.execute(""" 
-        SELECT symbol, name, exchange FROM stock ORDER BY symbol
+        SELECT symbol FROM stock ORDER BY symbol
     """)
     all_stocks = cursor.fetchall()
     symbols = []
     for stock in all_stocks:
         symbols.append(stock['symbol'])
     if query_symbol.upper() in symbols:
-        return RedirectResponse(url=f"/stock/{query_symbol.upper()}", status_code=302)
+        return {"valid_symbol": True}
+    else:
+        return {"valid_symbol": False}
 
 
 @app.get("/stock/{symbol}")

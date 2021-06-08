@@ -132,18 +132,18 @@
 
     async function searchSymbol(e) {
       if (e.keyCode === 13) {
-        //e.preventDefault();
+        e.preventDefault();
         // alert("Enter key was pressed in search");
         let searchbar = document.getElementById("nav-searchbar");
         let text = searchbar.value;
         let queryStr = text.trim();
         let queryText = queryStr.replace("?", "");
-        // const res = await fetch(
-        //   `http://127.0.0.1:8000/stock/${queryText.uppercase()}`
-        // );
-        //res.search_string
-        window.location.href = `/stock/${queryText.uppercase()}`;
-        //window.location.assign = `/stock/${queryText.uppercase()}`;
+
+        //fetch valid_symbol api if res.valid_symbol == true
+        //then we call window.location.href to change the curr location
+        //else we do nothing
+
+        window.location.href = `http://127.0.0.1:8000/stock/${queryText.toUpperCase()}`;
       }
     }
   </script>

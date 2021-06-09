@@ -649,29 +649,5 @@ input[type="submit"],
 
 .screener-item-3 {
   grid-area: three;
-}
-
-.pagination {
-  display: inline-block;
-  padding-top: 10px;
-}
-
-.pagination a {
-  font-size: 14px;
-  color: #a5a5b0;
-  float: left;
-  padding: 6px 14px;
-  text-decoration: none;
-  margin: 2px 4px;
-}
-
-.pagination a.active {
-  background-color: #4c54d2;
   color: white;
-  border-radius: 5px;
-}
-
-.pagination a:hover:not(.active) {
-  background-color: #36f;
-  border-radius: 5px;
 }

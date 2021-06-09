@@ -263,7 +263,7 @@ def screener(request: Request):
     rows = cursor.fetchall()
 
     cursor.execute(""" 
-        select symbol, sma_20, sma_50, rsi_14, close, change
+        select symbol, sma_20, sma_50, rsi_14, close, change, volume
         from stock join historical_prices on historical_prices.stock_id = stock.id
         where date = (select max(date) from historical_prices)
     """)
@@ -272,7 +272,9 @@ def screener(request: Request):
     for row in indicator_rows:
         indicator_values[row['symbol']] = row
 
-    return templates.TemplateResponse("screener.html", {"request" : request, "stocks": rows,  "indicator_values":indicator_values})
+    length = len(rows)
+
+    return templates.TemplateResponse("screener.html", {"request" : request, "stocks": rows, "length": length, "indicator_values":indicator_values})
 
 
 # @app.get("/orders")

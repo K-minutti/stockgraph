@@ -81,7 +81,7 @@
                 </select>
               </div>
 
-              <input type="hidden" id="select-7" name="page" value="1">
+  
               <input type="submit" value="Submit">
               <button class="form-button"><a href="/screener">Reset</a></button>
       </form>
@@ -98,8 +98,8 @@
                     <th>Last</th>
                     <th>Change %</th>
                     <th>Volume</th>
-                    <th>ATR(14)</th>
                     <th>SMA(50)</th>
+                    <th>SMA(20)</th>
                     <th>RSI(14)</th>
                   </tr>
                 </div>
@@ -118,13 +118,13 @@
                         {% else %}
                         <td>na</td>
                         {% endif%}
-                        {% if indicator_values[stock.symbol].sma_50%}
-                        <td>{{ indicator_values[stock.symbol].sma_50|round(2) }}</td>
+                        {% if indicator_values[stock.symbol].volume%}
+                        <td>{{ indicator_values[stock.symbol].volume}}</td>
                         {% else %}
                         <td>na</td>
                         {% endif%}
-                        {% if indicator_values[stock.symbol].sma_20%}
-                        <td>{{ indicator_values[stock.symbol].sma_20|round(2) }}</td>
+                        {% if indicator_values[stock.symbol].sma_50%}
+                        <td>{{ indicator_values[stock.symbol].sma_50|round(2) }}</td>
                         {% else %}
                         <td>na</td>
                         {% endif%}
@@ -152,7 +152,12 @@
             </table>
         </div>
   </div>
+  <div class="screener-item-3">
 
+    {% if length >= 600  %}
+    <h4>Results limited to 600 rows.</h4>
+    {% endif%}
+  </div>  
 </div>
 
 

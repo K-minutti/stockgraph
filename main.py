@@ -159,10 +159,6 @@ def stock_by_symbol(query_symbol: str):
 
 @app.get("/stock/{symbol}")
 def single_stock(request: Request, symbol):
-
-    #Ratings for sidebar
-    #webscrapping module
-
     search = gn.search(f'NASDAQ:{symbol}', when = '6m') #for symbol stock.exchange:symbol, stock.name
     # search_twp gn.search(f'{row.name}', when = '6m') #for name of company - this takes priority as results are better
     news_search = search['entries']
@@ -191,6 +187,11 @@ def single_stock(request: Request, symbol):
 
     stock = {"symbol": symbol, "name": symbol}
     return templates.TemplateResponse("single_stock.html", {"request": request, "stock": stock, "news":news, "stock_twits": stock_twits})
+
+
+@app.get("/stock/ratings/{symbol}")
+def stock_ratings(request: Request, symbol):
+    return {"request": request, "result": f"is this your symbol {symbol}"}
 
 
 

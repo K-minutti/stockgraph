@@ -45,6 +45,7 @@
               {% endfor%}
               <p>{{stock.symbol}}</p>
               <p>{{stock.name}}</p>
+              <button onclick="getRatings()">Get Ratings</button>
               
 
             </div>
@@ -254,6 +255,18 @@
       lastClassname = classname
 
     }
+
+      async function getRatings(){
+        let stock = "CKPT"
+        const res = await fetch(`http://127.0.0.1:8000/stock/ratings/${stock}`);
+        const result = res.json()
+        console.log(result)
+        // convert this to blockscript
+        // get the stocksymbol as from the stock var from the template
+        // and call the get ratings functiont to return an array of day with the stocks ratings if there are no ratings it will return 
+        // there are not ratings at this time
+      }
+
   </script>
 </div>
 {%endblock%} 

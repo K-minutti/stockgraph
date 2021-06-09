@@ -106,7 +106,7 @@
               </thead>
 
               <tbody >
-                <!-- {% for stock in stocks%}
+                {% for stock in stocks%}
                 <tr>
                   <td><a href="/stock/{{stock.symbol}}">{{ stock.symbol }}</a></td>
                   <td><a href="/stock/{{stock.symbol}}">{{ stock.name }}</a></td>
@@ -147,63 +147,13 @@
                         <td>na</td>
                   {% endif%}
                 </tr>
-                {% endfor%} -->
+                {% endfor%}
               </tbody>
             </table>
         </div>
   </div>
-  <div class="screener-item-3">
-    <div class="pagination">
-      <a id="prev-page" onclick="prevPage()">&#10094;</a>
-      <a href="#" class="active">1</a>
-      <a href="#">2</a>
-      <a href="#">3</a>
-      <a href="#">4</a>
-      <!-- remove current static elems and leave empty then on load or form submit populate with required pages -->
-      <a id="next-page" onclick="nextPage()">&#10095;</a>
-    </div>
-  </div>
+
 </div>
 
-{% block script %}
-<script>
-
-  /*
-  make fetch request to base screener url - 
-  for stock in stocks insert the same html as above to render the rows of data 
-  
-  navigating pagination will be done on the front end 
-
-  */
-  function getCurrentPage() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const pageParam = urlParams.get("page")
-    if (pageParam == null) {
-      return 1
-    } else {
-      return Number(pageParam)
-    }
-  }
-  function prevPage(){
-    let currentPage = getCurrentPage()
-    let newPageNumber = currentPage - 1
-    const url = new URL(window.location);
-    url.searchParams.set('page', newPageNumber)
-    window.history.pushState({}, '', url)
-  }
-
-  function nextPage(){
-    // bounding logic if page == N-1 return else proceed  page=curr+1
-    let currentPage = getCurrentPage()
-    let currentURLPath = window.location
-    let newPageNumber = currentPage + 1
-    const url = new URL(window.location);
-    url.searchParams.set('page', newPageNumber)
-    window.history.pushState({}, '', url)
-    // console.log(window.history)
-    // window.location.search = `?page=${newPageNumber}`
-  }
-</script>
-{% endblock %}
 
 {%endblock%}

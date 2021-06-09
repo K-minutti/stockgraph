@@ -274,6 +274,12 @@ def screener(request: Request):
 
     length = len(rows)
 
+    """
+    grabs rows 
+    create a df using the rows in rows 
+    then make it availabled to a button that will download on click
+    """
+
     return templates.TemplateResponse("screener.html", {"request" : request, "stocks": rows, "length": length, "indicator_values":indicator_values})
 
 

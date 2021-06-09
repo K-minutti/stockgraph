@@ -601,7 +601,7 @@ th {
 }
 
 .screener-form > form {
-  width: 92%;
+  width: 94%;
   display: flex;
   align-items: center;
   border-radius: 6px;
@@ -635,7 +635,7 @@ input[type="submit"],
 }
 
 .screen-table-container {
-  width: 92%;
+  width: 95%;
   height: 100%;
   background-color: #09003f;
   padding-top: 20px;

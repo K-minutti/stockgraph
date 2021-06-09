@@ -106,7 +106,7 @@
               </thead>
 
               <tbody >
-                {% for stock in stocks%}
+                <!-- {% for stock in stocks%}
                 <tr>
                   <td><a href="/stock/{{stock.symbol}}">{{ stock.symbol }}</a></td>
                   <td><a href="/stock/{{stock.symbol}}">{{ stock.name }}</a></td>
@@ -147,7 +147,7 @@
                         <td>na</td>
                   {% endif%}
                 </tr>
-                {% endfor%}
+                {% endfor%} -->
               </tbody>
             </table>
         </div>
@@ -167,11 +167,13 @@
 
 {% block script %}
 <script>
-  alert({{page_results}})
-  
+
   /*
-  get the return obj from the response 
-  then we can use it on the front side to render the table inner array by array
+  make fetch request to base screener url - 
+  for stock in stocks insert the same html as above to render the rows of data 
+  
+  navigating pagination will be done on the front end 
+
   */
   function getCurrentPage() {
     const urlParams = new URLSearchParams(window.location.search);

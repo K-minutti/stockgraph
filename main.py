@@ -185,13 +185,11 @@ def single_stock(request: Request, symbol):
         day_f.strftime("%Y-%m-%d %H:%M")
         twit['created_at'] = day_f 
 
+
+    #get ratings using scrapy
+
     stock = {"symbol": symbol, "name": symbol}
     return templates.TemplateResponse("single_stock.html", {"request": request, "stock": stock, "news":news, "stock_twits": stock_twits})
-
-
-@app.get("/stock/ratings/{symbol}")
-def stock_ratings(request: Request, symbol):
-    return {"request": request, "result": f"is this your symbol {symbol}"}
 
 
 

@@ -8,7 +8,7 @@ import time
 import requests
 import sqlite3
 from utils import api_utils as utils
-from trading_features import ratings
+from utils import ratings as rt
 import alpaca_trade_api as tradeapi
 from pygooglenews import GoogleNews
 gn = GoogleNews()
@@ -185,11 +185,15 @@ def single_stock(request: Request, symbol):
         day_f.strftime("%Y-%m-%d %H:%M")
         twit['created_at'] = day_f 
 
-
-    #get ratings using scrapy
+    ratings = {"valid": True, "data": []}
+    data = rt.get_ratings(symbol) 
+    if data != None:
+        ratings['data'] = data[-8:]
+    else:
+        ratings['valid'] = False
 
     stock = {"symbol": symbol, "name": symbol}
-    return templates.TemplateResponse("single_stock.html", {"request": request, "stock": stock, "news":news, "stock_twits": stock_twits})
+    return templates.TemplateResponse("single_stock.html", {"request": request, "stock": stock, "news":news, "stock_twits": stock_twits, "ratings": ratings})
 
 
 

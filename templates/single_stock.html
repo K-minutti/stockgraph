@@ -40,14 +40,19 @@
               <!-- TradingView Widget END -->
             </div>
             <div id="sidebar-ratings" class="ratings">
-              {% for rating in ratings%}
-              <p>Date: {{rating[0]}}</p>
-              {% endfor%}
-              <p>{{stock.symbol}}</p>
-              <p>{{stock.name}}</p>
-              <button>Get Ratings</button>
-              
 
+                  {% if ratings['valid']%}
+                  {% for rating in ratings['data']%}
+                  <p>{{rating['Firm']}}</p>
+                  <p>{{rating['Date']}}</p>
+                  {% endfor%}
+
+                  {% else %}
+                      <p>SORYY NO RATINGS</p>
+                  {% endif%}
+ 
+              
+              <p>Testing</p>
             </div>
             <div id="sidebar-strategy">
               <form method="post" action="/apply_strategy" style="margin: 0; padding:0;">

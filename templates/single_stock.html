@@ -45,6 +45,9 @@
                   {% for rating in ratings['data']%}
                   <p>{{rating['Firm']}}</p>
                   <p>{{rating['Date']}}</p>
+                  <p>{{rating['To Grade']}}</p>
+                  <p>{{rating['From Grade']}}</p>
+                  <p>{{rating['Action']}}</p>
                   {% endfor%}
 
                   {% else %}

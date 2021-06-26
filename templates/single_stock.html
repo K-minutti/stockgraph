@@ -40,23 +40,37 @@
               <!-- TradingView Widget END -->
             </div>
             <div id="sidebar-ratings" class="ratings">
-
-                  <div>
                   {% if ratings['valid']%}
                   {% for rating in ratings['data']%}
                
 
-                  <div class="column"> 
-                    <div class="row">
+                  <div class="column rating"> 
+                    <div class="row ratings-row">
                       <p>{{rating['Firm']}}</p>
                       <p>{{rating['Date']}}</p>
 
                     </div>  
-                    <div class="row">
-                      <p>{{rating['To Grade']}}</p>
-                      <p>{{rating['From Grade']}}</p>
-                      <p>{{rating['Action']}}</p>
+                    <div class="row ratings-row">
+                      <p>To Grade: {{rating['To Grade']}}</p>
+                      <p>From Grade:{{rating['From Grade']}}</p>
+                      <p>Action: {{rating['Action']}}</p>
                     </div>  
+                    <!-- <table>
+                      <thead>
+                        <tr>
+                          <th>To Grade</th>
+                          <th>From Grade</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>{{rating['To Grade']}}</td>
+                          <td>{{rating['From Grade']}}</td>
+                          <td>{{rating['Action']}}</td>
+                        </tr>
+                      </tbody>
+                    </table> -->
                   </div>
                 
 
@@ -65,9 +79,7 @@
                   {% else %}
                       <p>SORYY NO RATINGS</p>
                   {% endif%}
- 
-                </div>
-              <p>Testing</p>
+
             </div>
             <div id="sidebar-strategy">
               <form method="post" action="/apply_strategy" style="margin: 0; padding:0;">
@@ -145,7 +157,7 @@
           <script type="text/javascript">
             new TradingView.widget({
               width: "100%",
-              height: 440,
+              height: "100%",
               symbol:
                 "{% if stock.exchange == 'ARCA' %}AMEX{%else%}{{stock.exchange}}{%endif%}:{{stock.symbol}}",
               interval: "D",
@@ -233,7 +245,7 @@
     // default dispaly is financials so initialize to class financials
     let lastClassname = 'financials' 
     function openSidebar(classname){
-      document.getElementById("single-stock-sidebar").style.width = "40%";
+      document.getElementById("single-stock-sidebar").style.width = "45%";
       document.getElementById("single-stock-sidebar-open").style.display = "flex";
       document.getElementById("single-stock-sidebar-closed").style.display = "none";
       let currentSidebarItems = document.getElementsByClassName(classname);

@@ -462,6 +462,7 @@ th {
   display: flex;
   flex-direction: row;
   align-items: center;
+  max-height: 54vh;
 }
 
 .single-stock-item-1 > .fas {
@@ -488,6 +489,18 @@ th {
 
 #sidebar-ratings {
   display: none;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 100%;
+}
+
+.rating {
+  border-bottom: 0.3px solid rgba(152, 152, 152, 0.35);
+}
+
+.ratings-row {
+  width: 85%;
+  justify-content: space-between;
 }
 
 #sidebar-strategy {
@@ -503,7 +516,7 @@ th {
 }
 
 #single-stock-sidebar {
-  width: 40%;
+  width: 45%;
   margin-right: 6px;
   transition: width 0.1s;
   -moz-transition: width 0.1s;

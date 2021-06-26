@@ -286,16 +286,14 @@ def screener(request: Request):
     return templates.TemplateResponse("screener.html", {"request" : request, "stocks": rows, "length": length, "indicator_values":indicator_values})
 
 
-# @app.get("/orders")
-# def orders(request: Request):
-#     api = tradeapi.REST(config.API_KEY, config.API_SECRET, base_url=config.BASE_URL)
-#     orders = api.list_orders(status="all")
-#     return templates.TemplateResponse("orders.html", {"request" :request, "orders": orders})
-
 
 @app.get("/study")
 def study(request: Request):
     return templates.TemplateResponse("study.html", {"request":request})
+
+@app.get("/strategy")
+def strategy_home(request: Request):
+    return templates.TemplateResponse("strategy.html", {"request":request})
 
 @app.get("/strategy/{strategy_id}")
 def strategy(request: Request, strategy_id):

@@ -41,20 +41,32 @@
             </div>
             <div id="sidebar-ratings" class="ratings">
 
+                  <div>
                   {% if ratings['valid']%}
                   {% for rating in ratings['data']%}
-                  <p>{{rating['Firm']}}</p>
-                  <p>{{rating['Date']}}</p>
-                  <p>{{rating['To Grade']}}</p>
-                  <p>{{rating['From Grade']}}</p>
-                  <p>{{rating['Action']}}</p>
+               
+
+                  <div class="column"> 
+                    <div class="row">
+                      <p>{{rating['Firm']}}</p>
+                      <p>{{rating['Date']}}</p>
+
+                    </div>  
+                    <div class="row">
+                      <p>{{rating['To Grade']}}</p>
+                      <p>{{rating['From Grade']}}</p>
+                      <p>{{rating['Action']}}</p>
+                    </div>  
+                  </div>
+                
+
                   {% endfor%}
 
                   {% else %}
                       <p>SORYY NO RATINGS</p>
                   {% endif%}
  
-              
+                </div>
               <p>Testing</p>
             </div>
             <div id="sidebar-strategy">

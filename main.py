@@ -189,6 +189,10 @@ def single_stock(request: Request, symbol):
     data = rt.get_ratings(symbol) 
     if data != None:
         ratings['data'] = data[-8:]
+        for rating in ratings['data']:
+            rating['Date'] = rating['Date'].strftime("%m-%d-%Y")
+            if rating['From Grade'] == "":
+                rating['From Grade'] = "-"
     else:
         ratings['valid'] = False
 

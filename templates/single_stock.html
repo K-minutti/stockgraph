@@ -46,38 +46,24 @@
 
                   <div class="column rating"> 
                     <div class="row ratings-row">
-                      <p>{{rating['Firm']}}</p>
-                      <p>{{rating['Date']}}</p>
+                      <p class="firm-name" >{{rating['Firm']}}</a>
+                      <p class="text-small">{{rating['Date']}}</p>
 
                     </div>  
-                    <div class="row ratings-row">
+                    <div class="row ratings-row bottom-row">
                       <p>To Grade: {{rating['To Grade']}}</p>
-                      <p>From Grade:{{rating['From Grade']}}</p>
+                      <p>From Grade: {{rating['From Grade']}}</p>
                       <p>Action: {{rating['Action']}}</p>
                     </div>  
-                    <!-- <table>
-                      <thead>
-                        <tr>
-                          <th>To Grade</th>
-                          <th>From Grade</th>
-                          <th>Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>{{rating['To Grade']}}</td>
-                          <td>{{rating['From Grade']}}</td>
-                          <td>{{rating['Action']}}</td>
-                        </tr>
-                      </tbody>
-                    </table> -->
                   </div>
                 
-
                   {% endfor%}
 
                   {% else %}
-                      <p>SORYY NO RATINGS</p>
+                      <div class="ratings-message">
+                        <p>No ratings available.</p>
+                      </div>
+                    
                   {% endif%}
 
             </div>

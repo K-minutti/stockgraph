@@ -299,24 +299,24 @@ def study(request: Request):
 def strategy_home(request: Request):
     return templates.TemplateResponse("strategy.html", {"request":request})
 
-@app.get("/strategy/{strategy_id}")
-def strategy(request: Request, strategy_id):
-    connection = sqlite3.connect("app.db")
-    connection.row_factory = sqlite3.Row
-    cursor = connection.cursor()
+# @app.get("/strategy/{strategy_id}")
+# def strategy(request: Request, strategy_id):
+#     connection = sqlite3.connect("app.db")
+#     connection.row_factory = sqlite3.Row
+#     cursor = connection.cursor()
 
-    cursor.execute(""" 
-        SELECT id, name 
-        FROM strategy
-        WHERE id = ?
-    """, (strategy_id,))
-    strategy = cursor.fetchone()
+#     cursor.execute(""" 
+#         SELECT id, name 
+#         FROM strategy
+#         WHERE id = ?
+#     """, (strategy_id,))
+#     strategy = cursor.fetchone()
 
-    cursor.execute(""" 
-        SELECT symbol, name
-        FROM stock JOIN stock_strategy on stock_strategy.stock_id = stock.id
-        WHERE strategy_id = ?
-    """, (strategy_id,))
-    stocks = cursor.fetchall()
-    return templates.TemplateResponse("screener.html", {"request": request, "stocks": stocks, "strategy": strategy})
+#     cursor.execute(""" 
+#         SELECT symbol, name
+#         FROM stock JOIN stock_strategy on stock_strategy.stock_id = stock.id
+#         WHERE strategy_id = ?
+#     """, (strategy_id,))
+#     stocks = cursor.fetchall()
+#     return templates.TemplateResponse("screener.html", {"request": request, "stocks": stocks, "strategy": strategy})
   

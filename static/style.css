@@ -487,8 +487,10 @@ th {
   display: block;
 }
 
-#sidebar-ratings {
+#sidebar-ratings,
+#sidebar-info {
   display: none;
+  color: #b2b5be;
   overflow-y: scroll;
   overflow-x: hidden;
   max-height: 100%;
@@ -527,10 +529,12 @@ th {
   display: none;
 }
 
-#sidebar-info {
+/* #sidebar-info {
   display: none;
-  color: #b2b5be;
-}
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 100%;
+} */
 
 #single-stock-sidebar {
   width: 45%;

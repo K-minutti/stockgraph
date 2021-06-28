@@ -2,13 +2,12 @@ from fastapi import FastAPI, Request, Form
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-import pandas as pd
 import datetime
 import time
 import requests
 import sqlite3
 from utils import api_utils as utils
-from utils import ratings as rt
+from utils import company_data as cd
 import alpaca_trade_api as tradeapi
 from pygooglenews import GoogleNews
 gn = GoogleNews()
@@ -185,19 +184,18 @@ def single_stock(request: Request, symbol):
         day_f.strftime("%Y-%m-%d %H:%M")
         twit['created_at'] = day_f 
 
-    ratings = {"valid": True, "data": []}
-    data = rt.get_ratings(symbol) 
-    if data != None:
-        ratings['data'] = data[-8:]
-        for rating in ratings['data']:
-            rating['Date'] = rating['Date'].strftime("%m-%d-%Y")
-            if rating['From Grade'] == "":
-                rating['From Grade'] = "-"
-    else:
-        ratings['valid'] = False
 
-    stock = {"symbol": symbol, "name": symbol}
-    return templates.TemplateResponse("single_stock.html", {"request": request, "stock": stock, "news":news, "stock_twits": stock_twits, "ratings": ratings})
+    #get_company_data returns object of ratings and general company info 
+    company_data = cd.get_company_data(symbol)
+
+    connection = sqlite3.connect("app.db")
+    connection.row_factory = sqlite3.Row
+    cursor = connection.cursor()
+    cursor.execute(""" 
+        SELECT * FROM stock WHERE symbol = ?
+    """,(symbol,))
+    stock = cursor.fetchone()
+    return templates.TemplateResponse("single_stock.html", {"request": request, "stock": stock, "news":news, "stock_twits": stock_twits, "ratings": company_data['ratings'], "company" :company_data['info']})
 
 
 

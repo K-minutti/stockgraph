@@ -80,11 +80,14 @@
             </div>
             <div id="sidebar-info">
                   <h3>{{stock.name}}</h3>
-                  <p>Sector - Industry</p>
-                  <p>Description</p>
-                  <p>Location</p>
-                  <p>Website</p>
-                  <p>Shares short</p>
+                  <p>{{company.sector}} - {{company.industry}}</p>
+                  <p>Description: {{company.longBusinessSummary}}</p>
+                  <p>Location: {{company.city}},{{company.state}} - {{company.country}}</p>
+                  <p>Website: {{company.website}}</p>
+                  <p>Market Cap: {{company.marketCap}}</p>
+                  <p>Float: {{company.floatShares}}</p>
+                  <p>Share Short: {{company.sharesShort}}</p>
+                  <p>Shares Outstanding: {{company.sharesOutstanding}}</p>
                   <p>SEC Filings</p>
                   <a href="https://www.sec.gov/cgi-bin/browse-edgar?CIK={{stock.symbol}}&Find=Search&owner=exclude&action=getcompany" target="_blank">GO</a>
             </div>

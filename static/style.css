@@ -499,7 +499,7 @@ th {
 }
 
 .ratings-row {
-  width: 88%;
+  width: 92%;
   justify-content: space-between;
 }
 
@@ -527,12 +527,9 @@ th {
   display: none;
 }
 
-#sidebar-related {
+#sidebar-info {
   display: none;
-}
-
-.avoid-clicks {
-  pointer-events: none;
+  color: #b2b5be;
 }
 
 #single-stock-sidebar {

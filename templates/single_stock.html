@@ -10,7 +10,7 @@
               <i class="far fa-file-alt financials active" onclick="displaySidebarItem('financials')" ></i>
               <i class="fas fa-award ratings" onclick="displaySidebarItem('ratings')"></i>
               <i class="fas fa-crosshairs strategy" onclick="displaySidebarItem('strategy')"></i>
-              <i class="fas fa-spinner related" onclick="displaySidebarItem('related')"></i>
+              <i class="fas fa-info info" onclick="displaySidebarItem('info')"></i>
             </div>
             <div class="close-button-container row">
               <i
@@ -78,43 +78,15 @@
                 <input type="submit" value="Apply Strategy" />
               </form>
             </div>
-            <div id="sidebar-related">
-                            <!-- TradingView Widget BEGIN -->
-                    <div>Related Tickers</div>
-
-                      
-                              <div>
-                              <div class="avoid-clicks">
-                              <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-                                {
-                              "symbol": "NASDAQ:AAPL",
-                              "width": "100%",
-                              "colorTheme": "dark",
-                              "isTransparent": true,
-                              "locale": "en"
-                              }
-                              </script>
-                              </div>
-                              <a href="/stock/AAPL">
-                                <i class="fas fa-arrow-right"></i>
-                              </a>
-                            </div>
-                              <div class="avoid-clicks">
-                                  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-                                    {
-                         "symbol": "NASDAQ:AAPL",
-                         "width": "100%",
-                         "colorTheme": "dark",
-                         "isTransparent": true,
-                         "locale": "en"
-                       }
-                         </script>
-                            </div>
-
-
-
-                <!-- </div> -->
-              <!-- TradingView Widget END -->
+            <div id="sidebar-info">
+                  <h3>{{stock.name}}</h3>
+                  <p>Sector - Industry</p>
+                  <p>Description</p>
+                  <p>Location</p>
+                  <p>Website</p>
+                  <p>Shares short</p>
+                  <p>SEC Filings</p>
+                  <a href="https://www.sec.gov/cgi-bin/browse-edgar?CIK={{stock.symbol}}&Find=Search&owner=exclude&action=getcompany" target="_blank">GO</a>
             </div>
 
           </div>
@@ -124,7 +96,7 @@
               <i class="far fa-file-alt financials" onclick="openSidebar('financials')"></i>
               <i class="fas fa-award ratings" onclick="openSidebar('ratings')"></i>
               <i class="fas fa-crosshairs strategy" onclick="openSidebar('strategy')"></i>
-              <i class="fas fa-spinner related" onclick="openSidebar('related')"></i>
+              <i class="fas fa-info info" onclick="openSidebar('info')"></i>
        
         </div>
               <!-- Sidebar END-->

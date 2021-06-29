@@ -20,7 +20,7 @@ def get_company_data(symbol):
     }
 
     symbol_data = yf.Ticker(symbol)
-    if not(symbol_data.recommendations.empty):
+    try: 
         data = symbol_data.recommendations
         data = data.reset_index()
         data = data.iloc[::-1]
@@ -30,7 +30,9 @@ def get_company_data(symbol):
         for rating in company_data['ratings']['data']:
             rating['Date'] = rating['Date'].strftime("%m-%d-%Y")
             if rating['From Grade'] == "":
-                rating['From Grade'] == "-"
+                rating['From Grade'] = "-"
+    except Exception as error:
+        print(error)
     
     for key in company_data['info']:
         info =  symbol_data.info

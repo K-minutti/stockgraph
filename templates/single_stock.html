@@ -80,16 +80,15 @@
             </div>
             <div id="sidebar-info">
                   <h3>{{stock.name}}</h3>
-                  <p>{{company.sector}} - {{company.industry}}</p>
-                  <p>Description: {{company.longBusinessSummary}}</p>
-                  <p>Location: {{company.city}},{{company.state}} - {{company.country}}</p>
-                  <p>Website: {{company.website}}</p>
-                  <p>Market Cap: {{company.marketCap}}</p>
-                  <p>Float: {{company.floatShares}}</p>
-                  <p>Share Short: {{company.sharesShort}}</p>
-                  <p>Shares Outstanding: {{company.sharesOutstanding}}</p>
-                  <p>SEC Filings</p>
-                  <a href="https://www.sec.gov/cgi-bin/browse-edgar?CIK={{stock.symbol}}&Find=Search&owner=exclude&action=getcompany" target="_blank">GO</a>
+                  <p>{{company.sector}} | {{company.industry}}</p>
+                  <p><strong>Location</strong>: {{company.city}},{{company.state}} - {{company.country}}</p>
+                  <p><strong>Website</strong>:  {{company.website}}</p>
+                  <p><strong>Market Cap</strong>: {{company.marketCap}}</p>
+                  <p><strong>Float</strong>: {{company.floatShares}}</p>
+                  <p><strong>Shares Short</strong>: {{company.sharesShort}}</p>
+                  <p><strong>Shares Outstanding</strong>: {{company.sharesOutstanding}}</p>
+                  <p><strong>SEC Filings</strong>:  <a href="https://www.sec.gov/cgi-bin/browse-edgar?CIK={{stock.symbol}}&Find=Search&owner=exclude&action=getcompany" target="_blank">Filings.</a></p>
+                  <p><strong>Description</strong>: {{company.longBusinessSummary}}</p>
             </div>
 
           </div>

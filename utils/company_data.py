@@ -1,5 +1,6 @@
 import yfinance as yf
 
+#TODO: ADD 52-WEEK HIGH AND LOW to company_data
 
 def get_company_data(symbol):
     company_data = {
@@ -42,3 +43,4 @@ def get_company_data(symbol):
             print(f"Issue with key : {key}. For symbol {symbol}. Error: {error}")
 
     return company_data
+

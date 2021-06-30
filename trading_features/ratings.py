@@ -1,6 +1,8 @@
 import scrapy 
 from scrapy.crawler import CrawlerProcess 
 
+#CRAWLERS NO LONGER IN USE
+
 def get_ratings(symbol):
     class Ratings_Spider(scrapy.Spider):
         name = "ratings_spider"

@@ -525,6 +525,16 @@ th {
   justify-content: center;
 }
 
+#sidebar-info {
+  text-align: left;
+  padding: 0px 14px;
+}
+
+#sidebar-info .fa-link {
+  font-size: 12px;
+  margin-left: 3px;
+}
+
 #sidebar-strategy {
   display: none;
 }

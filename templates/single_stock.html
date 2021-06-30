@@ -79,15 +79,15 @@
               </form>
             </div>
             <div id="sidebar-info">
-                  <h3>{{stock.name}}</h3>
-                  <p>{{company.sector}} | {{company.industry}}</p>
-                  <p><strong>Location</strong>: {{company.city}},{{company.state}} - {{company.country}}</p>
-                  <p><strong>Website</strong>:  {{company.website}}</p>
+                  <h3 class="firm-name">{{stock.name}}</h3>
+                  <p><strong>Industry</strong>: {{company.sector}} | {{company.industry}}</p>
+                  <p><strong>Location</strong>: {{company.city}} {{company.state}} - {{company.country}}</p>
+                  <p><strong>Website</strong>:  <a href="{{company.website}}" target="_blank">Site<i class="fas fa-link"></i></a></p>
                   <p><strong>Market Cap</strong>: {{company.marketCap}}</p>
                   <p><strong>Float</strong>: {{company.floatShares}}</p>
                   <p><strong>Shares Short</strong>: {{company.sharesShort}}</p>
                   <p><strong>Shares Outstanding</strong>: {{company.sharesOutstanding}}</p>
-                  <p><strong>SEC Filings</strong>:  <a href="https://www.sec.gov/cgi-bin/browse-edgar?CIK={{stock.symbol}}&Find=Search&owner=exclude&action=getcompany" target="_blank">Filings.</a></p>
+                  <p><strong>SEC Filings</strong>:  <a href="https://www.sec.gov/cgi-bin/browse-edgar?CIK={{stock.symbol}}&Find=Search&owner=exclude&action=getcompany" target="_blank">Filings<i class="fas fa-link"></i></a></p>
                   <p><strong>Description</strong>: {{company.longBusinessSummary}}</p>
             </div>
 

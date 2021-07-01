@@ -8,6 +8,7 @@ import requests
 import sqlite3
 from utils import api_utils as utils
 from utils import company_data as cd
+from utils import strategies as strat
 import alpaca_trade_api as tradeapi
 from pygooglenews import GoogleNews
 gn = GoogleNews()
@@ -188,6 +189,10 @@ def single_stock(request: Request, symbol):
     #get_company_data returns object of ratings and general company info 
     company_data = cd.get_company_data(symbol)
 
+    #TODO: Function that will take the 52 week high and Low from company data then return possible strategies
+    #we also need price data we can get price data by using the symbol data retrieved below grab id and then last 5 bars 
+    #and we can calc possible divergence strats
+
     connection = sqlite3.connect("app.db")
     connection.row_factory = sqlite3.Row
     cursor = connection.cursor()
@@ -195,6 +200,16 @@ def single_stock(request: Request, symbol):
         SELECT * FROM stock WHERE symbol = ?
     """,(symbol,))
     stock = cursor.fetchone()
+
+    cursor.execute("""
+        SELECT * FROM historical_prices WHERE stock_id = ?
+    """,(stock["id"],))
+    price_data = cursor.fetchall()
+
+    high = company_data['info']['fiftyTwoWeekHigh']
+    low = company_data['info']['fiftyTwoWeekLow']
+    all_strategies = strat.get_all_strategies(high, low, price_data)
+    print(all_strategies)
     return templates.TemplateResponse("single_stock.html", {"request": request, "stock": stock, "news":news, "stock_twits": stock_twits, "ratings": company_data['ratings'], "company" :company_data['info']})
 
 

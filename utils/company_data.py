@@ -1,7 +1,5 @@
 import yfinance as yf
 
-#TODO: ADD 52-WEEK HIGH AND LOW to company_data
-
 def get_company_data(symbol):
     company_data = {
         'info': {
@@ -15,7 +13,9 @@ def get_company_data(symbol):
             'sharesOutstanding':"-", 
             'sharesShort':"-", 
             'state':"-", 
-            'website':"-"
+            'website':"-",
+            'fiftyTwoWeekHigh':"-",
+            'fiftyTwoWeekLow':"-"
         },
         'ratings' : {'valid': False, 'data': []}
     }

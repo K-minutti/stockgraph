@@ -6,6 +6,7 @@ import datetime
 import time
 import requests
 import sqlite3
+import pandas as pd
 from utils import api_utils as utils
 from utils import company_data as cd
 from utils import strategies as strat
@@ -201,15 +202,12 @@ def single_stock(request: Request, symbol):
     """,(symbol,))
     stock = cursor.fetchone()
 
-    cursor.execute("""
-        SELECT * FROM historical_prices WHERE stock_id = ?
-    """,(stock["id"],))
-    price_data = cursor.fetchall()
-
+    price_data = pd.read_sql_query(f"SELECT * FROM historical_prices WHERE stock_id = {stock['id']}",  connection)
     high = company_data['info']['fiftyTwoWeekHigh']
     low = company_data['info']['fiftyTwoWeekLow']
+
     all_strategies = strat.get_all_strategies(high, low, price_data)
-    print(all_strategies)
+
     return templates.TemplateResponse("single_stock.html", {"request": request, "stock": stock, "news":news, "stock_twits": stock_twits, "ratings": company_data['ratings'], "company" :company_data['info']})
 
 

@@ -68,15 +68,8 @@
 
             </div>
             <div id="sidebar-strategy">
-              <form method="post" action="/apply_strategy" style="margin: 0; padding:0;">
-                <select name="strategy_id">
-                  {% for strategy in strategies%}
-                  <option value="{{strategy.id}}">{{strategy.name}}</option>
-                  {% endfor%}
-                </select>
                 <input type="hidden" name="stock_id" value="{{stock.id}}" />
-                <input type="submit" value="Apply Strategy" />
-              </form>
+
             </div>
             <div id="sidebar-info">
                   <h3 class="firm-name">{{stock.name}}</h3>

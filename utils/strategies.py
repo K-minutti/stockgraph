@@ -1,7 +1,8 @@
+import pandas as pd
 
 def get_all_strategies(high, low, price_data):
     """
-    This function takes in a high and low price as a str and price_data as sqlite row objects
+    This function takes in a high and low price as a str and price_data as a pandas dataframe
     We calculate the following strategies using this data: 52 week high breakout , 52 week low breakdown, 3 bar divergence (up and down)
     """
     #first strat is price within 9% of its 52 week high ?

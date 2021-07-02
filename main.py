@@ -190,10 +190,6 @@ def single_stock(request: Request, symbol):
     #get_company_data returns object of ratings and general company info 
     company_data = cd.get_company_data(symbol)
 
-    #TODO: Function that will take the 52 week high and Low from company data then return possible strategies
-    #we also need price data we can get price data by using the symbol data retrieved below grab id and then last 5 bars 
-    #and we can calc possible divergence strats
-
     connection = sqlite3.connect("app.db")
     connection.row_factory = sqlite3.Row
     cursor = connection.cursor()

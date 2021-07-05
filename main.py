@@ -202,8 +202,8 @@ def single_stock(request: Request, symbol):
     high = float(company_data['info']['fiftyTwoWeekHigh'])
     low = float(company_data['info']['fiftyTwoWeekLow'])
 
-    # all_strategies = strat.get_all_strategies(high, low, price_data)
-    print(price_data)
+    all_strategies = strat.get_all_strategies(high, low, price_data)
+    print("ALL STRATS", all_strategies)
 
     return templates.TemplateResponse("single_stock.html", {"request": request, "stock": stock, "news":news, "stock_twits": stock_twits, "ratings": company_data['ratings'], "company" :company_data['info']})
 

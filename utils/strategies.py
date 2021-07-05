@@ -1,14 +1,27 @@
 import math
+import numpy as np
+import pandas as pd
 
 def get_all_strategies(high, low, price_data):
     """
     This function takes in a high and low price as a str and price_data as a pandas dataframe
     We calculate the following strategies using this data: 52 week high breakout , 52 week low breakdown, 3 bar divergence (up and down)
     """
-    atr = .45
-    last = 10
+
+    high_low = price_data['high'] - price_data['low']
+    high_close = np.abs(price_data['high'] - price_data['close'].shift())
+    low_close = np.abs(price_data['low'] - price_data['close'].shift())
+    ranges = pd.concat([high_low, high_close, low_close], axis=1)
+    true_range = np.max(ranges, axis=1)
+    atr_values = true_range.rolling(14).sum()/14
+    atr_list = atr_values.tolist()
+    atr = atr_list[-1]
+    last = price_data.iloc[-1]['close']
     message = ""
 
+    return atr, last
+
+'''
     upper_limit, lower_limit = calculate_thresholds(high, low)
 
     if last > lower_limit and last < upper_limit:
@@ -45,3 +58,4 @@ def atr_price_action(start, target, atr):
 
 
 
+'''

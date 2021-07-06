@@ -40,15 +40,17 @@ def get_all_strategies(high, low, price_data):
         days = atr_price_action(last, low, atr)
         output['breakout'] = f"It would take about {days} for price to break above the 52 week low of {high} based on the 14-Day {atr} in the best case scenario."
     
-    #Strategy 2 - 3 Bar Divergence 
-    #----
-    #get the last three opens
-    #get the last three close
-    #if all the open are greater than the open then we can check that the last days highest high is higher than the third days low 
-    #if they criteria fits then we can label it as a potential divergence given the last three days 
-    #last_three_days = 
-    #do the opposite for the upside divergence
 
+    price_data_last_3 = price_data[['open', 'close']].tail(3)
+    price_data_last_3['all_closed_higher'] = price_data_last_3['open'] < price_data_last_3['close']
+    all_higher = price_data_last_3['all_closed_higher'].eq(True).all()
+    all_lower = price_data_last_3['all_closed_higher'].eq(False).all()
+    if all_higher:
+        output['threebar_up'] = 'The last three days have closed higher than the open. There is potential for a downside divergence on the next trading day.'
+    if all_lower:
+        output['threebar_down'] = 'The last three days have closed lower than the open. There is potential for an upside divergence on the next trading day.'
+    if all_higher == False and all_lower == False:
+        output['strategy_two_message'] = 'Price has not been trending for the past three days. Divergence not likely.'
 
     return output
 

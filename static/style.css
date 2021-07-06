@@ -488,7 +488,8 @@ th {
 }
 
 #sidebar-ratings,
-#sidebar-info {
+#sidebar-info,
+#sidebar-strategy {
   display: none;
   color: #b2b5be;
   overflow-y: scroll;
@@ -525,7 +526,8 @@ th {
   justify-content: center;
 }
 
-#sidebar-info {
+#sidebar-info,
+#sidebar-strategy {
   text-align: left;
   padding: 0px 14px;
 }
@@ -550,22 +552,26 @@ th {
 }
 
 #sidebar-ratings::-webkit-scrollbar,
-#sidebar-info::-webkit-scrollbar {
+#sidebar-info::-webkit-scrollbar,
+#sidebar-strategy::-webkit-scrollbar {
   width: 3px;
 }
 
 #sidebar-ratings::-webkit-scrollbar-corner,
-#sidebar-info::-webkit-scrollbar-corner {
+#sidebar-info::-webkit-scrollbar-corner,
+#sidebar-strategy::-webkit-scrollbar-corner {
   display: none;
 }
 #sidebar-ratings::-webkit-scrollbar-thumb,
-#sidebar-info::-webkit-scrollbar-thumb {
+#sidebar-info::-webkit-scrollbar-thumb,
+#sidebar-strategy::-webkit-scrollbar-thumb {
   background-color: #50535e;
   border-color: #1e222d;
 }
 
 #sidebar-ratings::-webkit-scrollbar-track,
-#sidebar-info::-webkit-scrollbar-track {
+#sidebar-info::-webkit-scrollbar-track,
+#sidebar-strategy::-webkit-scrollbar-track {
   background-color: transparent;
   border-radius: 3px;
 }

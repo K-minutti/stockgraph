@@ -35,10 +35,10 @@ def get_all_strategies(high, low, price_data):
         output['strategy_one_message'] = "No 52 week high breakout or 52 week low breakdown likely at the moment."
     if last < lower_limit:
         days = atr_price_action(last, low, atr)
-        output['breakdown']  = f"It would take about {days} day(s) for price to break below the 52 week low of {low} based on the 14-Day {atr} in the best case scenario."
+        output['breakdown']  = f"It would take about {days} day(s) for price to break below the 52 week low of {low:.2f} based on the 14-Day ATR of {atr:.2f} in the best case scenario."
     if last > upper_limit:
         days = atr_price_action(last, low, atr)
-        output['breakout'] = f"It would take about {days} day(s) for price to break above the 52 week high of {high} based on the 14-Day {atr} in the best case scenario."
+        output['breakout'] = f"It would take about {days} day(s) for price to break above the 52 week high of {high:.2f} based on the 14-Day  ATR of {atr:.2f} in the best case scenario."
     
 
     price_data_last_3 = price_data[['open', 'close']].tail(3)

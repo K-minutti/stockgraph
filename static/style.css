@@ -715,3 +715,13 @@ input[type="submit"],
   grid-area: three;
   color: white;
 }
+
+/* 
+<------------------------- STUDY PAGE  ------->  
+*/
+
+.study-input-form {
+  height: 100px;
+  width: 100px;
+  border: solid red 2px;
+}

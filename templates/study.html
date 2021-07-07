@@ -1,7 +1,14 @@
 {% extends "layout.html" %} {% block content%}
-<form class="study-input-form">
-  <input type="text" />
-</form>
+<div class="study-input-form-container">
+  <form class="study-input-form">
+    <label for="ticker-input">Symbol:</label>
+    <input
+      name="ticker-input"
+      type="text"
+      placeholder="Type a symbol or company name to analyze..."
+    />
+  </form>
+</div>
 <!-- TradingView Widget BEGIN -->
 <div class="tradingview-widget-container">
   <script

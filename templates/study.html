@@ -11,7 +11,9 @@
     />
   </form>
 </div>
+
 <!-- TradingView Widget BEGIN -->
+<!--
 <div class="tradingview-widget-container">
   <script
     type="text/javascript"
@@ -40,11 +42,20 @@
     });
   </script>
 </div>
+-->
 <!-- TradingView Widget END -->
-<hr />
-<br />
-<div>STATS SOON</div>
+<div class="study-tabs-container row">
+  <div class="tabs row">
+    <p class="active-tab">Chart</p>
+    <p>Performance</p>
+    <p>Seasonality</p>
+    <p>Volatility</p>
+    <p>Volume</p>
+  </div>
+</div>
+
 <!-- TradingView Widget BEGIN -->
+<!--
 <div class="tradingview-widget-container">
   <div class="tradingview-widget-container__widget"></div>
   <div class="tradingview-widget-copyright">
@@ -73,7 +84,9 @@
     }
   </script>
 </div>
+-->
 <!-- TradingView Widget END -->
+
 <script>
   /*
   if symbol is valid
@@ -82,6 +95,11 @@
   stats ---> 
   seasonality? sector basket performance
   
+  so lets see we have to split resources
+  and functionlity. 
+
+  when I go to study I want to be able to add a ticker and see nothing
+  for the time being except for a folio container with multiple tabs
   */
   async function searchInputTicker(e) {
     if (e.keyCode === 13) {

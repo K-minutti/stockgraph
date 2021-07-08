@@ -1,19 +1,20 @@
 {% extends "layout.html" %} {% block content%}
-<div class="study-input-form-container">
-  <form class="study-input-form">
-    <label for="ticker-input">Symbol:</label>
-    <input
-      id="ticker-input"
-      name="ticker-input"
-      type="text"
-      placeholder="Type a stock symbol and hit enter to analyze..."
-      onkeydown="searchInputTicker(event)"
-    />
-  </form>
-</div>
+<div id="study" class="grid-container">
+  <div class="study-input-form-container">
+    <form class="study-input-form">
+      <label for="ticker-input">Symbol:</label>
+      <input
+        id="ticker-input"
+        name="ticker-input"
+        type="text"
+        placeholder="Type a stock symbol and hit enter to analyze..."
+        onkeydown="searchInputTicker(event)"
+      />
+    </form>
+  </div>
 
-<!-- TradingView Widget BEGIN -->
-<!--
+  <!-- TradingView Widget BEGIN -->
+  <!--
 <div class="tradingview-widget-container">
   <script
     type="text/javascript"
@@ -43,17 +44,35 @@
   </script>
 </div>
 -->
-<!-- TradingView Widget END -->
-<div class="study-tabs-container row">
-  <div class="tabs row">
-    <p class="active-tab">Chart</p>
-    <p>Performance</p>
-    <p>Seasonality</p>
-    <p>Volatility</p>
-    <p>Volume</p>
+  <!-- TradingView Widget END -->
+  <div class="study-tabs-container row">
+    <div class="tabs row">
+      <p id="tab-Chart" class="active-tab" onclick="changeTab(event)">Chart</p>
+      <p id="tab-Performance" onclick="changeTab(event)">Performance</p>
+      <p id="tab-Seasonality" onclick="changeTab(event)">Seasonality</p>
+      <p id="tab-Volatility" onclick="changeTab(event)">Volatility</p>
+      <p id="tab-Volume" onclick="changeTab(event)">Volume</p>
+    </div>
+  </div>
+
+  <div class="main-study-container">
+    <div class="active-section study-section">
+      <p>ENTER A TICKER TO VIEW A CHART</p>
+    </div>
+    <div class="study-section">
+      <p>ENTER A TICKER TO VIEW PERFORMANCE</p>
+    </div>
+    <div class="study-section">
+      <p>ENTER A TICKER TO VIEW SEASONALITY</p>
+    </div>
+    <div class="study-section">
+      <p>ENTER A TICKER TO VIEW VOLATILITY</p>
+    </div>
+    <div class="study-section">
+      <p>ENTER A TICKER TO VIEW VOLUME ANALYSIS</p>
+    </div>
   </div>
 </div>
-
 <!-- TradingView Widget BEGIN -->
 <!--
 <div class="tradingview-widget-container">
@@ -119,6 +138,13 @@
         alert("NOT A VALID SYMBOL. SORRY!");
       }
     }
+  }
+
+  function changeTab(e) {
+    document.getElementsByClassName("active-tab")[0].className = "";
+    let id = e.target.innerText;
+    let tabId = `tab-${id}`;
+    document.getElementById(tabId).className = "active-tab";
   }
 </script>
 {% endblock%}

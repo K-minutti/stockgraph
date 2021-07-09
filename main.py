@@ -149,11 +149,11 @@ def stock_by_symbol(query_symbol: str):
     connection.row_factory = sqlite3.Row
     cursor = connection.cursor()
     cursor.execute(""" 
-        SELECT symbol FROM stock WHERE symbol = ?
+        SELECT symbol, exchange FROM stock WHERE symbol = ?
     """, (query_symbol,))
     result = cursor.fetchone()
     if result:
-        return {"valid_symbol": True}
+        return {"valid_symbol": True, "exchange": result['exchange']}
     else:
         return {"valid_symbol": False}
 
@@ -288,12 +288,21 @@ def screener(request: Request):
 def study(request: Request):
     symbolQuery = request.query_params.get('ticker_input', False )
     message = ""
-    symbol = "NAHTHING"
+    """
+    We will return the following information
+    symbol -> {symbol: symbol, exchange: exchange}
+    performance -> {currYear: 52Weeks, 2020, 2019...} // 5years weekly data points
+    seasonality -> {Jan: .80, Feb: .80, March: .50} //max Yrs or 10Years 120 data points percentage of time the month closed higher than it opened
+    Volatility -> {}
+    Volume -> 
+    """
+    symbol = {'symbol': '', 'exchange': ''}
     if symbolQuery:
         symbolCleaned =  symbolQuery.strip().replace("?", "").upper()
         result =  stock_by_symbol(symbolCleaned)
         if result['valid_symbol']:
-            symbol = symbolCleaned
+            symbol['symbol'] = symbolCleaned
+            symbol['exchange'] = result['exchange']
             message = "YOUR STATS ARE COOKING"
     return templates.TemplateResponse("study.html", {"request":request, "symbol": symbol, "message": message})
 

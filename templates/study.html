@@ -6,44 +6,12 @@
       <input placeholder= "Type a stock symbol and hit enter to analyze..."
       id="ticker-input" name="ticker_input" type="text" maxlength="6" {%if
       request.query_params.ticker_input %} {%if
-      request.query_params.ticker_input.upper() == symbol %} value='{{symbol}}'
-      {%endif%} {%endif%} />
+      request.query_params.ticker_input.upper() == symbol.symbol %}
+      value='{{symbol.symbol}}' {%endif%} {%endif%} />
       <input type="submit" style="display: none" />
     </form>
   </div>
 
-  <!-- TradingView Widget BEGIN -->
-  <!--
-<div class="tradingview-widget-container">
-  <script
-    type="text/javascript"
-    src="https://s3.tradingview.com/tv.js"
-  ></script>
-  <script type="text/javascript">
-    new TradingView.widget({
-      width: "100%",
-      height: 620,
-      symbol: "NASDAQ:AAPL",
-      timezone: "Etc/UTC",
-      theme: "light",
-      style: "1",
-      locale: "en",
-      toolbar_bg: "#f1f3f6",
-      enable_publishing: false,
-      withdateranges: true,
-      range: "60M",
-      hide_side_toolbar: false,
-      allow_symbol_change: true,
-      studies: ["Volume@tv-basicstudies"],
-      show_popup_button: true,
-      popup_width: "1000",
-      popup_height: "650",
-      container_id: "tradingview_343f6",
-    });
-  </script>
-</div>
--->
-  <!-- TradingView Widget END -->
   <div class="study-tabs-container row">
     <div class="tabs row">
       <p id="tab-Chart" class="active-tab" onclick="changeTab(event)">Chart</p>
@@ -56,12 +24,60 @@
 
   <div class="main-study-container">
     <div id="section-Chart" class="active-section">
-      <p>ENTER A TICKER TO VIEW A CHART FOR: <strong>{{symbol}}</strong></p>
-      <p>{{message}}</p>
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div id="tradingview_a5112"></div>
+        <script
+          type="text/javascript"
+          src="https://s3.tradingview.com/tv.js"
+        ></script>
+        <script type="text/javascript">
+          new TradingView.widget({
+            width: "100%",
+            height: "100%",
+            symbol:
+              "{% if symbol.exchange == 'ARCA' %}AMEX{%else%}{{symbol.exchange}}{%endif%}:{{symbol.symbol}}",
+            timezone: "Etc/UTC",
+            theme: "light",
+            style: "1",
+            locale: "en",
+            toolbar_bg: "#f1f3f6",
+            enable_publishing: false,
+            withdateranges: true,
+            range: "60M",
+            hide_side_toolbar: false,
+            studies: ["Volume@tv-basicstudies"],
+            show_popup_button: true,
+            popup_width: "1000",
+            popup_height: "650",
+            container_id: "tradingview_a5112",
+          });
+        </script>
+      </div>
+      <!-- TradingView Widget END -->
     </div>
     <div id="section-Performance" class="section">
-      <p>ENTER A TICKER TO VIEW PERFORMANCE</p>
-      <p>{{message}}</p>
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <script
+          type="text/javascript"
+          src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js"
+          async
+        >
+            {
+            "symbol": "{% if symbol.exchange == 'ARCA' %}AMEX{%else%}{{symbol.exchange}}{%endif%}:{{symbol.symbol}}",
+            "colorTheme": "light",
+            "isTransparent": false,
+            "largeChartUrl": "",
+            "displayMode": "regular",
+            "width": "100%",
+            "height": "100%",
+            "locale": "en"
+          }
+        </script>
+      </div>
+
+      <!-- TradingView Widget END -->
     </div>
     <div id="section-Seasonality" class="section">
       <p>ENTER A TICKER TO VIEW SEASONALITY</p>
@@ -75,38 +91,6 @@
     </div>
   </div>
 </div>
-<!-- TradingView Widget BEGIN -->
-<!--
-<div class="tradingview-widget-container">
-  <div class="tradingview-widget-container__widget"></div>
-  <div class="tradingview-widget-copyright">
-    <a
-      href="https://www.tradingview.com/symbols/NASDAQ-AAPL/history-timeline/"
-      rel="noopener"
-      target="_blank"
-      ><span class="blue-text">AAPL History</span></a
-    >
-    by TradingView
-  </div>
-  <script
-    type="text/javascript"
-    src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js"
-    async
-  >
-      {
-      "symbol": "NASDAQ:AAPL",
-      "colorTheme": "light",
-      "isTransparent": false,
-      "largeChartUrl": "",
-      "displayMode": "regular",
-      "width": "100%",
-      "height": 830,
-      "locale": "en"
-    }
-  </script>
-</div>
--->
-<!-- TradingView Widget END -->
 
 <script>
   // onkeydown="searchInputTicker(event)"

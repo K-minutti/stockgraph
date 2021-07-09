@@ -1,7 +1,7 @@
 {% extends "layout.html" %} {% block content%}
 <div id="study" class="grid-container">
   <div class="study-input-form-container">
-    <form class="study-input-form">
+    <form class="study-input-form" method="get">
       <label for="ticker-input">Symbol:</label>
       <input
         id="ticker-input"
@@ -57,7 +57,7 @@
 
   <div class="main-study-container">
     <div id="section-Chart" class="active-section">
-      <p>ENTER A TICKER TO VIEW A CHART</p>
+      <p>ENTER A TICKER TO VIEW A CHART FOR: {{message}}</p>
     </div>
     <div id="section-Performance" class="section">
       <p>ENTER A TICKER TO VIEW PERFORMANCE</p>
@@ -107,19 +107,6 @@
 <!-- TradingView Widget END -->
 
 <script>
-  /*
-  if symbol is valid
-  return the correct chart and timeline
-  and return the correct stats
-  stats ---> 
-  seasonality? sector basket performance
-  
-  so lets see we have to split resources
-  and functionlity. 
-
-  when I go to study I want to be able to add a ticker and see nothing
-  for the time being except for a folio container with multiple tabs
-  */
   async function searchInputTicker(e) {
     if (e.keyCode === 13) {
       e.preventDefault();

@@ -286,5 +286,10 @@ def screener(request: Request):
 
 @app.get("/study")
 def study(request: Request):
-    return templates.TemplateResponse("study.html", {"request":request})
+    symbol = request.query_params.get('symbol', False )
+    message = ""
+    if symbol:
+        message = "You submmited something"
+
+    return templates.TemplateResponse("study.html", {"request":request, "symbol": symbol, "message": message})
 

@@ -3,13 +3,11 @@
   <div class="study-input-form-container">
     <form class="study-input-form" method="get">
       <label for="ticker_input">Symbol:</label>
-      <input
-        id="ticker-input"
-        name="ticker_input"
-        type="text"
-        placeholder="Type a stock symbol and hit enter to analyze..."
-        maxlength="6"
-      />
+      <input placeholder= "Type a stock symbol and hit enter to analyze..."
+      id="ticker-input" name="ticker_input" type="text" maxlength="6" {%if
+      request.query_params.ticker_input %} {%if
+      request.query_params.ticker_input.upper() == symbol %} value='{{symbol}}'
+      {%endif%} {%endif%} />
       <input type="submit" style="display: none" />
     </form>
   </div>

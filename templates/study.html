@@ -56,19 +56,19 @@
   </div>
 
   <div class="main-study-container">
-    <div class="active-section study-section">
+    <div id="section-Chart" class="active-section">
       <p>ENTER A TICKER TO VIEW A CHART</p>
     </div>
-    <div class="study-section">
+    <div id="section-Performance" class="section">
       <p>ENTER A TICKER TO VIEW PERFORMANCE</p>
     </div>
-    <div class="study-section">
+    <div id="section-Seasonality" class="section">
       <p>ENTER A TICKER TO VIEW SEASONALITY</p>
     </div>
-    <div class="study-section">
+    <div id="section-Volatility" class="section">
       <p>ENTER A TICKER TO VIEW VOLATILITY</p>
     </div>
-    <div class="study-section">
+    <div id="section-Volume" class="section">
       <p>ENTER A TICKER TO VIEW VOLUME ANALYSIS</p>
     </div>
   </div>
@@ -142,9 +142,12 @@
 
   function changeTab(e) {
     document.getElementsByClassName("active-tab")[0].className = "";
+    document.getElementsByClassName("active-section")[0].className = "section";
     let id = e.target.innerText;
     let tabId = `tab-${id}`;
+    let sectionId = `section-${id}`;
     document.getElementById(tabId).className = "active-tab";
+    document.getElementById(sectionId).className = "active-section";
   }
 </script>
 {% endblock%}

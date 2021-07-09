@@ -286,10 +286,14 @@ def screener(request: Request):
 
 @app.get("/study")
 def study(request: Request):
-    symbol = request.query_params.get('symbol', False )
+    symbolQuery = request.query_params.get('ticker_input', False )
     message = ""
-    if symbol:
-        message = "You submmited something"
-
+    symbol = "NAHTHING"
+    if symbolQuery:
+        symbolCleaned =  symbolQuery.strip().replace("?", "").upper()
+        result =  stock_by_symbol(symbolCleaned)
+        if result['valid_symbol']:
+            symbol = symbolCleaned
+            message = "YOUR STATS ARE COOKING"
     return templates.TemplateResponse("study.html", {"request":request, "symbol": symbol, "message": message})
 

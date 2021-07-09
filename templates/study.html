@@ -2,14 +2,15 @@
 <div id="study" class="grid-container">
   <div class="study-input-form-container">
     <form class="study-input-form" method="get">
-      <label for="ticker-input">Symbol:</label>
+      <label for="ticker_input">Symbol:</label>
       <input
         id="ticker-input"
-        name="ticker-input"
+        name="ticker_input"
         type="text"
         placeholder="Type a stock symbol and hit enter to analyze..."
-        onkeydown="searchInputTicker(event)"
+        maxlength="6"
       />
+      <input type="submit" style="display: none" />
     </form>
   </div>
 
@@ -57,13 +58,16 @@
 
   <div class="main-study-container">
     <div id="section-Chart" class="active-section">
-      <p>ENTER A TICKER TO VIEW A CHART FOR: {{message}}</p>
+      <p>ENTER A TICKER TO VIEW A CHART FOR: <strong>{{symbol}}</strong></p>
+      <p>{{message}}</p>
     </div>
     <div id="section-Performance" class="section">
       <p>ENTER A TICKER TO VIEW PERFORMANCE</p>
+      <p>{{message}}</p>
     </div>
     <div id="section-Seasonality" class="section">
       <p>ENTER A TICKER TO VIEW SEASONALITY</p>
+      <p>{{message}}</p>
     </div>
     <div id="section-Volatility" class="section">
       <p>ENTER A TICKER TO VIEW VOLATILITY</p>
@@ -107,25 +111,26 @@
 <!-- TradingView Widget END -->
 
 <script>
-  async function searchInputTicker(e) {
-    if (e.keyCode === 13) {
-      e.preventDefault();
-      let text = e.target.value;
-      let queryStr = text.trim().replace("?", "");
-      let finalQueryText = queryStr.toUpperCase();
+  // onkeydown="searchInputTicker(event)"
+  // async function searchInputTicker(e) {
+  //   if (e.keyCode === 13) {
+  //     e.preventDefault();
+  //     let text = e.target.value;
+  //     let queryStr = text.trim().replace("?", "");
+  //     let finalQueryText = queryStr.toUpperCase();
 
-      const res = await fetch(
-        `http://127.0.0.1:8000/search-symbol/${finalQueryText}`
-      );
+  //     const res = await fetch(
+  //       `http://127.0.0.1:8000/search-symbol/${finalQueryText}`
+  //     );
 
-      const result = await res.json();
-      if (result["valid_symbol"]) {
-        alert(finalQueryText);
-      } else {
-        alert("NOT A VALID SYMBOL. SORRY!");
-      }
-    }
-  }
+  //     const result = await res.json();
+  //     if (result["valid_symbol"]) {
+  //       alert(finalQueryText);
+  //     } else {
+  //       alert("NOT A VALID SYMBOL. SORRY!");
+  //     }
+  //   }
+  // }
 
   function changeTab(e) {
     document.getElementsByClassName("active-tab")[0].className = "";

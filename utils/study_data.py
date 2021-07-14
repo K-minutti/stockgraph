@@ -6,7 +6,8 @@ import numpy as np
 def compute_study_data(symbol):
     daily_3M, weekly_5Y, monthly_10Y = get_time_series_data(symbol)
     performance = get_performance(weekly_5Y)
-    return performance
+    seasonality = get_seasonality(monthly_10Y)
+    return seasonality
 
 
 def get_time_series_data(symbol):
@@ -23,35 +24,39 @@ def get_performance(data):
 
 #Helper  - @get_performance
 def process_data_for_performance(data):
-    data['Change'] = data['Close'].pct_change()
+    data['value'] = data['Close'].pct_change()
     data.dropna(subset=['Close'], inplace=True) #Any row that has missing price info is dropped
     data = data.drop(columns=['Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume'])
     data = data.fillna(0)
     return data
 
+#Helper  - @get_performance  
 def get_performance_by_year(data):
     performance_by_year = {}
     last_five_years = get_five_years()
     for year in last_five_years:
-        year_df = data[data.index.year == year]
-        year_df['Week'] = np.arange(1, len(year_df)+1)
+        year_df = data[data.index.year == year].copy()
+        year_df['time'] = np.arange(1, len(year_df)+1)
         performance_by_year[year] = year_df.to_dict('records')
     return performance_by_year
 
-#Helper  - @get_performance    
 def get_five_years():
     curr_year = date.today().year
     years = [x for x in range(curr_year, curr_year-5, -1)]
     return years
 
+
 def get_seasonality(data):
-    """
-    calc percentage of time price closed higher then it opened for every month for all years
-     seasonality -> {Jan: .80, Feb: .80, March: .50} // return object with 12 key-value pairs where each month holds a percentage 
-       df create month col group by month then group by month then return new df where each row is a month and each month has a percentage col and calc 
-       X / total where X is total num of rows where row.open < row.close and total is the total nums of monthly data points in each group
-    """
-    pass
+    months = [x for x in range(1,13)]
+    seasonality_by_month = {}
+    for month in months:
+        monthly_data = data[data.index.month == month].copy()
+        total_months = len(monthly_data)
+        open_less_than_close_df = monthly_data[monthly_data['Open'] < monthly_data['Close']]
+        months_closed_higher = len(open_less_than_close_df)
+        percentage_of_months_closed_higher = months_closed_higher / total_months
+        seasonality_by_month[month] = percentage_of_months_closed_higher
+    return seasonality_by_month
 
 def get_volatility(data):
     """
@@ -72,7 +77,7 @@ def get_volume_analysis(data):
     pass
 
 
-print(compute_study_data("AAPL"))
+print(compute_study_data("TSLA"))
 
 
 

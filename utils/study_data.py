@@ -48,18 +48,20 @@ def get_five_years():
 
 def get_seasonality(data):
     months = [x for x in range(1,13)]
-    seasonality_by_month = {}
+    seasonality_by_month = []
     for month in months:
         monthly_data = data[data.index.month == month].copy()
         total_months = len(monthly_data)
         open_less_than_close_df = monthly_data[monthly_data['Open'] < monthly_data['Close']]
         months_closed_higher = len(open_less_than_close_df)
         percentage_of_months_closed_higher = months_closed_higher / total_months
-        seasonality_by_month[month] = percentage_of_months_closed_higher
+        seasonality_by_month.append({'time': month, 'value': percentage_of_months_closed_higher})
     return seasonality_by_month
 
 def get_volatility(data):
     """
+    https://www.tradingview.com/lightweight-charts/
+    
     Volatility -> {} // Plot 5 period ATR Of Weekly - 5Y chart , Plot 14 period ATR Of daily - 3m chart, variance and stddev | for each chart plotted plot price line as well 
     df create ATR5 Col fror Weekly5Y data and and ATR14 Col for Daily3M  same for variance col and stddev col
     https://tulipindicators.org/var

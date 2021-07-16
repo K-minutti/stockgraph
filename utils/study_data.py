@@ -1,5 +1,6 @@
 import yfinance as yf
 from datetime import date
+import tulipy as ti
 import numpy as np
 
 #MAIN- FUNCTION
@@ -7,6 +8,7 @@ def compute_study_data(symbol):
     daily_3M, weekly_5Y, monthly_10Y = get_time_series_data(symbol)
     performance = get_performance(weekly_5Y)
     seasonality = get_seasonality(monthly_10Y)
+    volatility = get_volatility(weekly_5Y)
     return seasonality
 
 
@@ -58,16 +60,26 @@ def get_seasonality(data):
         seasonality_by_month.append({'time': month, 'value': percentage_of_months_closed_higher})
     return seasonality_by_month
 
-def get_volatility(data):
+def get_volatility(weeklyData, dailyData):
+    #pass data to func that will add the atr based on a period passed in to the input data 
+    #take the input data and 
+    #plot based on date {'time', 'value'}
     """
     https://www.tradingview.com/lightweight-charts/
     
-    Volatility -> {} // Plot 5 period ATR Of Weekly - 5Y chart , Plot 14 period ATR Of daily - 3m chart, variance and stddev | for each chart plotted plot price line as well 
+    Volatility -> {} // Plot 5 period ATR Of Weekly - 5Y chart , Plot 7 period ATR Of daily - 3m chart, variance and stddev | for each chart plotted plot price line as well 
     df create ATR5 Col fror Weekly5Y data and and ATR14 Col for Daily3M  same for variance col and stddev col
+    https://tulipindicators.org/atr
     https://tulipindicators.org/var
     https://tulipindicators.org/stddev
     
+    {Weekly_5P_ATR, Daily_7P_ATR, }
+    pass in np arrays of High, Low, Close and period 5,7
+    
     """
+    pass
+
+def add_atr_series(data, period):
     pass
 
 def get_volume_analysis(data):

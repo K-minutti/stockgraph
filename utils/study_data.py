@@ -2,14 +2,15 @@ import yfinance as yf
 from datetime import date
 import tulipy as ti
 import numpy as np
+import pandas as pd
 
 #MAIN- FUNCTION
 def compute_study_data(symbol):
     daily_3M, weekly_5Y, monthly_10Y = get_time_series_data(symbol)
     performance = get_performance(weekly_5Y)
     seasonality = get_seasonality(monthly_10Y)
-    volatility = get_volatility(weekly_5Y)
-    return seasonality
+    volatility = get_volatility(weekly_5Y, daily_3M)
+    return volatility
 
 
 def get_time_series_data(symbol):
@@ -61,26 +62,28 @@ def get_seasonality(data):
     return seasonality_by_month
 
 def get_volatility(weeklyData, dailyData):
-    #pass data to func that will add the atr based on a period passed in to the input data 
-    #take the input data and 
-    #plot based on date {'time', 'value'}
-    """
-    https://www.tradingview.com/lightweight-charts/
-    
-    Volatility -> {} // Plot 5 period ATR Of Weekly - 5Y chart , Plot 7 period ATR Of daily - 3m chart, variance and stddev | for each chart plotted plot price line as well 
-    df create ATR5 Col fror Weekly5Y data and and ATR14 Col for Daily3M  same for variance col and stddev col
-    https://tulipindicators.org/atr
-    https://tulipindicators.org/var
-    https://tulipindicators.org/stddev
-    
-    {Weekly_5P_ATR, Daily_7P_ATR, }
-    pass in np arrays of High, Low, Close and period 5,7
-    
-    """
-    pass
+    """>  {'time', 'value'}"""
+    hi = atr_series(dailyData, 7)
+    return hi
 
-def add_atr_series(data, period):
-    pass
+def atr_series(data, period=14):
+    highs = data['High'].to_numpy()
+    lows = data['Low'].to_numpy()
+    closes = data['Close'].to_numpy()
+    atr_series = ti.atr(highs, lows, closes, period=period) #mask the data for the date starting from 
+    variance_series = ti.var(closes, period=period)
+    stddev_series = ti.stddev(closes, period=period)
+    series_start = len(data) - len(atr_series)
+    df_with_series =  data.iloc[series_start::].copy()
+    df_with_series['ATR'] = atr_series
+    df_with_series['Variance'] = variance_series
+    df_with_series['STD_Dev'] = stddev_series  # age_sex = titanic[["Age", "Sex"]]
+    df_with_series['time'] = [f"{x.year}-{x.month}-{x.day}" for x in df_with_series.index] 
+    atr_ = df_with_series[["time", "ATR"]]
+    atr_.rename(columns={'ATR': 'value'}, inplace=True) #orders.rename(columns={'Order_Date' :'Date'},inplace=True)
+    atr_ = atr_.to_dict('records')
+    return  atr_
+    
 
 def get_volume_analysis(data):
     """
@@ -91,26 +94,5 @@ def get_volume_analysis(data):
     pass
 
 
-print(compute_study_data("TSLA"))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print(compute_study_data("BTU"))
 #STOP THIS FILE IS GETTING LONG

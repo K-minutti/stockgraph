@@ -57,27 +57,29 @@
       <!-- TradingView Widget END -->
     </div>
     <div id="section-Performance" class="section">
-      <!-- TradingView Widget BEGIN -->
-      <div class="tradingview-widget-container">
-        <script
-          type="text/javascript"
-          src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js"
-          async
-        >
-            {
-            "symbol": "{% if symbol.exchange == 'ARCA' %}AMEX{%else%}{{symbol.exchange}}{%endif%}:{{symbol.symbol}}",
-            "colorTheme": "light",
-            "isTransparent": false,
-            "largeChartUrl": "",
-            "displayMode": "regular",
-            "width": "20%",
-            "height": "100%",
-            "locale": "en"
-          }
-        </script>
+      <div class="performance-items-wrapper">
+        <!-- TradingView Widget BEGIN -->
+        <div class="tradingview-widget-container">
+          <script
+            type="text/javascript"
+            src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js"
+            async
+          >
+              {
+              "symbol": "{% if symbol.exchange == 'ARCA' %}AMEX{%else%}{{symbol.exchange}}{%endif%}:{{symbol.symbol}}",
+              "colorTheme": "light",
+              "isTransparent": false,
+              "largeChartUrl": "",
+              "displayMode": "regular",
+              "width": "100%",
+              "height": "100%",
+              "locale": "en"
+            }
+          </script>
+        </div>
+        <!-- TradingView Widget END -->
+        <div id="performance-chart"></div>
       </div>
-      <!-- TradingView Widget END -->
-      <div id="performance-chart"></div>
     </div>
     <div id="section-Seasonality" class="section">
       <p>ENTER A TICKER TO VIEW SEASONALITY</p>
@@ -114,7 +116,7 @@
   }
 
   function makeChart() {
-    size = getSize();
+    let size = getSize();
     const element = document.getElementById("performance-chart");
     const chart = LightweightCharts.createChart(element, {
       width: size.width,
@@ -239,6 +241,6 @@
     chart.timeScale().fitContent();
     return chart;
   }
-  chart = makeChart();
+  makeChart();
 </script>
 {% endblock%}

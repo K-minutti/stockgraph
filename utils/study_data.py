@@ -11,7 +11,7 @@ def compute_study_data(symbol):
     seasonality = get_seasonality(monthly_10Y)
     volatility = get_volatility(weekly_5Y, daily_3M)
     volume_analysis = get_volume_analysis(daily_3M)
-    return volume_analysis
+    return performance
 
 
 def get_time_series_data(symbol):
@@ -28,19 +28,24 @@ def get_performance(data):
 
 #Helper  - @get_performance
 def process_data_for_performance(data):
-    data['value'] = data['Close'].pct_change()
     data.dropna(subset=['Close'], inplace=True) #Any row that has missing price info is dropped
-    data = data.drop(columns=['Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume'])
     data = data.fillna(0)
     return data
 
+def ytd_precent_change(row, first_day_of_year_close):
+    difference= row['Close'] - first_day_of_year_close
+    change_precentage = (difference / first_day_of_year_close)*100
+    return change_precentage
 #Helper  - @get_performance  
 def get_performance_by_year(data):
     performance_by_year = {}
     last_five_years = get_five_years()
     for year in last_five_years:
         year_df = data[data.index.year == year].copy()
+        first_day_close = year_df.iloc[0]['Close'] 
         year_df['time'] = np.arange(1, len(year_df)+1)
+        year_df['value'] = year_df.apply(lambda row: ytd_precent_change(row, first_day_close), axis=1)
+        year_df = year_df.drop(columns=['Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume'])
         performance_by_year[year] = year_df.to_dict('records')
     return performance_by_year
 
@@ -108,5 +113,5 @@ def get_volume_analysis(data):
     return volume_data
 
 
-print(compute_study_data("BTU"))
+print(compute_study_data("DDD"))
 #STOP THIS FILE IS GETTING LONG

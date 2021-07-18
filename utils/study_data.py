@@ -10,7 +10,8 @@ def compute_study_data(symbol):
     performance = get_performance(weekly_5Y)
     seasonality = get_seasonality(monthly_10Y)
     volatility = get_volatility(weekly_5Y, daily_3M)
-    return volatility
+    volume_analysis = get_volume_analysis(daily_3M)
+    return volume_analysis
 
 
 def get_time_series_data(symbol):
@@ -77,21 +78,34 @@ def atr_series(data, period=14):
     df_with_series =  data.iloc[series_start::].copy()
     df_with_series['ATR'] = atr_series
     df_with_series['Variance'] = variance_series
-    df_with_series['STD_Dev'] = stddev_series  # age_sex = titanic[["Age", "Sex"]]
+    df_with_series['STD_Dev'] = stddev_series
     df_with_series['time'] = [f"{x.year}-{x.month}-{x.day}" for x in df_with_series.index] 
     atr_ = df_with_series[["time", "ATR"]]
-    atr_.rename(columns={'ATR': 'value'}, inplace=True) #orders.rename(columns={'Order_Date' :'Date'},inplace=True)
+    atr_.rename(columns={'ATR': 'value'}, inplace=True) 
     atr_ = atr_.to_dict('records')
     return  atr_
-    
+
+#Helper for @get_volume_analysis
+def set_color(row):
+    if row['Volume_Ratio'] > 2.5:
+        return 'rgb(106, 90, 205, 0.9)'
+    if row['Open'] < row['Close'] :
+        return 'rgba(0, 150, 136, 0.8)'
+    else:
+        return 'rgba(255,82,82, 0.8)' 
 
 def get_volume_analysis(data):
-    """
-    Volume -> {} //  take volume over last 3 months and identify any volume spikes, periods of largest volume and plot horizontal lines on tops/ bottoms of those candels
-    is stock in a low volume period ? or high volume period.
-
-    """
-    pass
+    data['Volume_Ratio'] = data['Volume'] / data['Volume'].shift(+1)
+    data['color'] = data.apply(lambda row: set_color(row), axis=1)
+    data['time'] = [f"{x.year}-{x.month}-{x.day}" for x in data.index] 
+    volume_spikes = data[data['Volume_Ratio']> 2.5]
+    volume_spikes = volume_spikes[['time', 'Close']]
+    volume_spikes.rename(columns={'Close':'price'}, inplace=True)
+    volume_spikes = volume_spikes.to_dict('records')
+    volume_data = data[['time', 'Volume', 'color']]
+    volume_data.rename(columns={'Volume': 'value'}, inplace=True)
+    volume_data = volume_data.to_dict('records')
+    return volume_data
 
 
 print(compute_study_data("BTU"))

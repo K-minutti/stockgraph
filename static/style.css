@@ -782,3 +782,14 @@ input[type="submit"],
   height: 100%;
   border: solid red 2px;
 }
+
+#performance-chart {
+  max-height: 720px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0;
+  width: 80%;
+  height: 100%;
+}

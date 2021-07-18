@@ -70,14 +70,14 @@
             "isTransparent": false,
             "largeChartUrl": "",
             "displayMode": "regular",
-            "width": "100%",
+            "width": "20%",
             "height": "100%",
             "locale": "en"
           }
         </script>
       </div>
-
       <!-- TradingView Widget END -->
+      <div id="performance-chart"></div>
     </div>
     <div id="section-Seasonality" class="section">
       <p>ENTER A TICKER TO VIEW SEASONALITY</p>
@@ -102,5 +102,143 @@
     document.getElementById(tabId).className = "active-tab";
     document.getElementById(sectionId).className = "active-section";
   }
+  //PERFORMANCE SECTION CHART
+  function getSize() {
+    let element = document.getElementById("performance-chart");
+    const style = window.getComputedStyle(element);
+    let h = style.height.length - 2;
+    let height = parseInt(style.height.slice(0, h));
+    let w = style.height.length - 2;
+    let width = parseInt(style.width.slice(0, w));
+    return { height: height, width: width };
+  }
+
+  function makeChart() {
+    size = getSize();
+    const element = document.getElementById("performance-chart");
+    const chart = LightweightCharts.createChart(element, {
+      width: size.width,
+      height: size.height,
+      rightPriceScale: {
+        scaleMargins: {
+          top: 0.1,
+          bottom: 0.1,
+        },
+        mode: LightweightCharts.PriceScaleMode.Percentage,
+        borderColor: "rgba(197, 203, 206, 0.4)",
+      },
+      layout: {
+        backgroundColor: "#00000000",
+        textColor: "#fff",
+      },
+
+      crosshair: {
+        vertLine: {
+          width: 4,
+          color: "rgba(224, 227, 235, 0.1)",
+          style: 0,
+        },
+        horzLine: {
+          visible: false,
+          labelVisible: false,
+        },
+      },
+      grid: {
+        vertLines: {
+          visible: false,
+        },
+        horzLines: {
+          color: "rgba(42, 46, 57, 0.5)",
+        },
+      },
+    });
+
+    let weekData = [
+      { time: "2018-01-01", value: 25.81 },
+      { time: "2018-01-08", value: 25.95 },
+      { time: "2018-01-15", value: 26.03 },
+      { time: "2018-01-22", value: 26.04 },
+      { time: "2018-01-29", value: 25.96 },
+      { time: "2018-02-05", value: 25.99 },
+      { time: "2018-02-12", value: 26.0 },
+      { time: "2018-02-19", value: 26.06 },
+      { time: "2018-02-26", value: 25.77 },
+      { time: "2018-03-05", value: 25.81 },
+      { time: "2018-03-12", value: 25.88 },
+      { time: "2018-03-19", value: 25.72 },
+      { time: "2018-03-26", value: 25.75 },
+      { time: "2018-04-02", value: 25.7 },
+      { time: "2018-04-09", value: 25.73 },
+      { time: "2018-04-16", value: 25.74 },
+      { time: "2018-04-23", value: 25.69 },
+      { time: "2018-04-30", value: 25.76 },
+      { time: "2018-05-07", value: 25.89 },
+      { time: "2018-05-14", value: 25.89 },
+      { time: "2018-05-21", value: 26.0 },
+      { time: "2018-05-28", value: 25.79 },
+      { time: "2018-06-04", value: 26.11 },
+      { time: "2018-06-11", value: 26.43 },
+      { time: "2018-06-18", value: 26.3 },
+      { time: "2018-06-25", value: 26.58 },
+      { time: "2018-07-02", value: 26.33 },
+      { time: "2018-07-09", value: 26.33 },
+      { time: "2018-07-16", value: 26.32 },
+      { time: "2018-07-23", value: 26.2 },
+      { time: "2018-07-30", value: 26.03 },
+      { time: "2018-08-06", value: 26.15 },
+      { time: "2018-08-13", value: 26.17 },
+      { time: "2018-08-20", value: 26.28 },
+      { time: "2018-08-27", value: 25.86 },
+      { time: "2018-09-03", value: 25.69 },
+      { time: "2018-09-10", value: 25.69 },
+      { time: "2018-09-17", value: 25.64 },
+      { time: "2018-09-24", value: 25.67 },
+      { time: "2018-10-01", value: 25.55 },
+      { time: "2018-10-08", value: 25.59 },
+      { time: "2018-10-15", value: 26.19 },
+      { time: "2018-10-22", value: 25.81 },
+      { time: "2018-10-29", value: 25.74 },
+      { time: "2018-11-05", value: 25.75 },
+      { time: "2018-11-12", value: 25.75 },
+      { time: "2018-11-19", value: 25.72 },
+      { time: "2018-11-26", value: 25.41 },
+      { time: "2018-12-03", value: 25.39 },
+      { time: "2018-12-10", value: 25.52 },
+      { time: "2018-12-17", value: 25.66 },
+      { time: "2018-12-24", value: 25.68 },
+      { time: "2018-12-31", value: 25.71 },
+      { time: "2019-01-07", value: 25.92 },
+      { time: "2019-01-14", value: 25.6 },
+      { time: "2019-01-21", value: 25.8 },
+      { time: "2019-01-28", value: 25.6 },
+      { time: "2019-02-04", value: 25.72 },
+      { time: "2019-02-11", value: 25.89 },
+      { time: "2019-02-18", value: 26.0 },
+      { time: "2019-02-25", value: 25.86 },
+      { time: "2019-03-04", value: 25.94 },
+      { time: "2019-03-11", value: 26.11 },
+      { time: "2019-03-18", value: 25.88 },
+      { time: "2019-03-25", value: 25.77 },
+      { time: "2019-04-01", value: 26.16 },
+      { time: "2019-04-08", value: 26.04 },
+      { time: "2019-04-15", value: 26.0 },
+      { time: "2019-04-22", value: 25.88 },
+      { time: "2019-04-29", value: 26.02 },
+      { time: "2019-05-06", value: 26.08 },
+      { time: "2019-05-13", value: 26.09 },
+      { time: "2019-05-20", value: 26.16 },
+      { time: "2019-05-27", value: 26.23 },
+    ];
+    const areaSeries1 = chart.addAreaSeries({
+      topColor: "rgba(235, 100, 4, 0.15)",
+      bottomColor: "rgba(235, 100, 4, 0.01)",
+      lineColor: "rgba(235, 100, 4, 1)",
+      lineWidth: 3,
+    });
+    areaSeries1.setData(weekData);
+    chart.timeScale().fitContent();
+    return chart;
+  }
+  chart = makeChart();
 </script>
 {% endblock%}

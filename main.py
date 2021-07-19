@@ -7,10 +7,10 @@ import time
 import requests
 import sqlite3
 import pandas as pd
-from utils import api_utils as utils
+from utils import api_utils as utils, study_data
 from utils import company_data as cd
 from utils import strategies as strat
-import alpaca_trade_api as tradeapi
+from utils import study_data as sd
 from pygooglenews import GoogleNews
 gn = GoogleNews()
 from pytrends.request import TrendReq
@@ -288,13 +288,16 @@ def screener(request: Request):
 def study(request: Request):
     symbolQuery = request.query_params.get('ticker_input', False )
     message = ""
-    symbol = {'symbol': '', 'exchange': ''}
+    symbol = {'symbol': '', 'exchange': '', 'data': {}}
     if symbolQuery:
         symbolCleaned =  symbolQuery.strip().replace("?", "").upper()
         result =  stock_by_symbol(symbolCleaned)
         if result['valid_symbol']:
             symbol['symbol'] = symbolCleaned
             symbol['exchange'] = result['exchange']
+            study_data = sd.compute_study_data(symbolCleaned)
+            symbol['data'] = study_data
             message = "YOUR STATS ARE COOKING"
+
     return templates.TemplateResponse("study.html", {"request":request, "symbol": symbol, "message": message})
 

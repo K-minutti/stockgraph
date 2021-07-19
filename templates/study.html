@@ -101,7 +101,6 @@
 
   {% block script %}
   <script>
-    console.log({{symbol.data|safe}})
     function changeTab(e) {
       document.getElementsByClassName("active-tab")[0].className = "";
       document.getElementsByClassName("active-section")[0].className =
@@ -163,24 +162,34 @@
       },
     });
 
+
+    let apiData = {{symbol.data|safe}}
+
+    function dataObjIsEmpty(obj){
+      return Object.keys(obj).length === 0;
+    }
+
+    let studyDataIsEmpty = dataObjIsEmpty(apiData);
+
+    if (!studyDataIsEmpty){
+
+    console.log(apiData)
     let lineSeries = chart.addLineSeries({
-      lineColor: "rgba(38,198,218, 1)",
+      color: "rgba(38,98,8, 1)",
       lineWidth: 2,
     });
     let lineSeries2 = chart.addLineSeries({
-      lineColor: "rgba(24,148,208, 1)",
+      color: "rgba(24,248,208, 1)",
       lineWidth: 2,
     });
     let lineSeries3 = chart.addLineSeries({
-      lineColor: "rgba(0,8,108, 1)",
+      color: "rgba(0,8,108, 1)",
       lineWidth: 2,
     });
-
-    lineSeries.setData({{symbol.data.performance['2017'] | safe}});
-
-    lineSeries2.setData({{symbol.data.performance['2018'] | safe}});
-
-    lineSeries3.setData({{symbol.data.performance['2019'] | safe}});
+    lineSeries.setData(apiData['performance']['2017'])
+    lineSeries2.setData(apiData['performance']['2018'])
+    lineSeries3.setData(apiData['performance']['2019'])
+    }
   </script>
   {% endblock %}
 </div>

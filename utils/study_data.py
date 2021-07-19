@@ -11,7 +11,7 @@ def compute_study_data(symbol):
     seasonality = get_seasonality(monthly_10Y)
     volatility = get_volatility(weekly_5Y, 5)
     volume_analysis = get_volume_analysis(daily_3M)
-    return volume_analysis
+    return {"preformance":performance, "seasonality": seasonality, "volatility": volatility, "volume_analysis": volume_analysis}
 
 
 def get_time_series_data(symbol):
@@ -119,5 +119,4 @@ def get_volume_analysis(data):
     return {"horizontal-prices": volume_spikes, "volume" :volume_data}
 
 
-print(compute_study_data("APT"))
-#STOP THIS FILE IS GETTING LONG
+#print(compute_study_data("APT"))

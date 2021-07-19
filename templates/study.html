@@ -113,18 +113,18 @@
       document.getElementById(sectionId).className = "active-section";
     }
 
-    function getSize() {
-      let element = document.getElementById("performance-chart");
+    function getContainerSize(elementId) {
+      let element = document.getElementById(elementId);
       const style = window.getComputedStyle(element);
       let h = style.height.length - 2;
       let height = parseInt(style.height.slice(0, h));
-      let w = style.height.length - 2;
+      let w = style.width.length - 2;
       let width = parseInt(style.width.slice(0, w));
       //console.log("height: ", height, "width: ", width);
       return { height: height, width: width };
     }
 
-    const size = getSize();
+    const size = getContainerSize("performance-chart");
     let elem = document.getElementById("performance-chart");
     const chart = LightweightCharts.createChart(elem, {
       width: size.width,

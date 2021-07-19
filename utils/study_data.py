@@ -7,12 +7,11 @@ import pandas as pd
 #MAIN- FUNCTION
 def compute_study_data(symbol):
     daily_3M, weekly_5Y, monthly_10Y = get_time_series_data(symbol)
-    
     performance = get_performance(weekly_5Y)
     seasonality = get_seasonality(monthly_10Y)
-    volatility = get_volatility(weekly_5Y, daily_3M)
+    volatility = get_volatility(weekly_5Y, 5)
     volume_analysis = get_volume_analysis(daily_3M)
-    return performance
+    return volume_analysis
 
 
 def get_time_series_data(symbol):
@@ -76,9 +75,12 @@ def get_volatility(data, period):
     df_with_series =  data.iloc[series_start::].copy()
     df_with_series['ATR'] = atr_series
     df_with_series['Variance'] = variance_series
-    df_with_series['STD_Dev'] = stddev_series
+    df_with_series['StdDev'] = stddev_series
     df_with_series['time'] = [f"{x.year}-{x.month}-{x.day}" for x in df_with_series.index] 
-
+    atr_plot = convert_series_to_dictrows(df_with_series, 'ATR')
+    variance_plot = convert_series_to_dictrows(df_with_series, 'Variance')
+    stddev_plot = convert_series_to_dictrows(df_with_series, 'StdDev')
+    return {"atr": atr_plot, "variance":variance_plot,"stddev" : stddev_plot}
 
 def hlc_series(data):
     highs = data['High'].to_numpy()
@@ -114,8 +116,8 @@ def get_volume_analysis(data):
     volume_data = data[['time', 'Volume', 'color']]
     volume_data.rename(columns={'Volume': 'value'}, inplace=True)
     volume_data = volume_data.to_dict('records')
-    return volume_data
+    return {"horizontal-prices": volume_spikes, "volume" :volume_data}
 
 
-print(compute_study_data("DDD"))
+print(compute_study_data("APT"))
 #STOP THIS FILE IS GETTING LONG

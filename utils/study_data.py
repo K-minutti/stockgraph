@@ -43,7 +43,7 @@ def get_performance_by_year(data):
     last_five_years = get_five_years()
     for year in last_five_years:
         year_df = data[data.index.year == year].copy()
-        year_df['time'] = np.arange(1, len(year_df)+1)
+        year_df['time'] = [f"{last_five_years[0]}-{x.month}-{x.day}" for x in year_df.index] 
         year_df.rename(columns={'Close': 'value'}, inplace=True)
         year_df = year_df.drop(columns=['Open', 'High', 'Low', 'Adj Close', 'Volume'])
         performance_by_year[year] = year_df.to_dict('records')

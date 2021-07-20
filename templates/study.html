@@ -186,9 +186,19 @@
       color: "rgba(0,8,108, 1)",
       lineWidth: 2,
     });
+    let lineSeries4 = chart.addLineSeries({
+      color: "rgba(100,80,3, 1)",
+      lineWidth: 2,
+    });
+    let lineSeries5 = chart.addLineSeries({
+      color: "rgba(20,200,300, 1)",
+      lineWidth: 2,
+    });
     lineSeries.setData(apiData['performance']['2017'])
     lineSeries2.setData(apiData['performance']['2018'])
     lineSeries3.setData(apiData['performance']['2019'])
+    lineSeries4.setData(apiData['performance']['2020'])
+    lineSeries5.setData(apiData['performance']['2021'])
     }
   </script>
   {% endblock %}

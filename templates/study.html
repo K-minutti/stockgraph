@@ -85,7 +85,7 @@
       </div>
     </div>
     <div id="section-Seasonality" class="section">
-      <div id="seasonality-chart">Chartjs Chart</div>
+      <canvas id="seasonality-chart" height="400px"></canvas>
       <div class="seasonlity-desc">Seasonality description section</div>
     </div>
     <div id="section-Volatility" class="section">
@@ -200,6 +200,50 @@
     lineSeries4.setData(apiData['performance']['2020'])
     lineSeries5.setData(apiData['performance']['2021'])
     }
+
+
+    //SEASONALITY
+    //Chart.defaults.plugins.legend.display = false;
+    //Chart.defaults.color = "#fff";
+
+    var seasonalChartCanvas = document.getElementById("seasonality-chart").getContext("2d");
+
+    var seasonalChart = new Chart(seasonalChartCanvas, {
+      type: "bar",
+      data: {
+        labels: apiData['seasonality']['months'],
+        datasets: [
+          {
+            label: "stocks",
+            barThickness: 30,
+            data: apiData['seasonality']['value'],
+            backgroundColor: [
+              "rgba(209, 212, 220, 0.12)",
+            ],
+            borderColor: [
+              "rgba(209, 212, 220, 1)",
+            ],
+            borderWidth: 3,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            display: false,
+            grid: {
+              display: false,
+            },
+          },
+          x: {
+            grid: {
+              display: false,
+            },
+          },
+        },
+      },
+    });
   </script>
   {% endblock %}
 </div>

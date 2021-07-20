@@ -53,14 +53,17 @@ def get_performance_by_year(data):
 #SEASONALITY FUNC
 def get_seasonality(data):
     months = [x for x in range(1,13)]
-    seasonality_by_month = []
+    seasonality_by_month = {"months":[], "value":[]}
+
     for month in months:
         monthly_data = data[data.index.month == month].copy()
         total_months = len(monthly_data)
         open_less_than_close_df = monthly_data[monthly_data['Open'] < monthly_data['Close']]
         months_closed_higher = len(open_less_than_close_df)
         percentage_of_months_closed_higher = months_closed_higher / total_months
-        seasonality_by_month.append({'time': month, 'value': percentage_of_months_closed_higher})
+        seasonality_by_month["months"].append(month)
+        seasonality_by_month["value"].append(percentage_of_months_closed_higher)
+        #seasonality_by_month.append({'time': month, 'value': percentage_of_months_closed_higher}) #TV record format
     return seasonality_by_month
 
 

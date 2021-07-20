@@ -83,7 +83,10 @@ def get_volatility(data, period):
     atr_plot = convert_series_to_dictrows(df_with_series, 'ATR')
     variance_plot = convert_series_to_dictrows(df_with_series, 'Variance')
     stddev_plot = convert_series_to_dictrows(df_with_series, 'StdDev')
-    return {"atr": atr_plot, "variance":variance_plot,"stddev" : stddev_plot}
+    ohlc_price_data = df_with_series[["Close", "Low", "High", "Open", "time"]]
+    ohlc_price_data.rename(columns={"Close": "close", "Low":"low", "High":"high", "Open":"open", },inplace = True)
+    ohlc_price_data = ohlc_price_data.to_dict('records')
+    return {"atr": atr_plot, "variance":variance_plot,"stddev" : stddev_plot, "price_data": ohlc_price_data }
 
 def hlc_series(data):
     highs = data['High'].to_numpy()

@@ -90,7 +90,9 @@
     </div>
     <div id="section-Volatility" class="section">
       <div>3-MONTH DAILY , 5Y WEEKLY</div>
-      <div id="volatility-chart-atr">TV chart ATR</div>
+      <div id="volatility-chart-atr" style="width: 500px; height: 500px">
+        TV chart ATR
+      </div>
       <div id="volatility-chart-var">TV chart Variance</div>
       <div id="volatility-chart-stddev">TV chart Standard Deviation</div>
     </div>
@@ -201,6 +203,52 @@
     lineSeries5.setData(apiData['performance']['2021'])
     }
 
+    // VOLATITLITY CHART
+    const volatilitySize = getContainerSize("volatility-chart-atr");
+    let volatilityElem = document.getElementById("volatility-chart-atr");
+    const volatilityChart = LightweightCharts.createChart(volatilityElem, {
+      width: volatilitySize.width,
+      height: volatilitySize.height,
+      rightPriceScale: {
+         visible: true,
+         borderColor: 'rgba(197, 203, 206, 1)',
+       },
+       leftPriceScale: {
+         visible: true,
+         borderColor: 'rgba(197, 203, 206, 1)',
+       },
+       layout: {
+         backgroundColor: "#00000000",
+         textColor: "#fff",
+       },
+       grid: {
+         horzLines: {
+           color: '#F0F3FA',
+         },
+         vertLines: {
+           color: '#F0F3FA',
+         },
+       },
+       crosshair: {
+         mode: LightweightCharts.CrosshairMode.Normal,
+       },
+       timeScale: {
+         borderColor: 'rgba(197, 203, 206, 1)',
+       },
+       handleScroll: {
+         vertTouchDrag: false,
+       },
+    });
+
+    volatilityChart.addLineSeries({
+     color: 'rgba(30, 211, 232, 1)',
+    lineWidth: 2,
+    }).setData(apiData['volatility']['atr'])
+
+    const candlestickSeries = volatilityChart.addCandlestickSeries({
+      priceScaleId: 'left'
+    })
+    candlestickSeries.setData(apiData['volatility']['price_data'])
 
     //SEASONALITY
     //Chart.defaults.plugins.legend.display = false;

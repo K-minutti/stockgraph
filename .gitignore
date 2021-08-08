@@ -7,3 +7,4 @@
 *.pyc
 app.db
 config.py
+database.ini

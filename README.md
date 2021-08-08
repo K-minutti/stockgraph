@@ -88,3 +88,7 @@ Note: To see order history you need access to your Alpaca trading account.
 ### Study
 
 IP: This section shows andvance analysis on one stock at a time.
+
+### Extensions
+
+Transitioning to using Postgres DB in production
